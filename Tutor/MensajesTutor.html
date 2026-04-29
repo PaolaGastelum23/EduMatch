@@ -11,6 +11,7 @@
       color: #000;
       display: flex;
       height: 100vh;
+      
     }
 
     .sidebar {
@@ -121,7 +122,9 @@
       line-height: 1.4;
       position: relative;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
+  position: relative;
+}
+    
 
     .sent {
       background: #ffca28;
@@ -181,6 +184,51 @@
       100% { opacity: 0.2; }
     }
 
+  .reactions {
+  display: none;
+  position: absolute;
+  top: -25px;
+  left: 10px;
+  background: white;
+  padding: 5px 8px;
+  border-radius: 15px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.selected-reaction {
+  position: absolute;
+  bottom: -10px;
+  right: 10px;
+  background: white;
+  border-radius: 10px;
+  padding: 2px 6px;
+  font-size: 12px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+.message.active .reactions {
+  display: flex;
+  gap: 5px;
+}
+
+.sent .reactions {
+  right: 10px;
+  left: auto;
+}
+
+.received .reactions {
+  left: 10px;
+}
+
+.reactions span {
+  cursor: pointer;
+  font-size: 14px;
+  transition: transform 0.2s;
+}
+
+.reactions span:hover {
+  transform: scale(1.2);
+}
+
     .chat-box::-webkit-scrollbar { width: 6px; }
     .chat-box::-webkit-scrollbar-thumb {
       background: rgba(255,255,255,0.2);
@@ -212,6 +260,9 @@
     <div class="chat-header" id="chatHeader">
       <span id="studentName">Selecciona un estudiante</span> 
       <span id="typingIndicator" class="typing-status">Escribiendo....<span class="dots"></span></span>
+  <span id="status" style="font-size:13px; margin-left:10px; color:green; display:none;">
+  En línea
+</span>
     </div>
 
     <div class="chat-box" id="chatBox">
@@ -243,8 +294,13 @@
 
       const empty = document.getElementById('emptyState');
       if (empty) empty.classList.add('hidden');
+      document.getElementById('status').style.display = 'inline';
     }
 
+    function getTime() {
+  const date = new Date();
+  return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+}
     function sendMessage() {
       const input = document.getElementById('messageInput');
       const text = input.value.trim().toLowerCase(); 
@@ -255,7 +311,19 @@
       
       const message = document.createElement('div');
       message.classList.add('message', 'sent');
-      message.innerText = input.value; 
+      message.onclick = function () {
+  toggleReactions(this);
+};
+
+   message.innerHTML = `
+  ${input.value}
+  <div style="font-size:10px; text-align:right;">${getTime()}</div>
+  <div class="reactions">
+<span onclick="react(event, this)">👍</span>
+<span onclick="react(event, this)">❤️</span>
+<span onclick="react(event, this)">😂</span>
+  </div>
+`;
       box.appendChild(message);
       
       input.value = '';
@@ -271,6 +339,9 @@
         
         const reply = document.createElement('div');
         reply.classList.add('message', 'received');
+        reply.onclick = function () {
+  toggleReactions(this);
+};
         
         let respuestaAlumno = "Entendido, tutor. Estaré al pendiente.";
 
@@ -282,11 +353,50 @@
           respuestaAlumno = "¿Cree que me fue bien? Estudié mucho los diagramas UML.";
         }
 
-        reply.innerText = respuestaAlumno;
+      reply.innerHTML = `
+  ${respuestaAlumno}
+  <div style="font-size:10px; text-align:right;">${getTime()}</div>
+  <div class="reactions">
+    <span onclick="react(this)">👍</span>
+    <span onclick="react(this)">❤️</span>
+    <span onclick="react(this)">😂</span>
+  </div>
+`;
+
         box.appendChild(reply);
         box.scrollTop = box.scrollHeight;
       }, 2500);
     }
+
+   function react(e, el) {
+  e.stopPropagation(); 
+
+  const msg = el.closest('.message');
+
+
+  let old = msg.querySelector('.selected-reaction');
+  if (old) old.remove();
+
+  
+  const reaction = document.createElement('div');
+  reaction.classList.add('selected-reaction');
+  reaction.innerText = el.innerText;
+
+  msg.appendChild(reaction);
+
+  
+  msg.classList.remove('active');
+}
+
+function toggleReactions(msg) {
+  document.querySelectorAll('.message').forEach(m => {
+    if (m !== msg) m.classList.remove('active');
+  });
+
+  msg.classList.toggle('active');
+}
+
   </script>
+
 </body>
 </html>
