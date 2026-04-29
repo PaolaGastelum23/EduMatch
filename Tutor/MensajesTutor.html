@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Edumatch</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #fff0d6;
+      color: #000;
+      display: flex;
+      height: 100vh;
+    }
+
+    .sidebar {
+      width: 300px;
+      background: #7E1422; 
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      overflow-y: auto;
+      color: #fff;
+    }
+
+    .profile {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .profile img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #000;
+    }
+    
+    .profile button {
+      margin-top: 10px;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 10px;
+      background: #fff0d6;
+      cursor: pointer;
+    }
+
+    .student {
+      background: #B3132F;
+      padding: 10px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .student:hover {
+      background: #8f6f4f;
+    }
+
+    .chat-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      background: #fff7e6;
+    }
+
+    .chat-header {
+      font-size: 26px;
+      margin-bottom: 16px;
+      color: #000;
+      display: flex;
+      align-items: center;
+    }
+
+    .chat-box {
+      flex: 1;
+      background: #7E1422; 
+      border-radius: 14px;
+      padding: 20px;
+      overflow-y: auto;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .empty-state {
+      position: absolute;
+      inset: 20px;
+      border: 2px dashed rgba(255, 255, 255, 0.5);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #fff;
+      background: radial-gradient(circle at center, rgba(121, 5, 17, 0.647), transparent);
+    }
+
+    .empty-state.hidden { display: none; }
+
+    .empty-title {
+      font-size: 20px;
+      margin-bottom: 6px;
+      color: #fff;
+    }
+
+    .empty-sub {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .message {
+      margin-bottom: 15px;
+      padding: 12px 16px;
+      border-radius: 18px;
+      max-width: 70%;
+      font-size: 14px;
+      line-height: 1.4;
+      position: relative;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .sent {
+      background: #ffca28;
+      color: #000;
+      margin-left: auto;
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+    }
+
+    .received {
+      background: #ff6a00;
+      color: white;
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+    }
+
+    .input-area {
+      display: none; 
+      margin-top: 10px;
+    }
+
+    .input-area input {
+      flex: 1;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+    }
+
+    .input-area button {
+      margin-left: 10px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      background: #ff6a00;
+      cursor: pointer;
+    }
+
+ 
+    .typing-status {
+      font-size: 13px;
+      font-weight: normal;
+      color: #000; 
+      display: none;
+      margin-left: 10px;
+      font-style: italic;
+    }
+
+    .dots::after {
+      content: '...';
+      display: inline-block;
+      animation: typing-dots 1.5s infinite;
+    }
+
+    @keyframes typing-dots {
+      0% { opacity: 0.2; }
+      20% { opacity: 1; }
+      100% { opacity: 0.2; }
+    }
+
+    .chat-box::-webkit-scrollbar { width: 6px; }
+    .chat-box::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.2);
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sidebar"> 
+    <div class="profile">
+      <img src="../imagenes/logo.jpg" alt="Perfil">
+      <h3>Nombre del tutor</h3>
+      <button>Editar</button>
+    </div>
+
+    <div class="student" onclick="selectStudent('Gustavo Martinez')">
+      <strong>Gustavo Martinez</strong><br>
+      Sesión activa
+    </div>
+
+    <div class="student" onclick="selectStudent('Esteban Mendoza')">
+      <strong>Esteban Mendoza</strong><br>
+      Sesión activa
+    </div>
+  </div>
+
+  <div class="chat-container">
+    <div class="chat-header" id="chatHeader">
+      <span id="studentName">Selecciona un estudiante</span> 
+      <span id="typingIndicator" class="typing-status">Escribiendo....<span class="dots"></span></span>
+    </div>
+
+    <div class="chat-box" id="chatBox">
+      <div id="emptyState" class="empty-state">
+        <div class="empty-inner">
+          <div class="empty-title">Selecciona una conversación</div>
+          <div class="empty-sub">Elige un estudiante para continuar la tutoría.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="input-area" id="inputArea">
+      <input type="text" id="messageInput" placeholder="Escribe un mensaje...">
+      <button onclick="sendMessage()">Enviar</button>
+    </div>
+  </div>
+
+  <script>
+    let currentStudent = '';
+
+    function selectStudent(name) {
+      currentStudent = name;
+      document.getElementById('studentName').innerText = name; 
+      document.getElementById('inputArea').style.display = 'flex';
+      document.getElementById('typingIndicator').style.display = 'none';
+
+      const box = document.getElementById('chatBox');
+      box.innerHTML = '';
+
+      const empty = document.getElementById('emptyState');
+      if (empty) empty.classList.add('hidden');
+    }
+
+    function sendMessage() {
+      const input = document.getElementById('messageInput');
+      const text = input.value.trim().toLowerCase(); 
+      if (!text) return;
+
+      const box = document.getElementById('chatBox');
+      const typingIndicator = document.getElementById('typingIndicator');
+      
+      const message = document.createElement('div');
+      message.classList.add('message', 'sent');
+      message.innerText = input.value; 
+      box.appendChild(message);
+      
+      input.value = '';
+      box.scrollTop = box.scrollHeight;
+
+      // esto da el efecto de que el estudiante esta contestando
+      setTimeout(() => {
+        if(typingIndicator) typingIndicator.style.display = 'inline'; 
+      }, 600);
+
+      setTimeout(() => {
+        if(typingIndicator) typingIndicator.style.display = 'none'; 
+        
+        const reply = document.createElement('div');
+        reply.classList.add('message', 'received');
+        
+        let respuestaAlumno = "Entendido, tutor. Estaré al pendiente.";
+
+        if (text.includes("hola")) {
+          respuestaAlumno = "¡Hola, profesor! Justo tenía unas dudas sobre la tarea.";
+        } else if (text.includes("tarea") || text.includes("practica")) {
+          respuestaAlumno = "Sí, todavía no termino el ejercicio de la base de datos. ¿Podemos revisarlo?";
+        } else if (text.includes("examen") || text.includes("nota")) {
+          respuestaAlumno = "¿Cree que me fue bien? Estudié mucho los diagramas UML.";
+        }
+
+        reply.innerText = respuestaAlumno;
+        box.appendChild(reply);
+        box.scrollTop = box.scrollHeight;
+      }, 2500);
+    }
+  </script>
+</body>
+</html>
