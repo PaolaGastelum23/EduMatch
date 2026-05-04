@@ -1,402 +1,546 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Edumatch</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #fff0d6;
-      color: #000;
-      display: flex;
-      height: 100vh;
-      
-    }
-
-    .sidebar {
-      width: 300px;
-      background: #7E1422; 
-      display: flex;
-      flex-direction: column;
-      padding: 20px;
-      overflow-y: auto;
-      color: #fff;
-    }
-
-    .profile {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .profile img {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      object-fit: cover;
-      background: #000;
-    }
-    
-    .profile button {
-      margin-top: 10px;
-      padding: 5px 10px;
-      border: none;
-      border-radius: 10px;
-      background: #fff0d6;
-      cursor: pointer;
-    }
-
-    .student {
-      background: #B3132F;
-      padding: 10px;
-      border-radius: 10px;
-      margin-bottom: 10px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .student:hover {
-      background: #8f6f4f;
-    }
-
-    .chat-container {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      padding: 20px;
-      background: #fff7e6;
-    }
-
-    .chat-header {
-      font-size: 26px;
-      margin-bottom: 16px;
-      color: #000;
-      display: flex;
-      align-items: center;
-    }
-
-    .chat-box {
-      flex: 1;
-      background: #7E1422; 
-      border-radius: 14px;
-      padding: 20px;
-      overflow-y: auto;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
-
-    .empty-state {
-      position: absolute;
-      inset: 20px;
-      border: 2px dashed rgba(255, 255, 255, 0.5);
-      border-radius: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      color: #fff;
-      background: radial-gradient(circle at center, rgba(121, 5, 17, 0.647), transparent);
-    }
-
-    .empty-state.hidden { display: none; }
-
-    .empty-title {
-      font-size: 20px;
-      margin-bottom: 6px;
-      color: #fff;
-    }
-
-    .empty-sub {
-      font-size: 14px;
-      opacity: 0.9;
-    }
-
-    .message {
-      margin-bottom: 15px;
-      padding: 12px 16px;
-      border-radius: 18px;
-      max-width: 70%;
-      font-size: 14px;
-      line-height: 1.4;
-      position: relative;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  position: relative;
-}
-    
-
-    .sent {
-      background: #ffca28;
-      color: #000;
-      margin-left: auto;
-      align-self: flex-end;
-      border-bottom-right-radius: 4px;
-    }
-
-    .received {
-      background: #ff6a00;
-      color: white;
-      align-self: flex-start;
-      border-bottom-left-radius: 4px;
-    }
-
-    .input-area {
-      display: none; 
-      margin-top: 10px;
-    }
-
-    .input-area input {
-      flex: 1;
-      padding: 10px;
-      border-radius: 10px;
-      border: none;
-    }
-
-    .input-area button {
-      margin-left: 10px;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 10px;
-      background: #ff6a00;
-      cursor: pointer;
-    }
-
- 
-    .typing-status {
-      font-size: 13px;
-      font-weight: normal;
-      color: #000; 
-      display: none;
-      margin-left: 10px;
-      font-style: italic;
-    }
-
-    .dots::after {
-      content: '...';
-      display: inline-block;
-      animation: typing-dots 1.5s infinite;
-    }
-
-    @keyframes typing-dots {
-      0% { opacity: 0.2; }
-      20% { opacity: 1; }
-      100% { opacity: 0.2; }
-    }
-
-  .reactions {
-  display: none;
-  position: absolute;
-  top: -25px;
-  left: 10px;
-  background: white;
-  padding: 5px 8px;
-  border-radius: 15px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-}
-
-.selected-reaction {
-  position: absolute;
-  bottom: -10px;
-  right: 10px;
-  background: white;
-  border-radius: 10px;
-  padding: 2px 6px;
-  font-size: 12px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-}
-.message.active .reactions {
-  display: flex;
-  gap: 5px;
-}
-
-.sent .reactions {
-  right: 10px;
-  left: auto;
-}
-
-.received .reactions {
-  left: 10px;
-}
-
-.reactions span {
-  cursor: pointer;
-  font-size: 14px;
-  transition: transform 0.2s;
-}
-
-.reactions span:hover {
-  transform: scale(1.2);
-}
-
-    .chat-box::-webkit-scrollbar { width: 6px; }
-    .chat-box::-webkit-scrollbar-thumb {
-      background: rgba(255,255,255,0.2);
-      border-radius: 10px;
-    }
-  </style>
-</head>
-<body>
-
-  <div class="sidebar"> 
-    <div class="profile">
-      <img src="../imagenes/logo.jpg" alt="Perfil">
-      <h3>Nombre del tutor</h3>
-      <button>Editar</button>
-    </div>
-
-    <div class="student" onclick="selectStudent('Gustavo Martinez')">
-      <strong>Gustavo Martinez</strong><br>
-      Sesión activa
-    </div>
-
-    <div class="student" onclick="selectStudent('Esteban Mendoza')">
-      <strong>Esteban Mendoza</strong><br>
-      Sesión activa
-    </div>
-  </div>
-
-  <div class="chat-container">
-    <div class="chat-header" id="chatHeader">
-      <span id="studentName">Selecciona un estudiante</span> 
-      <span id="typingIndicator" class="typing-status">Escribiendo....<span class="dots"></span></span>
-  <span id="status" style="font-size:13px; margin-left:10px; color:green; display:none;">
-  En línea
-</span>
-    </div>
-
-    <div class="chat-box" id="chatBox">
-      <div id="emptyState" class="empty-state">
-        <div class="empty-inner">
-          <div class="empty-title">Selecciona una conversación</div>
-          <div class="empty-sub">Elige un estudiante para continuar la tutoría.</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="input-area" id="inputArea">
-      <input type="text" id="messageInput" placeholder="Escribe un mensaje...">
-      <button onclick="sendMessage()">Enviar</button>
-    </div>
-  </div>
-
-  <script>
-    let currentStudent = '';
-
-    function selectStudent(name) {
-      currentStudent = name;
-      document.getElementById('studentName').innerText = name; 
-      document.getElementById('inputArea').style.display = 'flex';
-      document.getElementById('typingIndicator').style.display = 'none';
-
-      const box = document.getElementById('chatBox');
-      box.innerHTML = '';
-
-      const empty = document.getElementById('emptyState');
-      if (empty) empty.classList.add('hidden');
-      document.getElementById('status').style.display = 'inline';
-    }
-
-    function getTime() {
-  const date = new Date();
-  return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-}
-    function sendMessage() {
-      const input = document.getElementById('messageInput');
-      const text = input.value.trim().toLowerCase(); 
-      if (!text) return;
-
-      const box = document.getElementById('chatBox');
-      const typingIndicator = document.getElementById('typingIndicator');
-      
-      const message = document.createElement('div');
-      message.classList.add('message', 'sent');
-      message.onclick = function () {
-  toggleReactions(this);
-};
-
-   message.innerHTML = `
-  ${input.value}
-  <div style="font-size:10px; text-align:right;">${getTime()}</div>
-  <div class="reactions">
-<span onclick="react(event, this)">👍</span>
-<span onclick="react(event, this)">❤️</span>
-<span onclick="react(event, this)">😂</span>
-  </div>
-`;
-      box.appendChild(message);
-      
-      input.value = '';
-      box.scrollTop = box.scrollHeight;
-
-      // esto da el efecto de que el estudiante esta contestando
-      setTimeout(() => {
-        if(typingIndicator) typingIndicator.style.display = 'inline'; 
-      }, 600);
-
-      setTimeout(() => {
-        if(typingIndicator) typingIndicator.style.display = 'none'; 
-        
-        const reply = document.createElement('div');
-        reply.classList.add('message', 'received');
-        reply.onclick = function () {
-  toggleReactions(this);
-};
-        
-        let respuestaAlumno = "Entendido, tutor. Estaré al pendiente.";
-
-        if (text.includes("hola")) {
-          respuestaAlumno = "¡Hola, profesor! Justo tenía unas dudas sobre la tarea.";
-        } else if (text.includes("tarea") || text.includes("practica")) {
-          respuestaAlumno = "Sí, todavía no termino el ejercicio de la base de datos. ¿Podemos revisarlo?";
-        } else if (text.includes("examen") || text.includes("nota")) {
-          respuestaAlumno = "¿Cree que me fue bien? Estudié mucho los diagramas UML.";
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edumatch - Mensajería</title>
+    <style>
+        /* --- 1. VARIABLES Y RESETEO --- */
+        :root {
+            --color-maroon: #560310;
+            --color-bg-light: #FFF8E7;
+            --color-bg-white-msg: #FFFFFF;
+            --color-text-dark: #212121;
+            --color-text-light-grey: #9E9E9E;
+            --color-avatar: #4D5146;
+            --color-yellow: #FFEE58;
+            --color-bubble: #FDD835;
+            --color-lines: #E0E0E0;
         }
 
-      reply.innerHTML = `
-  ${respuestaAlumno}
-  <div style="font-size:10px; text-align:right;">${getTime()}</div>
-  <div class="reactions">
-    <span onclick="react(this)">👍</span>
-    <span onclick="react(this)">❤️</span>
-    <span onclick="react(this)">😂</span>
-  </div>
-`;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-        box.appendChild(reply);
-        box.scrollTop = box.scrollHeight;
-      }, 2500);
-    }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            background-color: var(--color-bg-light);
+        }
 
-   function react(e, el) {
-  e.stopPropagation(); 
+        /* --- 2. ESTRUCTURA PRINCIPAL --- */
+        .app-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
 
-  const msg = el.closest('.message');
+        .app-header {
+            height: 64px;
+            background-color: var(--color-maroon);
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 0 25px;
+        }
 
+        .menu-dot {
+            width: 5px;
+            height: 5px;
+            background: var(--color-yellow);
+            border-radius: 50%;
+            margin: 2px;
+        }
 
-  let old = msg.querySelector('.selected-reaction');
-  if (old) old.remove();
+        .main-body {
+            display: flex;
+            flex-grow: 1;
+            height: calc(100vh - 64px);
+        }
 
-  
-  const reaction = document.createElement('div');
-  reaction.classList.add('selected-reaction');
-  reaction.innerText = el.innerText;
+        /* --- 3. BARRA LATERAL --- */
+        .sidebar {
+            width: 320px;
+            border-right: 1px solid var(--color-lines);
+            display: flex;
+            flex-direction: column;
+        }
 
-  msg.appendChild(reaction);
+        .conversations-header {
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid var(--color-lines);
+        }
 
-  
-  msg.classList.remove('active');
-}
+        .chat-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--color-lines);
+            cursor: pointer;
+        }
 
-function toggleReactions(msg) {
-  document.querySelectorAll('.message').forEach(m => {
-    if (m !== msg) m.classList.remove('active');
-  });
+        .avatar {
+            width: 38px;
+            height: 38px;
+            background: var(--color-avatar);
+            border-radius: 50%;
+            margin-right: 15px;
+        }
 
-  msg.classList.toggle('active');
-}
+        /* Imagen de Perfil en Lista */
+        .profile-pic {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            margin-right: 15px;
+            object-fit: cover;
+            background: #ccc;
+        }
 
-  </script>
+        .student-name {
+            font-weight: 600;
+            display: block;
+        }
+
+        .student-message {
+            color: var(--color-text-light-grey);
+            font-size: 0.8rem;
+        }
+
+        /* --- 4. DIVISOR CENTRAL --- */
+        .textured-divider {
+            width: 35px;
+            background: var(--color-maroon);
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+
+        .top-block {
+            position: absolute;
+            top: 60px;
+            width: 22px;
+            height: 35px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        /* --- 5. PANEL DE CHAT --- */
+        .chat-panel {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .welcome-view,
+        .active-chat-view {
+            display: none;
+            height: 100%;
+        }
+
+        .chat-panel.show-welcome .welcome-view {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .chat-panel.show-active-chat .active-chat-view {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .active-chat-header {
+            padding: 15px 30px;
+            border-bottom: 1px solid var(--color-lines);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* ESTADOS: En línea y Escribiendo */
+        .status-online {
+            font-size: 12px;
+            color: green;
+            margin-left: 10px;
+            display: none;
+        }
+
+        .typing-status {
+            font-size: 12px;
+            font-style: italic;
+            color: var(--color-text-light-grey);
+            margin-left: 10px;
+            display: none;
+        }
+
+        .dots::after {
+            content: '...';
+            animation: typing-dots 1.5s infinite;
+        }
+
+        @keyframes typing-dots {
+
+            0%,
+            100% {
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* --- MENSAJES Y REACCIONES --- */
+        .messages-area {
+            flex-grow: 1;
+            padding: 30px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .message-row {
+            display: flex;
+            align-items: flex-end;
+            gap: 10px;
+            position: relative;
+        }
+
+        .message-row.sent {
+            align-self: flex-end;
+            flex-direction: row-reverse;
+        }
+
+        .message-bubble {
+            padding: 12px 18px;
+            max-width: 70%;
+            background: var(--color-bubble);
+            font-size: 14px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .received-bubble {
+            border-radius: 15px 15px 15px 0;
+        }
+
+        .sent-bubble {
+            border-radius: 15px 15px 0 15px;
+        }
+
+        .msg-time {
+            font-size: 10px;
+            color: var(--color-text-light-grey);
+            margin-top: 5px;
+            text-align: right;
+        }
+
+        /* Menú de Reacciones Flotante */
+        .reaction-menu {
+            display: none;
+            position: absolute;
+            top: -40px;
+            background: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            gap: 10px;
+        }
+
+        .message-row.active .reaction-menu {
+            display: flex;
+        }
+
+        .reaction-menu span {
+            cursor: pointer;
+            transition: transform 0.2s;
+            font-size: 18px;
+        }
+
+        .reaction-menu span:hover {
+            transform: scale(1.4);
+        }
+
+        /* Emoji seleccionado pegado al mensaje */
+        .selected-reaction {
+            position: absolute;
+            bottom: -12px;
+            right: 10px;
+            background: white;
+            border-radius: 12px;
+            padding: 2px 6px;
+            font-size: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .chat-input-area {
+            display: flex;
+            border-top: 3px solid var(--color-maroon);
+            background: #fff;
+        }
+
+        .chat-input-area input {
+            flex: 1;
+            padding: 20px;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+        }
+
+        .send-btn {
+            padding: 0 30px;
+            background: var(--color-bubble);
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="app-container">
+        <header class="app-header">
+            <div>
+                <div class="menu-dot"></div>
+                <div class="menu-dot"></div>
+                <div class="menu-dot"></div>
+            </div>
+        </header>
+
+        <main class="main-body">
+            <aside class="sidebar">
+                <div class="conversations-header">
+                    <h3>Conversaciones</h3>
+                </div>
+                <div class="chat-list">
+                    <!-- En la barra lateral -->
+                    <div class="chat-item" id="item-Gustavo-Martinez"
+                        onclick="selectStudent('Gustavo Martinez', '../imagenes/Gustavo.jpg')">
+                        <img src="../imagenes/Gustavo.jpg" class="profile-pic">
+                        <div>
+                            <span class="student-name">Gustavo Martinez</span>
+                            <span class="student-message">Nuevo Mensaje</span>
+                            <!-- Asegúrate de que tenga esta clase -->
+                        </div>
+                    </div>
+
+                    <div class="chat-item" id="item-Esteban-Mendoza"
+                        onclick="selectStudent('Esteban Mendoza', '../imagenes/Esteban.jpg')">
+                        <img src="../imagenes/Esteban.jpg" class="profile-pic">
+                        <div>
+                            <span class="student-name">Esteban Mendoza</span>
+                            <span class="student-message">Nuevo Mensaje</span>
+                        </div>
+                    </div>
+            </aside>
+
+            <div class="textured-divider">
+                <div class="top-block"></div>
+            </div>
+
+            <section class="chat-panel show-welcome" id="chatPanel">
+                <div class="welcome-view">
+                    <div style="background: white; padding: 40px; text-align: center; border: 1px dashed #ccc;">
+                        Selecciona una conversación para comenzar
+                    </div>
+                </div>
+
+                <div class="active-chat-view">
+                    <div class="active-chat-header">
+                        <!-- Se cambió el div por una img con id para la foto del encabezado -->
+                        <img id="headerPic" src="" class="profile-pic"
+                            style="width:30px; height:30px; margin-right:5px; display:none;">
+                        <h4 id="activeName">Nombre</h4>
+                        <span id="statusLabel" class="status-online">● En línea</span>
+                        <span id="typingLabel" class="typing-status">Escribiendo<span class="dots"></span></span>
+                    </div>
+                    <div class="messages-area" id="chatBox">
+                        <!-- Los mensajes aparecerán aquí -->
+                    </div>
+                    <footer class="chat-input-area">
+                        <input type="text" id="userInput" placeholder="Escribe un mensaje..."
+                            onkeypress="handleKeyPress(event)">
+                        <button class="send-btn" onclick="sendMessage()">Enviar</button>
+                    </footer>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        const chatPanel = document.getElementById('chatPanel');
+        const chatBox = document.getElementById('chatBox');
+        const activeName = document.getElementById('activeName');
+        const headerPic = document.getElementById('headerPic'); // Nueva referencia
+        const typingLabel = document.getElementById('typingLabel');
+        const statusLabel = document.getElementById('statusLabel');
+
+        let currentStudentPic = ''; // Para guardar la foto del alumno actual
+
+        function selectStudent(name, picUrl) {
+            activeName.innerText = name;
+            headerPic.src = picUrl;
+            headerPic.style.display = 'block';
+            currentStudentPic = picUrl;
+            chatPanel.className = 'chat-panel show-active-chat';
+            statusLabel.style.display = 'inline';
+
+            // --- NUEVO: Recuperar historial ---
+            chatBox.innerHTML = ''; // Limpiamos la vista actual
+
+            if (chatHistory[name]) {
+                chatHistory[name].forEach(msg => {
+                    // Creamos las filas visualmente sin volver a guardarlas (usando una función auxiliar o repitiendo el HTML)
+                    renderSavedMessage(msg.text, msg.type, msg.pic, msg.time);
+                });
+            }
+        }
+
+        // Función auxiliar para mostrar mensajes sin duplicarlos en el storage
+        // Función auxiliar para mostrar mensajes del historial con soporte para reacciones
+        function renderSavedMessage(text, type, pic, time) {
+            const row = document.createElement('div');
+            row.className = `message-row ${type}`;
+            row.innerHTML = `
+                <img src="${pic}" class="profile-pic" style="width:30px; height:30px; margin:0;">
+                <div class="message-bubble ${type}-bubble" onclick="toggleReactions(this.parentElement)">
+                    ${text}
+                    <div class="msg-time">${time}</div>
+                    <div class="reaction-menu">
+                        <span onclick="react(event, this, '👍')">👍</span>
+                        <span onclick="react(event, this, '❤️')">❤️</span>
+                        <span onclick="react(event, this, '😂')">😂</span>
+                    </div>
+                </div>
+            `;
+            chatBox.appendChild(row);
+        }
+
+        function handleKeyPress(e) { if (e.key === 'Enter') sendMessage(); }
+
+        function getTime() { return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); }
+
+        function sendMessage() {
+            const input = document.getElementById('userInput');
+            const text = input.value.trim();
+            if (!text) return;
+
+            // Busca esta línea dentro de sendMessage():
+            addMessage(text, 'sent', '../imagenes/Tutora.jpg');
+            input.value = '';
+
+            // 2. Lógica de respuesta automática
+            const lowerText = text.toLowerCase();
+            let replyText = "Entendido, estaré al pendiente.";
+
+            if (lowerText.includes("hola")) replyText = "¡Hola! ¿Podemos revisar la tarea?";
+            else if (lowerText.includes("tarea") || lowerText.includes("practica")) replyText = "Aún no termino el ejercicio de la base de datos.";
+            else if (lowerText.includes("examen")) replyText = "Espero que me haya ido bien en el examen.";
+
+            setTimeout(() => { typingLabel.style.display = 'inline'; }, 800);
+
+            setTimeout(() => {
+                typingLabel.style.display = 'none';
+                addMessage(replyText, 'received', currentStudentPic);
+            }, 3000);
+        }
+
+        // 1. Al inicio de tu script, carga los mensajes guardados o crea un objeto vacío
+        let chatHistory = JSON.parse(localStorage.getItem('edumatch_chats')) || {};
+
+        function addMessage(text, type, pic) {
+            // ... (Todo tu código anterior de crear el mensaje se queda igual) ...
+            const row = document.createElement('div');
+            row.className = `message-row ${type}`;
+            row.innerHTML = `
+        <img src="${pic}" class="profile-pic" style="width:30px; height:30px; margin:0;">
+        <div class="message-bubble ${type}-bubble" onclick="toggleReactions(this.parentElement)">
+            ${text}
+            <div class="msg-time">${getTime()}</div>
+            <div class="reaction-menu">
+                <span onclick="react(event, this, '👍')">👍</span>
+                <span onclick="react(event, this, '❤️')">❤️</span>
+                <span onclick="react(event, this, '😂')">😂</span>
+            </div>
+        </div>
+    `;
+            chatBox.appendChild(row);
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            // Guardar en LocalStorage
+            const name = activeName.innerText;
+            if (!chatHistory[name]) chatHistory[name] = [];
+            chatHistory[name].push({ text, type, pic, time: getTime() });
+            localStorage.setItem('edumatch_chats', JSON.stringify(chatHistory));
+
+            // --- NUEVO: Lógica de la Barra Lateral ---
+            updateSidebar(name, text);
+        }
+
+        function updateSidebar(studentName, lastMessage) {
+            // 1. Buscamos la tarjeta (ID generado quitando espacios)
+            const id = 'item-' + studentName.replace(/\s+/g, '-');
+            const chatItem = document.getElementById(id);
+            const chatList = document.querySelector('.chat-list');
+
+            if (chatItem) {
+                // 2. Actualizamos el texto del último mensaje
+                const msgLabel = chatItem.querySelector('.student-message');
+                if (msgLabel) {
+                    msgLabel.innerText = lastMessage;
+                    msgLabel.style.fontWeight = "bold"; // Para que resalte
+                    msgLabel.style.color = "black";
+                }
+
+                // 3. Movemos la tarjeta al principio de la lista
+                chatList.prepend(chatItem);
+            }
+        }
+
+        // --- LÓGICA DE REACCIONES ---
+        function toggleReactions(row) {
+            document.querySelectorAll('.message-row').forEach(r => {
+                if (r !== row) r.classList.remove('active');
+            });
+            row.classList.toggle('active');
+        }
+
+        function react(e, el, emoji) {
+            e.stopPropagation();
+            const row = el.closest('.message-row');
+            const bubble = row.querySelector('.message-bubble');
+
+            const old = bubble.querySelector('.selected-reaction');
+            if (old) old.remove();
+
+            const reaction = document.createElement('div');
+            reaction.className = 'selected-reaction';
+            reaction.innerText = emoji;
+            bubble.appendChild(reaction);
+
+            row.classList.remove('active');
+        }
+        window.onload = () => {
+            Object.keys(chatHistory).forEach(name => {
+                const history = chatHistory[name];
+                if (history.length > 0) {
+                    const lastMsg = history[history.length - 1].text;
+                    updateSidebar(name, lastMsg);
+                }
+            });
+        };
+    </script>
 
 </body>
 </html>
