@@ -1,0 +1,131 @@
+:root {
+    --bordo: #7D1F2D;
+    --naranja: #FF6B00;
+    --naranja-claro: #F2916D;
+    --gris-card: #E1E1E1;
+    --blanco-fondo: #F4F4F4;
+    --dorado-titulo: #A88B4A;
+}
+.linea {
+     background-color: #570606; /* Tu color bordo */
+    width: 100%;               /* Para alargarlo por toda la pantalla */
+    height: 300px;             /* Ajusta qué tan largo quieres el bloque */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    clip-path: polygon(0 0, 100% 0, 10% 80%, 80 0%);
+    margin-bottom: 50px; /* Ajusta el espacio debajo del bloque */
+}
+/*estilos para el registro de alumnos*/
+.registro-alumnos{
+    background-color: #F4F4F4;
+    padding: 40px 0;
+   
+}
+
+/*acomodo de iconos en el formulario de registro*/
+.meterias-container{
+   
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;/* Permite que los elementos se ajusten a la siguiente línea si no caben en una sola fila */
+}
+/*estilos para los botones de materia su posicion como lista horizantal*/
+.materia-items{
+    background:none;
+    border:none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--gris-card);
+    transition: color 0.3s;
+}
+/*tama;o, color de iconos*/
+.materia-items i{
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: var(--bordo);
+}
+/*estilo spam*/
+.materia-items span{
+    font-size: 0.8rem;
+    font-weight:100;
+    color: var(--bordo);
+}
+
+/*color de texto*/
+.materia-items:hover{
+    color: #ff6600;
+}
+.materia-items.selected{
+    color: #ff6600;
+}
+/*color de iconos*/
+.materia-items:hover i{
+    color: #ff6600;
+}
+.materia-items.selected i{
+    color: #ff6600;
+}
+/* posision de los iconos */
+.posiscion{
+    margin-top: 20px;
+    height: auto;
+}
+/*margenes del registro*/
+.registro-container {
+    margin: 30px;
+    
+}
+.regitros-forma {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 650px;    /* Ajusta el ancho a tu gusto */
+    margin: 0 auto;      /* Centra el formulario sin estirar el fondo */
+}
+
+@media (max-width: 500px) {
+    .regitros-forma {
+        max-width: 20px; 
+        margin-right: 20px; 
+        width: auto;
+    }
+}
+
+
+.regitros-forma input {
+    border-radius: 5px;
+    height: 35px;
+    background-color: #D9D9D9;
+    border: none;
+    padding: 0 10px;
+}
+.regitros-forma select {
+    border-radius: 5px;
+    height: 35px;
+    background-color: #D9D9D9;
+    border: none;
+    
+    
+}
+.regitros-forma label {
+    font-weight: bold;
+    color: var(--bordo);
+    font-weight: bold;
+}
+/*forma del titulo*/
+.registro-container h1 {
+    color: var(--bordo);
+    position: absolute;
+    left: 60%;
+    transform: translateX(-10%);
+    margin-top: -50px;
+    line-height: 0.8;
+    font-size: 3rem;
+    font-weight: bold;
+}
+
