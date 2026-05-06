@@ -33,13 +33,7 @@ header {
     cursor: pointer;
     transition: transform 0.2s;
 }
-@media (max-width: 750px) {
-    header {
-       font-weight: bold;
-        font-size: 0.9rem; 
-        padding: 10px 15px; 
-    }
-}
+
 
 /*para adaptar el header*/
 header a:hover {
