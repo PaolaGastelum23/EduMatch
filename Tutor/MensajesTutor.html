@@ -6,17 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edumatch - Mensajería</title>
     <style>
-        /* --- 1. VARIABLES Y RESETEO --- */
         :root {
             --color-maroon: #560310;
-            --color-bg-light: #FFF8E7;
+            --color-bg-light: #f6f6ea;
             --color-bg-white-msg: #FFFFFF;
             --color-text-dark: #212121;
             --color-text-light-grey: #9E9E9E;
             --color-avatar: #4D5146;
-            --color-yellow: #FFEE58;
-            --color-bubble: #FDD835;
+            --color-yellow: #560310;
+            --color-bubble: #560310;
             --color-lines: #E0E0E0;
+            --color-text-white: #FFFFFF;
         }
 
         * {
@@ -32,7 +32,6 @@
             background-color: var(--color-bg-light);
         }
 
-        /* --- 2. ESTRUCTURA PRINCIPAL --- */
         .app-container {
             display: flex;
             flex-direction: column;
@@ -62,7 +61,6 @@
             height: calc(100vh - 64px);
         }
 
-        /* --- 3. BARRA LATERAL --- */
         .sidebar {
             width: 320px;
             border-right: 1px solid var(--color-lines);
@@ -94,7 +92,6 @@
             margin-right: 15px;
         }
 
-        /* Imagen de Perfil en Lista */
         .profile-pic {
             width: 45px;
             height: 45px;
@@ -114,7 +111,6 @@
             font-size: 0.8rem;
         }
 
-        /* --- 4. DIVISOR CENTRAL --- */
         .textured-divider {
             width: 35px;
             background: var(--color-maroon);
@@ -132,7 +128,6 @@
             border-radius: 4px;
         }
 
-        /* --- 5. PANEL DE CHAT --- */
         .chat-panel {
             flex-grow: 1;
             display: flex;
@@ -164,7 +159,6 @@
             gap: 15px;
         }
 
-        /* ESTADOS: En línea y Escribiendo */
         .status-online {
             font-size: 12px;
             color: green;
@@ -197,7 +191,20 @@
             }
         }
 
-        /* --- MENSAJES Y REACCIONES --- */
+        .message-content {
+            background-color: var(--color-maroon);
+            color: var(--color-text-white);
+        }
+
+        .message-text {
+            color: #FFFFFF !important;
+        }
+
+        .message-time {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.75rem;
+        }
+
         .messages-area {
             flex-grow: 1;
             padding: 30px;
@@ -223,28 +230,45 @@
             padding: 12px 18px;
             max-width: 70%;
             background: var(--color-bubble);
+            color: var(--color-text-white);
             font-size: 14px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
             position: relative;
             cursor: pointer;
         }
 
-        .received-bubble {
-            border-radius: 15px 15px 15px 0;
-        }
-
-        .sent-bubble {
-            border-radius: 15px 15px 0 15px;
-        }
-
         .msg-time {
             font-size: 10px;
-            color: var(--color-text-light-grey);
+            color: rgba(218, 220, 181, 0.7);
             margin-top: 5px;
             text-align: right;
         }
 
-        /* Menú de Reacciones Flotante */
+        .received-bubble {
+            border-radius: 15px 15px 15px 0;
+            color: white;
+            background-color: #560310;
+            color: white;
+            align-self: flex-start;
+        }
+
+
+        .sent-bubble {
+            background-color: #f89924;
+            color: #1a202c;
+            align-self: flex-end;
+            border-radius: 15px 15px 0 15px;
+            color: white;
+        }
+
+        .sent-bubble .msg-time {
+            color: #718096;
+        }
+
+        .received-bubble .msg-time {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
         .reaction-menu {
             display: none;
             position: absolute;
@@ -271,7 +295,6 @@
             transform: scale(1.4);
         }
 
-        /* Emoji seleccionado pegado al mensaje */
         .selected-reaction {
             position: absolute;
             bottom: -12px;
@@ -300,6 +323,7 @@
         .send-btn {
             padding: 0 30px;
             background: var(--color-bubble);
+            color: white;
             border: none;
             font-weight: bold;
             cursor: pointer;
@@ -308,7 +332,6 @@
 </head>
 
 <body>
-
     <div class="app-container">
         <header class="app-header">
             <div>
@@ -324,14 +347,13 @@
                     <h3>Conversaciones</h3>
                 </div>
                 <div class="chat-list">
-                    <!-- En la barra lateral -->
                     <div class="chat-item" id="item-Gustavo-Martinez"
                         onclick="selectStudent('Gustavo Martinez', '../imagenes/Gustavo.jpg')">
                         <img src="../imagenes/Gustavo.jpg" class="profile-pic">
                         <div>
                             <span class="student-name">Gustavo Martinez</span>
                             <span class="student-message">Nuevo Mensaje</span>
-                            <!-- Asegúrate de que tenga esta clase -->
+
                         </div>
                     </div>
 
@@ -358,7 +380,6 @@
 
                 <div class="active-chat-view">
                     <div class="active-chat-header">
-                        <!-- Se cambió el div por una img con id para la foto del encabezado -->
                         <img id="headerPic" src="" class="profile-pic"
                             style="width:30px; height:30px; margin-right:5px; display:none;">
                         <h4 id="activeName">Nombre</h4>
@@ -366,7 +387,7 @@
                         <span id="typingLabel" class="typing-status">Escribiendo<span class="dots"></span></span>
                     </div>
                     <div class="messages-area" id="chatBox">
-                        <!-- Los mensajes aparecerán aquí -->
+
                     </div>
                     <footer class="chat-input-area">
                         <input type="text" id="userInput" placeholder="Escribe un mensaje..."
@@ -382,33 +403,48 @@
         const chatPanel = document.getElementById('chatPanel');
         const chatBox = document.getElementById('chatBox');
         const activeName = document.getElementById('activeName');
-        const headerPic = document.getElementById('headerPic'); // Nueva referencia
+        const headerPic = document.getElementById('headerPic');
         const typingLabel = document.getElementById('typingLabel');
         const statusLabel = document.getElementById('statusLabel');
 
-        let currentStudentPic = ''; // Para guardar la foto del alumno actual
+        let currentStudentPic = '';
 
         function selectStudent(name, picUrl) {
+            const id = 'item-' + name.replace(/\s+/g, '-');
+            let chatItem = document.getElementById(id);
+
+            if (!chatItem) {
+                const chatList = document.querySelector('.chat-list');
+                const newItem = document.createElement('div');
+                newItem.className = 'chat-item';
+                newItem.id = id;
+                newItem.onclick = () => selectStudent(name, picUrl);
+
+                newItem.innerHTML = `
+            <img src="${picUrl}" class="profile-pic">
+            <div>
+                <span class="student-name">${name}</span>
+                <span class="student-message">Nueva conversación</span>
+            </div>
+        `;
+                chatList.prepend(newItem);
+            }
+
             activeName.innerText = name;
             headerPic.src = picUrl;
             headerPic.style.display = 'block';
             currentStudentPic = picUrl;
             chatPanel.className = 'chat-panel show-active-chat';
             statusLabel.style.display = 'inline';
-
-            // --- NUEVO: Recuperar historial ---
-            chatBox.innerHTML = ''; // Limpiamos la vista actual
+            chatBox.innerHTML = '';
 
             if (chatHistory[name]) {
                 chatHistory[name].forEach(msg => {
-                    // Creamos las filas visualmente sin volver a guardarlas (usando una función auxiliar o repitiendo el HTML)
                     renderSavedMessage(msg.text, msg.type, msg.pic, msg.time);
                 });
+                setTimeout(() => { chatBox.scrollTop = chatBox.scrollHeight; }, 100);
             }
         }
-
-        // Función auxiliar para mostrar mensajes sin duplicarlos en el storage
-        // Función auxiliar para mostrar mensajes del historial con soporte para reacciones
         function renderSavedMessage(text, type, pic, time) {
             const row = document.createElement('div');
             row.className = `message-row ${type}`;
@@ -435,12 +471,8 @@
             const input = document.getElementById('userInput');
             const text = input.value.trim();
             if (!text) return;
-
-            // Busca esta línea dentro de sendMessage():
             addMessage(text, 'sent', '../imagenes/Tutora.jpg');
             input.value = '';
-
-            // 2. Lógica de respuesta automática
             const lowerText = text.toLowerCase();
             let replyText = "Entendido, estaré al pendiente.";
 
@@ -455,12 +487,9 @@
                 addMessage(replyText, 'received', currentStudentPic);
             }, 3000);
         }
-
-        // 1. Al inicio de tu script, carga los mensajes guardados o crea un objeto vacío
         let chatHistory = JSON.parse(localStorage.getItem('edumatch_chats')) || {};
 
         function addMessage(text, type, pic) {
-            // ... (Todo tu código anterior de crear el mensaje se queda igual) ...
             const row = document.createElement('div');
             row.className = `message-row ${type}`;
             row.innerHTML = `
@@ -477,38 +506,28 @@
     `;
             chatBox.appendChild(row);
             chatBox.scrollTop = chatBox.scrollHeight;
-
-            // Guardar en LocalStorage
             const name = activeName.innerText;
             if (!chatHistory[name]) chatHistory[name] = [];
             chatHistory[name].push({ text, type, pic, time: getTime() });
             localStorage.setItem('edumatch_chats', JSON.stringify(chatHistory));
-
-            // --- NUEVO: Lógica de la Barra Lateral ---
             updateSidebar(name, text);
         }
 
         function updateSidebar(studentName, lastMessage) {
-            // 1. Buscamos la tarjeta (ID generado quitando espacios)
             const id = 'item-' + studentName.replace(/\s+/g, '-');
             const chatItem = document.getElementById(id);
             const chatList = document.querySelector('.chat-list');
 
             if (chatItem) {
-                // 2. Actualizamos el texto del último mensaje
                 const msgLabel = chatItem.querySelector('.student-message');
                 if (msgLabel) {
                     msgLabel.innerText = lastMessage;
-                    msgLabel.style.fontWeight = "bold"; // Para que resalte
+                    msgLabel.style.fontWeight = "bold";
                     msgLabel.style.color = "black";
                 }
-
-                // 3. Movemos la tarjeta al principio de la lista
                 chatList.prepend(chatItem);
             }
         }
-
-        // --- LÓGICA DE REACCIONES ---
         function toggleReactions(row) {
             document.querySelectorAll('.message-row').forEach(r => {
                 if (r !== row) r.classList.remove('active');
@@ -540,7 +559,27 @@
                 }
             });
         };
-    </script>
 
+        function verificarParametrosURL() {
+            const params = new URLSearchParams(window.location.search);
+            const alumno = params.get('alumno');
+            const foto = params.get('foto');
+
+            if (alumno && foto) {
+                selectStudent(alumno, foto);
+            }
+        }
+        window.onload = () => {
+            Object.keys(chatHistory).forEach(name => {
+                const history = chatHistory[name];
+                if (history.length > 0) {
+                    const lastMsg = history[history.length - 1].text;
+                    updateSidebar(name, lastMsg);
+                }
+            });
+            verificarParametrosURL();
+        };
+    </script>
 </body>
+
 </html>

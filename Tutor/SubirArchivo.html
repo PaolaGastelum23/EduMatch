@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tus Archivos</title>
     <style>
-        /* EL CSS VA AQUÍ DENTRO */
         :root {
             --main-red: #660000;
             --bg-light: #f2f2f2;
@@ -28,7 +27,6 @@
             margin: 0 auto;
         }
 
-        /* panel Izquierdo */
         .grid-section {
             background-color: var(--main-red);
             border-radius: 20px;
@@ -128,22 +126,18 @@
             font-size: 0.8rem;
         }
 
-        /* colores de las miniaturas */
         .thumbnail.pdf {
             background-color: #ff4d4d;
         }
 
-        /* Rojo para PDF */
         .thumbnail.word {
             background-color: #4d94ff;
         }
 
-        /* Azul para Word */
         .thumbnail.excel {
             background-color: #2eb82e;
         }
 
-        /* Verde para Excel */
         .thumbnail {
             height: 120px;
             border-radius: 15px;
@@ -155,29 +149,23 @@
             border: 1px solid #ddd;
         }
 
-        /* Icono para PDF */
         .thumbnail.pdf {
             background-image: url('https://cdn-icons-png.flaticon.com/512/337/337946.png');
             background-color: #fff1f1;
         }
 
-        /* Icono para Word*/
         .thumbnail.word {
             background-image: url('https://cdn-icons-png.flaticon.com/512/888/888883.png');
             background-color: #eef4ff;
             background-size: 55px;
-            /* Ajuste ligero de tamaño */
         }
 
-        /* Icono para excel*/
         .thumbnail.excel {
             background-image: url('https://cdn-icons-png.flaticon.com/512/888/888850.png');
             background-color: #efffef;
             background-size: 55px;
         }
 
-
-        /* como se ven los compartidos */
         .shared-thumb {
             width: 60px;
             height: 60px;
@@ -185,12 +173,10 @@
             background-position: center;
             background-repeat: no-repeat;
             background-image: url('https://cdn-icons-png.flaticon.com/512/337/337946.png');
-            /* PDF por defecto */
             background-color: #fff;
             border-radius: 10px;
             flex-shrink: 0;
         }
-
 
         .cards-grid {
             display: grid;
@@ -200,7 +186,6 @@
             overflow-y: auto;
             padding-right: 10px;
         }
-
 
         .main-title {
             text-align: center;
@@ -252,7 +237,6 @@
             font-size: 0.9rem;
         }
 
-        /* filtro del pdf */
         .header-pdf {
             display: flex;
             justify-content: flex-end;
@@ -306,7 +290,6 @@
             opacity: 0.8;
         }
 
-        /* parte responsiva */
         @media (max-width: 768px) {
             .main-container {
                 flex-direction: column;
@@ -330,16 +313,11 @@
                 <input type="text" id="searchInput" class="search-input" placeholder="Buscar archivo..."
                     onkeyup="buscarArchivos()">
             </div>
-
-            <!-- solo va a acepatar ese tipo de archivos solamente-->
             <input type="file" id="file-upload" style="display: none;" accept=".pdf, .doc, .docx, .xls, .xlsx" />
-
-
             <button class="btn-upload-new" onclick="document.getElementById('file-upload').click()">
                 subir un archivo nuevo
             </button>
         </div>
-
         <div class="main-container">
 
             <section class="grid-section">
@@ -379,8 +357,6 @@
                     </div>
                 </div>
             </section>
-
-
             <!-- Parte de los compartidos -->
             <aside class="shared-section">
                 <h3>Archivos compartidos</h3>
@@ -416,7 +392,6 @@
     </div>
     <script>
         function filtrarArchivos(tipo) {
-
             document.getElementById('currentFilter').innerText = tipo + " ▼";
 
             const tarjetas = document.querySelectorAll('.card');
@@ -430,9 +405,7 @@
                 }
             });
         }
-
         function buscarArchivos() {
-
             const textoBusqueda = document.getElementById('searchInput').value.toLowerCase();
 
             const tarjetas = document.querySelectorAll('.card');
@@ -448,7 +421,6 @@
                 }
             });
         }
-
         function descargarPDF(nombreArchivo) {
 
             const contenidoFalso = "%PDF-1.4\n1 0 obj\n<< /Title (Archivo Simulado) >>\nendobj\ntrailer\n<< /Root 1 0 R >>\n%%EOF";
@@ -463,7 +435,7 @@
 
             document.body.removeChild(enlace);
         }
-
     </script>
 </body>
+
 </html>
