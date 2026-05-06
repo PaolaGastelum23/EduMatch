@@ -8,7 +8,7 @@
 }
 
 * {
-    margin: 0;
+   margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
@@ -18,6 +18,7 @@ body {
     background-color: var(--bordo);
     color: white;
     line-height: 1.6;
+    margin: 0;
 }
 
 header {
@@ -29,6 +30,21 @@ header {
     position: sticky;
     top: 0;
     z-index: 1000;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+@media (max-width: 750px) {
+    header {
+       font-weight: bold;
+        font-size: 0.9rem; 
+        padding: 10px 15px; 
+    }
+}
+
+/*para adaptar el header*/
+header a:hover {
+    color: #FF6B00;
+    font-weight: bolder;
 }
 
 .logo img {

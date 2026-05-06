@@ -1,3 +1,24 @@
+@font-face {
+    font-family:afacad; ;
+    src: url(/Fuentes/Afacad,Comfortaa,Josefin_Sans,Livvic,Montserrat/Afacad/Afacad-VariableFont_wght.ttf);
+}
+@font-face {
+    font-family:vivvic negrita ;
+    src: url(/Fuentes/Comfortaa,Josefin_Sans,Livvic/Livvic/Livvic-Black.ttf);
+}
+@font-face {
+    font-family:vivvic regular ;
+    src: url(/Fuentes/Comfortaa,Josefin_Sans,Livvic/Livvic/Livvic-Medium.ttf);
+}
+@font-face {
+    font-family:vivvic light ;
+    src: url(/Fuentes/Comfortaa,Josefin_Sans,Livvic/Livvic/Livvic-Light.ttf);
+}
+@font-face {
+    font-family:Montserrat ;
+    src: url(/Fuentes/Comfortaa,Josefin_Sans,Livvic,Montserrat/Montserrat/Montserrat-VariableFont_wght.ttf);
+}
+
 :root {
     --bordo: #7D1F2D;
     --naranja: #FF6B00;
@@ -9,19 +30,34 @@
 .linea {
      background-color: #570606; /* Tu color bordo */
     width: 100%;               /* Para alargarlo por toda la pantalla */
-    height: 300px;             /* Ajusta qué tan largo quieres el bloque */
-    display: flex;
+    height: 180px;             /* Ajusta qué tan largo quieres el bloque */
+    display:flex; /* Para posicionarlo sin afectar el flujo del documento */
     align-items: center;
     justify-content: center;
-
-    clip-path: polygon(0 0, 100% 0, 10% 80%, 80 0%);
+    margin-top: 0;
+     /* Para que comience desde el borde izquierdo */
+    /*0 quedarse a la izquierda,0 quedarse arriba 
+    100% mueve todo a la derecha,0 lo mantiene arriba en la parte izquierda
+    60% mueve asia la derecha detiene antes del borde, 100% baja hasta el fondo de contenedor
+    0 regresa totalmente a la pared
+    100*/
+  
+   clip-path: polygon(0 0, 100% 0, 100% 70%, 0% 100%);
     margin-bottom: 50px; /* Ajusta el espacio debajo del bloque */
+}
+  @media (max-width: 350px) {
+    .linea {
+       
+       height: 150px; /* Ajusta la altura para pantallas más pequeñas */
+        clip-path: polygon(0 0, 0 100%, 100% 60%, 0% 100%);
+    }
 }
 /*estilos para el registro de alumnos*/
 .registro-alumnos{
     background-color: #F4F4F4;
     padding: 40px 0;
-   
+
+    margin-top: -1px; /* Al subirlo con margen negativo, se verá cómo se mete detrás */
 }
 
 /*acomodo de iconos en el formulario de registro*/
@@ -51,16 +87,17 @@
 }
 /*estilo spam*/
 .materia-items span{
-    font-size: 0.8rem;
+    font-size: 1rem;
     font-weight:100;
     color: var(--bordo);
+    font-family: 'afacad', sans-serif;
 }
 
 /*color de texto*/
-.materia-items:hover{
+.materia-items:hover span{
     color: #ff6600;
 }
-.materia-items.selected{
+.materia-items.selected span{
     color: #ff6600;
 }
 /*color de iconos*/
@@ -80,7 +117,9 @@
     margin: 30px;
     
 }
+/*da el molde del registro hasta donde llega*/
 .regitros-forma {
+    
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -88,44 +127,404 @@
     margin: 0 auto;      /* Centra el formulario sin estirar el fondo */
 }
 
-@media (max-width: 500px) {
-    .regitros-forma {
-        max-width: 20px; 
-        margin-right: 20px; 
-        width: auto;
+@media (max-width: 700px) {
+    .registro-container h1 {
+      margin-left: auto !important;
+        margin-right: 50px !important;
+        width: 70% !important;
+        max-width: 160px !important;
     }
 }
-
-
+@media (max-width: 350px) {
+    .registro-container h1 {
+     margin-left: auto !important;
+        margin-right: 50px !important;
+        width: 60% !important;
+        max-width: 160px !important;
+    }
+        }
 .regitros-forma input {
     border-radius: 5px;
     height: 35px;
     background-color: #D9D9D9;
     border: none;
     padding: 0 10px;
+    font-family: 'livvic regular', sans-serif;
 }
 .regitros-forma select {
     border-radius: 5px;
     height: 35px;
     background-color: #D9D9D9;
     border: none;
-    
-    
+    font-family: 'livvic regular', sans-serif;
 }
 .regitros-forma label {
     font-weight: bold;
     color: var(--bordo);
     font-weight: bold;
+    font-family: 'livvic regular', sans-serif;
 }
 /*forma del titulo*/
 .registro-container h1 {
-    color: var(--bordo);
+    color: #42423A;
     position: absolute;
     left: 60%;
     transform: translateX(-10%);
-    margin-top: -50px;
+    margin-top: -60px;
     line-height: 0.8;
     font-size: 3rem;
     font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+}
+
+@media (max-width: 500px) {
+    .registro-container h1 {
+    left: 50%;
+    }
+}
+.titulo-ma label{
+    color: #42423A;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: -5px;
+    line-height: 0.8;
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+}
+.btn-registro{
+     height: 40px;
+    border-radius: 20px;
+    margin: 0 auto;
+    width: 200px;
+    border: 5px solid transparent;
+    display: block;
+    margin-top: 30px;
+    background:
+        linear-gradient(white, white) padding-box,
+        linear-gradient(to right, #c40003, #ff6b00) border-box;
+
+    cursor: pointer;
+    font-family: 'Afacad', sans-serif;
+    font-size: 1.2rem;
+    margin: 25px auto;
+     transition: background 0.3s, color 0.3s, font-weight 0.3s;
+}
+.btn-registro:hover {
+    background:
+        linear-gradient(white, white) padding-box,
+        linear-gradient(to right, #ff6b00, #c40003) border-box;
+        color: #ff6b00;
+        font-weight: bold;
+}
+
+
+/*--------------------------------------------*/
+/*estilos para el registro de profesores*/
+.contenedor-evidencia{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+    position: relative;
+z-index: 4;
+}
+.contenedor-evidencia label {
+    font-weight: bold;
+    color: var(--bordo);
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+    position: relative;
+z-index: 3;
+}
+
+.registro-tutores{
+    
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    background-color: #F4F4F4 !important;
+    padding: 40px 0;
+     position: relative;
+}
+
+/*foma de capsula general*/
+.capsulas{
+position: relative;
+z-index: 1;
+background-color: #D9D9D9;
+padding: 20px;/* Ajusta el espacio dentro de la cápsula */
+border-radius: 10px; /* Bordes redondeados */
+display: inline-flex;
+align-items: center;
+cursor: pointer;
+box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra para dar profundidad */
+}
+.grupo-inciono{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+   
+}
+/*tamano y acomodo iconos*/
+.grupo-inciono i{
+color: var(--bordo);
+font-size: 1.5rem;
+cursor: pointer;
+transition: color 0.3s;
+}
+/*color de iconos*/
+.grupo-inciono:hover i{
+    color: #ff6600;
+}
+
+
+/*---------------------------------------------*/
+/*como se pone el registro*/
+.regitros-forma-tutores{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+    margin-left: auto;   /* Empuja desde la izquierda */
+    margin-right: 60px;  /* Un pequeño espacio para que no toque el borde derecho */
+    
+    max-width: 650px; 
+    width: 100%;
+}
+
+
+@media (max-width: 700px) {
+    .regitros-forma-tutores {
+        margin-left: auto !important;
+        margin-right: 50px !important;
+        width: 90% !important;
+        max-width: 160px !important;
+    }
+}
+@media (max-width: 900px) {
+    .regitros-forma-tutores {
+        margin-left: auto !important;
+        margin-right: 50px !important;
+        width: 90% !important;
+        max-width: 360px !important;
+    }
+}
+
+/*estilo del titulo*/
+.titulos-tutores h1{
+    background: linear-gradient(to right, #42423A, #ff6b00);
+   background-clip: text;
+    -webkit-background-clip: text;
+
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    position: absolute;
+    left: 8%;
+    transform: translateX (-10%);
+    margin-top: 45px;
+    line-height: 0.8;
+    font-size: 4rem;
+    font-weight: extra-bold;
+    font-family: 'Montserrat', sans-serif;
+    z-index: 1;
+}
+@media (max-width: 700px) {
+    .titulos-tutores h1 {
+        color: #42423A;
+    position: absolute;
+    left: 8%;
+    transform: translateX(-10%);
+    margin-top: 45px;
+    line-height: 0.8;
+    font-size: 4rem;
+    font-weight: extra-bold;
+    font-family: 'Montserrat', sans-serif;
+    }
+}
+
+@media (max-width: 1200px) {
+    .titulos-tutores h1 {
+        font-size:2rem ;
+        left: 50%;
+        transform: translateX(-50%);  
+        margin-top: -60px;  
+        margin-bottom: 10%;
+    }
+}
+
+.titulos-tutores p{
+    color: #42423A;
+    position: absolute;
+    left: 8%;
+    transform: translateX(-10%);
+    margin-top: 20px;
+    line-height: 0.8;
+    font-size: 1.2rem;
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+}
+@media (max-width: 700px) {
+    .titulos-tutores p {
+        color: #42423A;
+    position: absolute;
+    left: 8%;
+    transform: translateX(-10%);
+    margin-top: 20px;
+    line-height: 0.8;
+    font-size: 1rem;
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+    }
+}
+@media (max-width: 500px) {
+    .titulos-tutores p {
+        left: 40%;
+        transform: translateX(-50%);  
+        margin-top: -75px;  
+        margin-bottom: 60px;
+        font-size: 1rem;
+    }
+}
+@media (max-width: 1200px) {
+    .titulos-tutores p {
+        left: 40%;
+        transform: translateX(-50%);  
+        margin-top: -75px;  
+        margin-bottom: 60px;
+        font-size: 1rem;
+    }
+}
+.regitros-forma-tutores input {
+    border-radius: 5px;
+    height: 35px;
+    background-color: #D9D9D9;
+     border: 0.1px solid transparent;
+     background:
+        linear-gradient(white, white) padding-box,
+        linear-gradient(to right, #c40003, #ff6b00) border-box;
+
+}
+.regitros-forma-tutores select {
+    border-radius: 5px;
+    height: 35px;
+    background-color: #D9D9D9;
+    border: 0.1px solid transparent;
+    background:
+      linear-gradient(white, white) padding-box,
+      linear-gradient(to right, #c40003, #ff6b00) border-box;
+    font-family: 'livvic regular', sans-serif;
+}
+.regitros-forma-tutores label {
+    font-weight: bold;
+    color: var(--bordo);
+    font-weight: bold;
+    font-family: 'afacad', sans-serif;
+    font-size: 1.1rem;
+}
+
+/*separador*/
+.separacion {
+    height: 2px;
+    width: 260px;
+    background-color: var(--bordo);
+    margin:  0 auto;
+    margin-top: 10px;
+
+
+}
+
+.btn-registro-tutores{
+    max-height: 100px;
+     background:#ff6b00;
+    border-radius: 20px;
+    max-width: 400px;
+    border: transparent;
+   width: 90%;
+    max-width: 400px;
+    height: 50px;
+    margin: 30px ;
+    top: -120px;
+    left: 40px;
+    display: block;
+position: relative;
+z-index: 2;
+    
+   
+}
+
+
+@media (max-width: 1200px) {
+    .btn-registro-tutores {
+        max-width:150px ;
+         max-width: 200px;
+        top: 20px;
+        left:110px;
+         margin: 30 30px;
+         position: relative;
+z-index: 2;
+    }
+}
+
+.linea2{
+ background-color: #570606;
+    width: 100%;
+    height: 450px; 
+    
+    /* Subimos la franja para que los iconos y el botón queden "dentro" de ella */
+    margin-top: -200px; 
+    
+    position: relative;
+    z-index: 0;
+    
+    clip-path: polygon(0 100%, 100% 100%, 100% 30%, 0 0%);
+}
+/* Estilos básicos para este ejemplo */
+
+
+/* 1. EL CONTENEDOR PRINCIPAL DEL FOOTER */
+.social-footer {
+    background-color: #570606; /* Color bordo de tu imagen */
+    color: #FBB13C; /* Color amarillo/dorado de los iconos */
+    padding: 30px 0; /* Espaciado arriba y abajo */
+    width: 100%;
+    margin-top: auto; /* Empuja el footer al final de la página si hay poco contenido */
+    
+    /* Centrado con Flexbox */
+    display: flex;
+    justify-content: center; /* Centrado horizontal */
+    align-items: center;    /* Centrado vertical */
+}
+
+
+.icon-container {
+    display: flex;
+    gap: 25px; /* Espacio uniforme entre los iconos */
+    justify-content: center;
+}
+
+
+.social-icon {
+    text-decoration: none; /* Quita el subrayado del enlace */
+    color: inherit;       
+    font-size: 32px;      /* Tamaño de los iconos (ajústalo) */
+    
+    /* Para centrar el icono dentro del círculo (en Facebook) */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    width: 60px;  
+    height: 60px; 
+    
+    border-radius: 50%; /* Hace el área de fondo un círculo perfecto */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Efecto suave */
+}
+
+ 
+.social-icon:hover {
+    background-color: rgba(251, 177, 60, 0.2); /* Fondo amarillo tenue al pasar el mouse */
+    transform: scale(1.1); /* Agranda el icono ligeramente */
 }
 
