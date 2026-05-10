@@ -1,0 +1,214 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.app-container {
+    display: flex;
+    height: 100vh;
+}
+
+.sidebar {
+    width: 80px;
+    background-color: #600101; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 30px;
+    flex-shrink: 0;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+}
+
+.nav-btn {
+    background: none;
+    border: none;
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.nav-btn i {
+    font-size: 24px;
+    color: #F2A922;
+}
+
+.nav-btn:hover i {
+    color: white;
+    transform: scale(1.1);
+}
+
+.nav-btn.active i {
+    color: white;
+}
+
+.nav-btn.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 4px;
+    height: 35px;
+    background-color: white;
+    border-radius: 0 4px 4px 0;
+}
+
+.main-content {
+    flex: 1;
+    padding: 40px 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    background-color: #fff;
+}
+
+.main-title {
+    font-size: 36px;
+    font-weight: 800;
+    color: #1a1a1a;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    text-align: center;
+}
+
+.title-star {
+    color: #F2A922; 
+    font-size: 40px;
+}
+
+.selection-section {
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+.tutor-select {
+    width: 100%;
+    background-color: #F5F5F5; 
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    padding: 12px 25px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20140%20140%22%3E%3Cpath%20fill%3D%22%23333333%22%20d%3D%22M114.7%2031.5L70%2076.2L25.3%2031.5L0%2056.8L70%20126.8L140%2056.8L114.7%2031.5Z%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat;
+    background-position: right 25px top 50%;
+    background-size: 15px;
+    outline: none;
+}
+
+.rating-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+.rating-card {
+    background-color: #D0E2F2; 
+    border-radius: 15px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.rating-card h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #333;
+}
+
+.stars {
+    display: flex;
+    gap: 5px;
+}
+
+.stars span {
+    font-size: 40px;
+    color: #31A8D9; 
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.stars span:hover {
+    transform: scale(1.2);
+}
+
+.comment-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.comment-section label {
+    font-size: 20px;
+    font-weight: 700;
+    color: #333;
+}
+
+.comment-box {
+    width: 100%;
+    height: 120px;
+    background-color: #D0E2F2;
+    border: none;
+    border-radius: 10px;
+    padding: 15px;
+    resize: none;
+    font-size: 14px;
+    outline: none;
+}
+
+.action-footer {
+    width: 100%;
+    background-color: #E6EBA0; 
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.btn-enviar {
+    background-color: #0B239C; 
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 12px 45px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-enviar:hover {
+    background-color: #081a75;
+}
+
+.warning-text {
+    color: #D31212; 
+    font-size: 12px;
+    font-weight: bold;
+    max-width: 350px;
+    text-align: right;
+    line-height: 1.4;
+}
