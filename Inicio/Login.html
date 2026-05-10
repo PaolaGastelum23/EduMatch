@@ -12,7 +12,7 @@
     <div class="login-container">
        
         <div class="login-image">
-            <img src="img/estudio.jpg" alt="Estudiante leyendo">
+            <img src="\Imagenes cosas\jacob-bentzinger-QiLPQeQSXD0-unsplash.jpg" alt="Estudiante leyendo">
         </div>
 
         
@@ -44,15 +44,18 @@
                             <input type="password" id="password" class="dark-input" required>
                             <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
                         </div>
+                       
 
+                        
                         <button type="submit" class="btn-main-login">LOG IN</button>
                     </form>
                 </div>
 
                 
                 <div class="footer-login">
-                    <img src="img/logo.png" alt="Logo Tutorías" class="mini-logo">
+                    <img src="\imagenes\logo.jpg" alt="Logo Tutorías" class="mini-logo">
                     <p>TUTORÍAS <br> UNIVERSITARIAS</p>
+                   
                     <a href="#" class="terms">Términos y condiciones de servicio</a>
                 </div>
 
@@ -93,13 +96,13 @@
 
                 if (esTutorSeleccionado) {
                     if (usuario === credenciales.tutor.user && contrasena === credenciales.tutor.pass) {
-                        window.location.href = "tutor.html";
+                        window.location.href = "\tutor.html";
                     } else {
                         alert("Error: Usuario o contraseña de Tutor incorrectos.");
                     }
                 } else {
                     if (usuario === credenciales.estudiante.user && contrasena === credenciales.estudiante.pass) {
-                        window.location.href = "estudiante.html";
+                        window.location.href = "\Alumnos\DashboardAlumnos.html";
                     } else {
                         alert("Error: Usuario o contraseña de Estudiante incorrectos.");
                     }
