@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio de Sesión - Tutorías</title>
+    <link rel="stylesheet" href="\css\Inicio.css">
+</head>
+
+<body>
+    <div class="login-container">
+       
+        <div class="login-image">
+            <img src="\Imagenes cosas\jacob-bentzinger-QiLPQeQSXD0-unsplash.jpg" alt="Estudiante leyendo">
+        </div>
+
+        
+        <div class="login-form-section">
+            <div class="form-content">
+
+                
+                <div class="main-group">
+                    <h1>INICIO DE <br> SESIÓN</h1>
+
+                    <p class="question">¿A que vienes?</p>
+                    <div class="role-selection">
+                        
+                        <button type="button" class="role-btn active" id="btn-estudiante">Estudiante</button>
+                        <button type="button" class="role-btn tutor" id="btn-tutor">Tutor</button>
+                    </div>
+
+                   
+                    <form id="loginForm">
+                        <div class="input-group">
+                            <label>Nombre de usuario</label>
+                            
+                            <input type="text" id="username" class="dark-input" required>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Contraseña</label>
+                            
+                            <input type="password" id="password" class="dark-input" required>
+                            <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
+                        </div>
+                       
+
+                        
+                        <button type="submit" class="btn-main-login">LOG IN</button>
+                    </form>
+                </div>
+
+                
+                <div class="footer-login">
+                    <img src="\imagenes\logo.jpg" alt="Logo Tutorías" class="mini-logo">
+                    <p>TUTORÍAS <br> UNIVERSITARIAS</p>
+                   
+                    <a href="#" class="terms">Términos y condiciones de servicio</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            const buttons = document.querySelectorAll('.role-btn');
+            const loginForm = document.getElementById('loginForm');
+            const btnTutor = document.getElementById('btn-tutor');
+            const userInput = document.getElementById('username');
+            const passInput = document.getElementById('password');
+
+           
+            const credenciales = {
+                estudiante: { user: "alumno", pass: "alumno123" },
+                tutor: { user: "profe", pass: "profe123" }
+            };
+
+            
+            buttons.forEach(button => {
+                button.addEventListener('click', () => {
+                    buttons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                });
+            });
+
+            
+            loginForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+
+                const usuario = userInput.value;
+                const contrasena = passInput.value;
+                const esTutorSeleccionado = btnTutor.classList.contains('active');
+
+                if (esTutorSeleccionado) {
+                    if (usuario === credenciales.tutor.user && contrasena === credenciales.tutor.pass) {
+                        window.location.href = "\tutor.html";
+                    } else {
+                        alert("Error: Usuario o contraseña de Tutor incorrectos.");
+                    }
+                } else {
+                    if (usuario === credenciales.estudiante.user && contrasena === credenciales.estudiante.pass) {
+                        window.location.href = "\Alumnos\DashboardAlumnos.html";
+                    } else {
+                        alert("Error: Usuario o contraseña de Estudiante incorrectos.");
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

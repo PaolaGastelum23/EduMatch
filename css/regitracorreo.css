@@ -1,0 +1,110 @@
+/* Configuración General */
+body {
+    background-color: #7a1e2c; /* Tu color guinda */
+    margin: 0;
+    font-family: 'Roboto', Arial, sans-serif;
+}
+
+
+
+:root {
+    --bordo: #7D1F2D;
+    --dorado: #A88B4A;
+    --gris-fondo: #F4F4F4;
+}
+
+
+
+/* Franja superior con recorte */
+.linea-bordo {
+    background-color: var(--bordo);
+    height: 250px;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    color: white;
+}
+
+.boton-regresar {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: white;
+    font-size: 1.5rem;
+    text-decoration: none;
+}
+
+.logo-vinculo {
+    width: 80px;
+    height: auto;
+    border-radius: 50%;
+    margin-top: 10px;
+}
+
+/* Formulario */
+.contenedor-datos {
+    max-width: 400px;
+    margin: -40px auto 0; /* Sube un poco para entrar en el recorte */
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.campo {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-weight: bold;
+    color: var(--bordo);
+    margin-bottom: 5px;
+}
+
+input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Botón de Google */
+.google-btn-falso {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: white;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+.google-btn-falso:hover {
+    background-color: #f1f1f1;
+}
+
+.fa-google {
+    color: #4285F4; 
+    font-size: 1.2rem;
+}
+
+.btn-iniciar {
+    width: 100%;
+    background-color: var(--bordo);
+    color: white;
+    border: none;
+    padding: 12px;
+    margin-top: 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
