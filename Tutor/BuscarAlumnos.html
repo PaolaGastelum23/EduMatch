@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Busca a tus alumnos</title>
+    <style>
+        :root {
+            --bg-yellow-light: #fef3c7;
+            --sidebar-yellow: #D9D9D9;
+            --color-maroon: #560310;
+            --text-main: #000;
+            --text-white: #ffffff;
+            --gray-search: #D9D9D9;
+            --color-maroon: #560310;
+            --color-unison-orange: #CE711A;
+            --color-bg-light: #f6f6ea;
+            --color-text-white: #FFFFFF;
+            --color-accept: #22c55e;
+            --color-reject: #560310;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #fff;
+            overflow: hidden;
+        }
+
+        .left-panel::-webkit-scrollbar {
+            width: 16px;
+        }
+
+        .left-panel::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .left-panel::-webkit-scrollbar-thumb {
+            background: var(--color-maroon);
+            border-radius: 10px;
+            border: 3px solid #f1f1f1;
+        }
+
+        .left-panel::-webkit-scrollbar-thumb:hover {
+            background: #7a0618;
+        }
+
+        .left-panel {
+            scrollbar-width: auto;
+            scrollbar-color: var(--color-maroon) #f1f1f1;
+        }
+
+        .main-container {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            height: 100vh;
+        }
+
+        .left-panel {
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .header-search {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 50px;
+            gap: 20px;
+        }
+
+        .header-search h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            max-width: 300px;
+            line-height: 1.1;
+        }
+
+        .search-box {
+            background-color: var(--gray-search);
+            flex: 1;
+            height: 50px;
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            border: 1px solid #ccc;
+        }
+
+        .search-box input {
+            background: transparent;
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 1.1rem;
+            margin-left: 10px;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .card {
+            background-color: var(--color-maroon);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 8px;
+        }
+
+        .card-content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            font-size: 0.85rem;
+        }
+
+        .status-tag {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+        }
+
+        .progress-bar {
+            background: rgba(255, 255, 255, 0.2);
+            height: 8px;
+            border-radius: 10px;
+            margin-top: 5px;
+        }
+
+        .progress-fill {
+            background: white;
+            height: 100%;
+            border-radius: 10px;
+        }
+
+        .btn-message {
+            margin-top: 10px;
+            padding: 8px;
+            border-radius: 5px;
+            border: none;
+            background: white;
+            color: var(--color-maroon);
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .right-panel {
+            background-color: var(--sidebar-yellow);
+            border-left: 12px solid var(--color-maroon);
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card .grade {
+            font-size: 0.8rem;
+            margin-bottom: 5px;
+        }
+
+        .card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+        }
+
+        .card-body {
+            display: flex;
+            gap: 15px;
+        }
+
+        .img-placeholder {
+            width: 100px;
+            height: 100px;
+            background-color: rgba(255, 255, 255, 0.2);
+            /* Se vuelve semi-transparente */
+            flex-shrink: 0;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .card-text {
+            font-size: 0.75rem;
+            line-height: 1.3;
+        }
+
+        .chat-panel {
+            flex-grow: 1;
+            background-color: var(--color-unison-orange);
+            padding: 30px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .chat-panel h3 {
+            color: black;
+            text-align: center;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .circular-progress {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: conic-gradient(var(--color-accept) 0deg, #166534 0deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .circular-progress::before {
+            content: "";
+            position: absolute;
+            width: 95px;
+            height: 95px;
+            background-color: var(--color-unison-orange);
+            border-radius: 50%;
+        }
+
+        .progress-value {
+            position: relative;
+            font-weight: bold;
+            font-size: 28px;
+            color: black;
+        }
+
+        .circular-progress.reset-state {
+
+            background: conic-gradient(#bdc3c7 360deg, #bdc3c7 360deg) !important;
+        }
+
+        .circular-progress.reset-state .progress-value {
+            color: #7f8c8d;
+        }
+
+        .students-list {
+            width: 100%;
+            max-width: 400px;
+            margin-top: 20px;
+        }
+
+        .student-item {
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            margin-bottom: 15px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+            color: black;
+        }
+
+        .student-item.active {
+            background: white;
+            border-radius: 20px;
+            border: none;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .student-item.active .student-name {
+            font-size: 1.1rem;
+            display: block;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .details-content {
+            display: none;
+            margin-top: 15px;
+        }
+
+        .student-item.active .details-content {
+            display: block;
+        }
+
+        .details-grid {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .btn-accept,
+        .btn-reject {
+            border: none;
+            padding: 8px 20px;
+            border-radius: 12px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .btn-accept {
+            background-color: var(--color-accept);
+        }
+
+        .btn-reject {
+            background-color: var(--color-reject);
+        }
+
+
+        .slide-out-right {
+            animation: slideOutRight 0.5s forwards;
+        }
+
+        @keyframes slideOutRight {
+            from {
+                opacity: 1;
+                transform: translateX(0);
+            }
+
+            to {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+        }
+
+        .fade-in-card {
+            animation: fadeInCard 0.5s ease-in;
+        }
+
+        @keyframes fadeInCard {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .filter-glass-container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 20px 30px;
+            display: flex;
+            gap: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-group label {
+            color: #e2e8f0;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            margin-left: 5px;
+        }
+
+        .custom-select {
+            background: #560310;
+            color: white;
+            border: 1.5px solid #4a1d1d;
+            border-radius: 12px;
+            padding: 10px 15px;
+            outline: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 200px;
+        }
+
+        .custom-select:hover {
+            border-color: #8b1d1d;
+            background: #252525;
+            transform: translateY(-2px);
+        }
+
+        .custom-select:focus {
+            box-shadow: 0 0 0 3px rgba(139, 29, 29, 0.3);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="main-container">
+        <section class="left-panel">
+            <header class="header-search">
+                <h1>Busca a tus alumnos</h1>
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Escribe un nombre...">
+                </div>
+            </header>
+
+            <div class="filter-glass-container">
+                <div class="filter-group">
+                    <label for="filterSemester"></label>
+                    <select id="filterSemester" class="custom-select">
+                        <option value="all">Todos los semestres</option>
+                        <option value="1">1° Semestre</option>
+                        <option value="2">2° Semestre</option>
+                        <option value="3">3° Semestre</option>
+                        <option value="4">4° Semestre</option>
+                        <option value="5">5° Semestre</option>
+                        <option value="6">6° Semestre</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="sortProgress"></label>
+                    <select id="sortProgress" class="custom-select">
+                        <option value="none">Progreso</option>
+                        <option value="desc">Mayor progreso</option>
+                        <option value="asc">Menor progreso</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="cards-grid">
+                <article class="card">
+                    <div class="card-header">
+                        <div class="header-info">
+                            <h3>Esteban Mendoza</h3>
+                            <p class="matricula">Matrícula: A02345</p>
+                        </div>
+                        <p class="grade">3° Semestre</p>
+                    </div>
+
+                    <div class="card-content-grid">
+                        <div class="info-group">
+                            <p><strong>Materia:</strong> Física</p>
+                            <p><strong>Estado:</strong> <span class="status-tag">En curso</span></p>
+                        </div>
+                        <div class="info-group">
+                            <p><strong>Última sesión:</strong> 2 mayo</p>
+                            <p><strong>Asistencia:</strong> 80%</p>
+                        </div>
+                    </div>
+
+                    <div class="progress-container">
+                        <p>Progreso: 60%</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 60%;"></div>
+                        </div>
+                    </div>
+                    <button class="btn-message"
+                        onclick="enviarMensaje('Esteban Mendoza', '../imagenes/Esteban.jpg')">Enviar mensaje</button>
+                </article>
+
+                <article class="card">
+                    <div class="card-header">
+                        <div class="header-info">
+                            <h3>Gustavo Martínez</h3>
+                            <p class="matricula">Matrícula: A02889</p>
+                        </div>
+                        <p class="grade">5° Semestre</p>
+                    </div>
+                    <div class="card-content-grid">
+                        <div class="info-group">
+                            <p><strong>Materia:</strong> Cálculo</p>
+                            <p><strong>Estado:</strong> <span class="status-tag">En curso</span></p>
+                        </div>
+                        <div class="info-group">
+                            <p><strong>Última sesión:</strong> 3 mayo</p>
+                            <p><strong>Asistencia:</strong> 95%</p>
+                        </div>
+                    </div>
+                    <div class="progress-container">
+                        <p>Progreso: 85%</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 85%;"></div>
+                        </div>
+                    </div>
+                    <button class="btn-message"
+                        onclick="enviarMensaje('Gustavo Martínez', '../imagenes/Gustavo.jpg')">Enviar mensaje</button>
+                </article>
+
+                <article class="card">
+                    <div class="card-header">
+                        <div class="header-info">
+                            <h3>Ana López</h3>
+                            <p class="matricula">Matrícula: A02941</p>
+                        </div>
+                        <p class="grade">1° Semestre</p>
+                    </div>
+                    <div class="card-content-grid">
+                        <div class="info-group">
+                            <p><strong>Materia:</strong> Álgebra</p>
+                            <p><strong>Estado:</strong> <span class="status-tag">Suspendido</span></p>
+                        </div>
+                        <div class="info-group">
+                            <p><strong>Última sesión:</strong> 30 marzo</p>
+                            <p><strong>Asistencia:</strong> 20%</p>
+                        </div>
+                    </div>
+                    <div class="progress-container">
+                        <p>Progreso: 15%</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 15%;"></div>
+                        </div>
+                    </div>
+                    <button class="btn-message" onclick="enviarMensaje('Ana López', '../imagenes/Ana.jpg')">Enviar
+                        mensaje</button>
+                </article>
+
+                <article class="card">
+                    <div class="card-header">
+                        <div class="header-info">
+                            <h3>Sofía Hernández</h3>
+                            <p class="matricula">Matrícula: A03112</p>
+                        </div>
+                        <p class="grade">4° Semestre</p>
+                    </div>
+                    <div class="card-content-grid">
+                        <div class="info-group">
+                            <p><strong>Materia:</strong> Álgebra lineal</p>
+                            <p><strong>Estado:</strong> <span class="status-tag">Pendiente de iniciar</span></p>
+                        </div>
+                        <div class="info-group">
+                            <p><strong>Última sesión:</strong> - </p>
+                            <p><strong>Asistencia:</strong> 0%</p>
+                        </div>
+                    </div>
+                    <div class="progress-container">
+                        <p>Progreso: 0%</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                    <button class="btn-message"
+                        onclick="enviarMensaje('Sofía Hernández', '../imagenes/Sofia.jpg')">Enviar mensaje</button>
+                </article>
+
+                <article class="card">
+                    <div class="card-header">
+                        <div class="header-info">
+                            <h3>Luis Ramírez</h3>
+                            <p class="matricula">Matrícula: A02754</p>
+                        </div>
+                        <p class="grade">2° Semestre</p>
+                    </div>
+                    <div class="card-content-grid">
+                        <div class="info-group">
+                            <p><strong>Materia:</strong> Probabilidad y estadística</p>
+                            <p><strong>Estado:</strong> <span class="status-tag">Finalizado</span></p>
+                        </div>
+                        <div class="info-group">
+                            <p><strong>Última sesión:</strong> 1 mayo</p>
+                            <p><strong>Asistencia:</strong> 100%</p>
+                        </div>
+                    </div>
+                    <div class="progress-container">
+                        <p>Progreso: 100%</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 100%;"></div>
+                        </div>
+                    </div>
+                    <button class="btn-message" onclick="enviarMensaje('Luis Ramírez', '../imagenes/Luis.jpg')">Enviar
+                        mensaje</button>
+                </article>
+
+                <article class="card">
+                    <div class="card-header">
+                        <div class="header-info">
+                            <h3>Mariana Torres</h3>
+                            <p class="matricula">Matrícula: A03421</p>
+                        </div>
+                        <p class="grade">3° Semestre</p>
+                    </div>
+                    <div class="card-content-grid">
+                        <div class="info-group">
+                            <p><strong>Materia:</strong> Física</p>
+                            <p><strong>Estado:</strong> <span class="status-tag">En curso</span></p>
+                        </div>
+                        <div class="info-group">
+                            <p><strong>Última sesión:</strong> 4 mayo</p>
+                            <p><strong>Asistencia:</strong> 100%</p>
+                        </div>
+                    </div>
+                    <div class="progress-container">
+                        <p>Progreso: 70%</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 70%;"></div>
+                        </div>
+                    </div>
+                    <button class="btn-message"
+                        onclick="enviarMensaje('Mariana Torres', '../imagenes/Mariana.jpg')">Enviar mensaje</button>
+                </article>
+
+                <article class="card">
+                    <div class="card-header">
+                        <div class="header-info">
+                            <h3>Diego Sánchez</h3>
+                            <p class="matricula">Matrícula: A02119</p>
+                        </div>
+                        <p class="grade">5° Semestre</p>
+                    </div>
+                    <div class="card-content-grid">
+                        <div class="info-group">
+                            <p><strong>Materia:</strong> Cálculo</p>
+                            <p><strong>Estado:</strong> <span class="status-tag">Finalizado</span></p>
+                        </div>
+                        <div class="info-group">
+                            <p><strong>Última sesión:</strong> 2 mayo</p>
+                            <p><strong>Asistencia:</strong> 100%</p>
+                        </div>
+                    </div>
+                    <div class="progress-container">
+                        <p>Progreso: 100%</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 100%;"></div>
+                        </div>
+                    </div>
+                    <button class="btn-message" onclick="enviarMensaje('Diego Sánchez', '../imagenes/Diego.jpg')">Enviar
+                        mensaje</button>
+                </article>
+
+                <article class="card">
+                    <div class="card-header">
+                        <div class="header-info">
+                            <h3>Valeria Cruz</h3>
+                            <p class="matricula">Matrícula: A03004</p>
+                        </div>
+                        <p class="grade">2° Semestre</p>
+                    </div>
+                    <div class="card-content-grid">
+                        <div class="info-group">
+                            <p><strong>Materia:</strong> Álgebra</p>
+                            <p><strong>Estado:</strong> <span class="status-tag">Suspendido</span></p>
+                        </div>
+                        <div class="info-group">
+                            <p><strong>Última sesión:</strong> 3 febrero</p>
+                            <p><strong>Asistencia:</strong> 45%</p>
+                        </div>
+                    </div>
+                    <div class="progress-container">
+                        <p>Progreso: 55%</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 55%;"></div>
+                        </div>
+                    </div>
+                    <button class="btn-message"
+                        onclick="enviarMensaje('Valeria Cruz', '../imagenes/Valeria.jpg')">Enviar mensaje</button>
+                </article>
+
+                <article class="card">
+                    <div class="card-header">
+                        <div class="header-info">
+                            <h3>Javier Morales</h3>
+                            <p class="matricula">Matrícula: A02558</p>
+                        </div>
+                        <p class="grade">4° Semestre</p>
+                    </div>
+                    <div class="card-content-grid">
+                        <div class="info-group">
+                            <p><strong>Materia:</strong> Álgebra lineal</p>
+                            <p><strong>Estado:</strong> <span class="status-tag">En curso</span></p>
+                        </div>
+                        <div class="info-group">
+                            <p><strong>Última sesión:</strong> 1 mayo</p>
+                            <p><strong>Asistencia:</strong> 78%</p>
+                        </div>
+                    </div>
+                    <div class="progress-container">
+                        <p>Progreso: 50%</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 50%;"></div>
+                        </div>
+                    </div>
+                    <button class="btn-message"
+                        onclick="enviarMensaje('Javier Morales', '../imagenes/Javier.jpg')">Enviar mensaje</button>
+                </article>
+
+                <!-- Carlos Villareal -->
+                <article class="card">
+                    <div class="card-header">
+                        <div class="header-info">
+                            <h3>Carlos Villareal</h3>
+                            <p class="matricula">Matrícula: A03991</p>
+                        </div>
+                        <p class="grade">6° Semestre</p>
+                    </div>
+                    <div class="card-content-grid">
+                        <div class="info-group">
+                            <p><strong>Materia:</strong> Cálculo</p>
+                            <p><strong>Estado:</strong> <span class="status-tag">En curso</span></p>
+                        </div>
+                        <div class="info-group">
+                            <p><strong>Última sesión:</strong> 4 mayo</p>
+                            <p><strong>Asistencia:</strong> 98%</p>
+                        </div>
+                    </div>
+                    <div class="progress-container">
+                        <p>Progreso: 90%</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 90%;"></div>
+                        </div>
+                    </div>
+                    <button class="btn-message"
+                        onclick="enviarMensaje('Carlos Villareal', '../imagenes/Carlos.jpg')">Enviar mensaje</button>
+                </article>
+            </div>
+        </section>
+
+        <section class="chat-panel" id="chatPanel">
+            <h3>Solicitudes de nuevos alumnos</h3>
+
+            <div class="circular-progress reset-state" id="mainCircle">
+                <span class="progress-value" id="mainPercent">0</span>
+            </div>
+            <p style="color: black; margin-bottom: 20px;">Compatibilidad</p>
+
+            <div id="students-list" class="students-list">
+            </div>
+        </section>
+
+        <script>
+            const searchInput = document.getElementById('searchInput');
+            const filterSemester = document.getElementById('filterSemester');
+            const sortProgress = document.getElementById('sortProgress');
+            const cardsGrid = document.querySelector('.cards-grid');
+            function getAllCards() {
+                return Array.from(document.querySelectorAll('.card'));
+            }
+
+            function enviarMensaje(nombre, foto) {
+                const nombreParam = encodeURIComponent(nombre);
+                const fotoParam = encodeURIComponent(foto);
+                window.location.href = `MensajesTutor.html?alumno=${nombreParam}&foto=${fotoParam}`;
+            }
+
+            const listaAlumnos = [
+                { id: 101, nombre: "Eduardo Espinoza", comp: 100, materias: "Matemáticas, Física", semestre: "3°", modalidad: "Presencial / Online" },
+                { id: 102, nombre: "Gabriela Ruíz", comp: 95, materias: "Bases de Datos", semestre: "5°", modalidad: "Online" },
+                { id: 103, nombre: "Antonio González", comp: 80, materias: "Compiladores", semestre: "6°", modalidad: "Online" }
+            ];
+
+            function cargarSolicitudes() {
+                const contenedor = document.getElementById('students-list');
+                contenedor.innerHTML = listaAlumnos.map(alumno => `
+        <div class="student-item" id="card-${alumno.id}" onclick="expandirAlumno(${alumno.id})">
+            <div class="basic-info">
+                <strong class="student-name">${alumno.nombre}</strong>
+                <p style="font-size: 12px;">Compatibilidad de trabajo ${alumno.comp}%</p>
+            </div>
+            
+            <div class="details-content">
+                <div class="details-grid">
+                    <div class="info-text">
+                        <p><strong>Materias:</strong> ${alumno.materias}</p>
+                        <p><strong>Semestre:</strong> ${alumno.semestre}</p>
+                        <p><strong>Modalidad:</strong> ${alumno.modalidad}</p>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn-accept" onclick="event.stopPropagation(); procesarSolicitud(${alumno.id}, true)">Aceptar</button>
+                        <button class="btn-reject" onclick="event.stopPropagation(); procesarSolicitud(${alumno.id}, false)">Rechazar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `).join('');
+            }
+
+            function expandirAlumno(id) {
+                const alumno = listaAlumnos.find(a => a.id === id);
+                if (!alumno) return;
+
+                document.querySelectorAll('.student-item').forEach(card =>
+                    card.classList.remove('active')
+                );
+
+                const card = document.getElementById(`card-${id}`);
+                if (card) card.classList.add('active');
+
+                const circulo = document.getElementById('mainCircle');
+                const texto = document.getElementById('mainPercent');
+
+                circulo.classList.remove('reset-state');
+
+                const grados = alumno.comp * 3.6;
+
+                circulo.style.background = `conic-gradient(#22c55e ${grados}deg, #166534 ${grados}deg)`;
+
+                texto.innerText = alumno.comp;
+            }
+
+            function procesarSolicitud(id, aceptado) {
+                const card = document.getElementById(`card-${id}`);
+                const circle = document.getElementById("mainCircle");
+                const percent = document.getElementById("mainPercent");
+
+                const alumno = listaAlumnos.find(a => a.id === id);
+
+                // Animación
+                card.classList.add("slide-out-right");
+
+                setTimeout(() => {
+                    card.remove();
+
+                    if (aceptado && alumno) {
+                        crearTarjetaAlumno(alumno);
+                    }
+
+                    percent.innerText = "0";
+                    circle.style.background = "conic-gradient(#bdc3c7 360deg, #bdc3c7 360deg)";
+                    circle.classList.add("reset-state");
+
+                }, 500);
+            }
+            function resetCirculo() {
+                const circulo = document.getElementById('mainCircle');
+                const valorTexto = document.getElementById('mainPercent');
+                valorTexto.innerText = "0";
+
+                circulo.style.background = `conic-gradient(#bdc3c7 0deg, #bdc3c7 0deg)`;
+                circulo.classList.add('reset-state');
+            }
+
+            //crear tarjeta del panel izquierdo iufdiudiispoaipifiuafwufywf
+            function crearTarjetaAlumno(alumno) {
+                const contenedorPrincipal = document.querySelector('.cards-grid');
+                const nuevaTarjeta = document.createElement('article');
+                nuevaTarjeta.className = 'card fade-in-card';
+                nuevaTarjeta.innerHTML = `
+        <div class="card-header">
+            <div class="header-info">
+                <h3>${alumno.nombre}</h3>
+                <p class="matricula">Matrícula: A0${alumno.id}</p>
+            </div>
+            <p class="grade">${alumno.semestre} Semestre</p>
+        </div>
+        <div class="card-content-grid">
+            <div class="info-group">
+                <p><strong>Materia:</strong> ${alumno.materias.split(',')[0]}</p>
+                <p><strong>Estado:</strong> <span class="status-tag">Nuevo</span></p>
+            </div>
+            <div class="info-group">
+                <p><strong>Última sesión:</strong> Hoy</p>
+                <p><strong>Asistencia:</strong> 100%</p>
+            </div>
+        </div>
+        <div class="progress-container">
+            <p>Progreso: 0%</p>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 0%;"></div>
+            </div>
+        </div>
+        <button class="btn-message" onclick="enviarMensaje('${alumno.nombre}', '../imagenes/default.jpg')">Enviar mensaje</button>
+    `;
+                contenedorPrincipal.prepend(nuevaTarjeta);
+            }
+
+            // Buscador
+            document.getElementById('searchInput').addEventListener('input', (e) => {
+                const value = e.target.value.toLowerCase();
+                document.querySelectorAll('.left-panel .card').forEach(card => {
+                    const name = card.querySelector('h3').innerText.toLowerCase();
+                    card.style.display = name.includes(value) ? 'flex' : 'none';
+                });
+            });
+
+            function enviarMensaje(nombre, foto) {
+                window.location.href = `MensajesTutor.html?alumno=${encodeURIComponent(nombre)}&foto=${encodeURIComponent(foto)}`;
+            }
+
+            window.addEventListener('load', cargarSolicitudes);
+
+            function filtrarYOrdenar() {
+                const searchText = searchInput.value.toLowerCase();
+                const semesterValue = filterSemester.value;
+                const sortValue = sortProgress.value;
+
+                const allCards = getAllCards();
+
+                allCards.forEach(card => {
+                    const name = card.querySelector('h3').innerText.toLowerCase();
+                    const semester = card.querySelector('.grade').innerText;
+
+                    let matchesSearch = name.includes(searchText);
+                    let matchesSemester = semesterValue === 'all' || semester.startsWith(semesterValue);
+
+                    card.style.display = (matchesSearch && matchesSemester) ? 'flex' : 'none';
+                });
+                if (sortValue !== 'none') {
+                    const visibleCards = allCards.filter(c => c.style.display !== 'none');
+                    visibleCards.sort((a, b) => {
+                        const progA = parseInt(a.querySelector('.progress-container p').innerText.match(/\d+/)[0]);
+                        const progB = parseInt(b.querySelector('.progress-container p').innerText.match(/\d+/)[0]);
+                        return sortValue === 'desc' ? progB - progA : progA - progB;
+                    });
+                    visibleCards.forEach(card => cardsGrid.appendChild(card));
+                }
+            }
+            searchInput.addEventListener('input', filtrarYOrdenar);
+            filterSemester.addEventListener('change', filtrarYOrdenar);
+            sortProgress.addEventListener('change', filtrarYOrdenar);
+        </script>
+</body>
+</html>
