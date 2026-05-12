@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="\css\registro.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>Document</title>
+</head>
+<body>
+    <section class="registro-tutores">
+<!-- registro de tutores-->
+  <a href="/Inicio\index.html" class="boton-regresar">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+ <div class="titulos-tutores" id="RegistroT">
+        <p>Tutores</p>
+         <h1>NUEVO <br>
+            REGISTRO</h1>
+ </div>
+ <form class="regitros-forma-tutores">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+<!--
+            <label for="apellido-paterno">Apellido Paterno:</label>
+            <input type="text" id="apellido-paterno" name="apellido-paterno" required>
+
+            <label for="apellido-materno">Apellido Materno:</label>
+            <input type="text" id="apellido-materno" name="apellido-materno" required>
+            <div class="separacion"></div>
+-->
+            <label>Materias dominantes:</label>
+            <select name="materia" id="materia" required>
+                <option value="">Selecciona la materia</option>
+                <option value="ingenieria"> Quimica</option>
+                <option value="administracion">Matematicas</option>
+                <option value="psicologia">Codigo</option>
+                <option value="derecho">Social</option>
+                <option value="medicina">Medicina</option>
+                <option value="robotica">Robotica</option>
+                <option value="fisica">Física</option>
+                <option value="geografia">Geografía</option>
+                <option value="idiomas">Idiomas</option>
+            </select>
+
+            <label>Tu Semestre</label>
+            <select name="semestre" id="semestre" required>
+                <option value="">Selecciona tu semestre</option>
+                <option value="1">1° Semestre</option>
+                <option value="2">2° Semestre</option>
+                <option value="3">3° Semestre</option>
+                <option value="4">4° Semestre</option>
+                <option value="5">5° Semestre</option>
+                <option value="6">6° Semestre</option>
+                <option value="7">7° Semestre</option>
+                <option value="8">8° Semestre</option>
+                <option value="9">9° Semestre</option>
+                 
+            </select>
+
+             <div class="separacion"></div>
+
+            <label for="Expediente">Expediente Estudiantil:</label>
+            <input type="text" id="Expediente" name="Expediente" required>
+
+            <label>plantel</label>
+            <input type="text" id="plantel" name="plantel" required>
+
+            <label>Expediente Estudiantil:s</label>
+            <input type="text" id="expediente" name="expediente" required>
+
+             <div class="separacion"></div>
+
+            <!-- forma de subir archivo-->
+            <div class="contenedor-evidencia">
+                <label for="input-fila">Inserta Evidencia</label>
+                <label for="input-fila" class="capsulas">
+                    <div class="grupo-inciono">
+                        <i class="fas fa-share-nodes"></i>
+      <i class="fas fa-comment-dots"></i>
+      <i class="fas fa-upload"></i>
+                    </div>
+                </label>
+            </div>
+    
+ </form>
+ <a href="\Inicio\LoginRegitrocintrasena.html">
+ <button class="btn-registro-tutores">Iniciar</button>
+ </a>
+
+ <div class="linea2"></div>
+</section>
+<script src="\js\RegistroTutor.js"></script>
+</body>
+</html>

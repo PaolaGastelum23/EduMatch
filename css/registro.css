@@ -19,6 +19,15 @@
     src: url(/Fuentes/Comfortaa,Josefin_Sans,Livvic,Montserrat/Montserrat/Montserrat-VariableFont_wght.ttf);
 }
 
+body{
+    margin:auto 0;
+}
+* {
+   margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 :root {
     --bordo: #7D1F2D;
     --naranja: #FF6B00;
@@ -28,36 +37,20 @@
     --dorado-titulo: #A88B4A;
 }
 .linea {
-     background-color: #570606; /* Tu color bordo */
-    width: 100%;               /* Para alargarlo por toda la pantalla */
-    height: 180px;             /* Ajusta qué tan largo quieres el bloque */
-    display:flex; /* Para posicionarlo sin afectar el flujo del documento */
+    background-color: #570606;
+    width: 100%;
+    height: 180px;
+    display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 0;
-     /* Para que comience desde el borde izquierdo */
-    /*0 quedarse a la izquierda,0 quedarse arriba 
-    100% mueve todo a la derecha,0 lo mantiene arriba en la parte izquierda
-    60% mueve asia la derecha detiene antes del borde, 100% baja hasta el fondo de contenedor
-    0 regresa totalmente a la pared
-    100*/
-  
-   clip-path: polygon(0 0, 100% 0, 100% 70%, 0% 100%);
-    margin-bottom: 50px; /* Ajusta el espacio debajo del bloque */
+    clip-path: polygon(0 0, 100% 0, 100% 30%, 0% 100%);
+    margin-bottom: 0; /* ← era 50px */
 }
-  @media (max-width: 350px) {
-    .linea {
-       
-       height: 150px; /* Ajusta la altura para pantallas más pequeñas */
-        clip-path: polygon(0 0, 0 100%, 100% 60%, 0% 100%);
-    }
-}
-/*estilos para el registro de alumnos*/
-.registro-alumnos{
-    background-color: #F4F4F4;
-    padding: 40px 0;
 
-    margin-top: -1px; /* Al subirlo con margen negativo, se verá cómo se mete detrás */
+.registro-alumnos {
+    background-color: #F4F4F4;
+    padding: 0;          /* ← era 40px 0 */
+    margin-top: -1px;
 }
 
 /*acomodo de iconos en el formulario de registro*/
@@ -114,8 +107,8 @@
 }
 /*margenes del registro*/
 .registro-container {
-    margin: 30px;
-    
+    margin: 0;
+    padding: 0 30px;
 }
 /*da el molde del registro hasta donde llega*/
 .regitros-forma {
@@ -128,7 +121,7 @@
 }
 
 @media (max-width: 700px) {
-    .registro-container h1 {
+    .registro-forma h1 {
       margin-left: auto !important;
         margin-right: 50px !important;
         width: 70% !important;
@@ -136,7 +129,7 @@
     }
 }
 @media (max-width: 350px) {
-    .registro-container h1 {
+    .registro-forma h1 {
      margin-left: auto !important;
         margin-right: 50px !important;
         width: 60% !important;
@@ -528,3 +521,30 @@ z-index: 2;
     transform: scale(1.1); /* Agranda el icono ligeramente */
 }
 
+/*ventana error*/
+.mensaje-error{
+    display: none;
+    color: #42423A;
+    background-color: #ff6600;
+    border-left: 4px solid #42423A;
+    padding: 10px 15px;
+     border-radius: 5px;
+    font-family: 'afacad', sans-serif;
+    font-size: 1rem;
+    max-width: 650px;
+    margin: 10px auto;
+    text-align: center;
+}
+.mensaje-error.visible {
+    display: block;
+}
+
+.boton-regresar {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: white;
+    font-size: 1.5rem;
+    text-decoration: none;
+    z-index: -2;
+}
