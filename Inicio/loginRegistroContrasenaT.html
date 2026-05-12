@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>rellana</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="\css\regitracorreo.css">
+</head>
+<body>
+    
+ <header class="linea-bordo">
+        <a href="/Inicio\index.html" class="boton-regresar">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <div class="titulo-contenedor">
+            <h3>Vincula tu cuenta ahora</h3>
+            <img src="/imagenes/logo.jpg" alt="Logo Eduues" class="logo-vinculo">
+        </div>
+    </header>
+
+    <main class="contenedor-datos">
+<form class="formulario-vinculo">
+    <div class="campo">
+        <label for="username">Nombre de usuario</label>
+        <input type="text" id="username" required>
+    </div>
+
+    <div class="campo">
+        <label for="password">Contraseña</label>
+        <input type="password" id="password" required>
+    </div>
+
+    <div class="contenedor-google">
+        <button type="button" class="google-btn-falso">
+            <div class="google-icon-wrapper">
+                <i class="fa-brands fa-google"></i>
+            </div>
+            <span class="btn-text">Continuar con Google</span>
+        </button>
+    </div>
+
+    <button type="submit" class="btn-iniciar" onclick="vincula()">Vincular</button>
+</form>
+    </main>
+    <script>
+     function vincula(){
+    window.location.href = '/tutor.html';
+    };
+    </script>
+</body>
+</html>
