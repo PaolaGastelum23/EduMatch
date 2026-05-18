@@ -275,25 +275,112 @@ h2 {
     padding: 25px;
 }
 
+.weekdays,
 .calendar-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 10px;
-    text-align: center;
+    gap: 8px;
+   
+  gap: 5px;
+}
+
+
+.weekdays span {
+  text-align: center;
+  font-weight: bold;
+  color: #5C0000;
 }
 
 .calendar-grid span {
     font-weight: bold;
     font-size: 0.85rem;
-    padding: 5px 0;
+      display: inline-block;
+  text-align: center;
+  padding: 12px;
+  border-radius: 10px;
+  position: relative; /* importante para el tooltip */
+  cursor: default;
+}
+
+
+.calendar-grid .empty {
+  visibility: hidden;
+}
+
+.calendar-grid .active {
+  background-color: #b38b56;
+  color: white;
+  cursor: pointer;
 }
 
 .calendar-grid span.active {
-    background-color: var(--cafe-calendario);
-    color: white;
+  
     border-radius: 8px;
+      background-color: #b38b56;
+  color: white;
+  cursor: pointer;
 }
 
+/* Tooltip */
+.calendar-grid span.active::after {
+  content: attr(data-info); /* usa la info del atributo */
+  position: absolute;
+  bottom: 130%; /* arriba del día */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #f9f9f9;
+  color: #333;
+  padding: 8px 10px;
+  border: 1px solid #b38b56;
+  border-radius: 5px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  z-index: 10;
+}
+
+/* Flecha del tooltip */
+.calendar-grid span.active::before {
+  content: "";
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: #b38b56 transparent transparent transparent;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* Mostrar tooltip al hover */
+.calendar-grid span.active:hover::after,
+.calendar-grid span.active:hover::before {
+  opacity: 1;
+}/* TOOLTIP */
+.calendar-grid .active::after {
+  content: attr(data-info);
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  color: #333;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #b38b56;
+  white-space: nowrap;
+  opacity: 0;
+  transition: 0.3s;
+  pointer-events: none;
+  z-index: 100;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+}
+
+.calendar-grid .active:hover::after {
+  opacity: 1;
+}
 
 .recompensas-body {
    background: white;

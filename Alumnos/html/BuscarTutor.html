@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Buscar Tutor - Alumnos</title>
+
+    <link rel="stylesheet" href="../CSS/BuscarTutor.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
+
+<body>
+
+    <div class="app-container">
+
+        <aside class="sidebar">
+
+            <nav class="sidebar-nav">
+
+                <button class="nav-btn" id="btn-home">
+                    <i class="fa-solid fa-house"></i>
+                </button>
+
+                <button class="nav-btn active" id="btn-buscar">
+                    <i class="fa-solid fa-user-plus"></i>
+                </button>
+
+                <button class="nav-btn" id="btn-perfil">
+                    <i class="fa-solid fa-address-card"></i>
+                </button>
+
+                <button class="nav-btn" id="btn-favoritos">
+                    <i class="fa-solid fa-star"></i>
+                </button>
+
+                <button class="nav-btn" id="btn-mensajes">
+                    <i class="fa-solid fa-envelope"></i>
+                </button>
+
+                <button class="nav-btn" id="btn-editar">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </button>
+
+                <button class="nav-btn" id="btn-cursos">
+                    <i class="fa-solid fa-book-open"></i>
+                </button>
+
+            </nav>
+
+        </aside>
+
+        <main class="main-content">
+
+            <header class="header-section">
+
+                <h1 class="title">
+                    BUSCA TUS TUTORES
+                </h1>
+
+                <div class="search-filter-bar">
+
+                    <div class="search-container">
+
+                        <i class="fa-solid fa-magnifying-glass"></i>
+
+                        <input 
+                            type="text" 
+                            class="search-input" 
+                            placeholder="Buscar tutor..."
+                        >
+
+                    </div>
+
+                    <select class="materia-dropdown">
+
+                        <option value="todas">
+                            Materias
+                        </option>
+
+                        <option value="matematicas">
+                            Matemáticas
+                        </option>
+
+                        <option value="programacion">
+                            Programación
+                        </option>
+
+                        <option value="quimica">
+                            Química
+                        </option>
+
+                        <option value="medicina">
+                            Medicina
+                        </option>
+
+                        <option value="biologia">
+                            Biología
+                        </option>
+
+                        <option value="ingles">
+                            Inglés
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </header>
+
+            <section class="students-container">
+
+                <div 
+                    class="students-grid"
+                    id="students-grid"
+                >
+                </div>
+
+            </section>
+
+        </main>
+
+        <aside class="right-aside">
+
+            <h2 class="aside-title">
+                Tutores recomendados
+            </h2>
+
+            <div 
+                class="tutor-list"
+                id="mejores-tutores"
+            >
+            </div>
+
+            <h2 class="aside-title">
+                Más opciones
+            </h2>
+
+            <div 
+                class="tutor-list"
+                id="otros-tutores"
+            >
+            </div>
+
+        </aside>
+
+    </div>
+
+    <script type="module" src="../JS/BuscarTutor.js"></script>
+
+</body>
+
+</html>

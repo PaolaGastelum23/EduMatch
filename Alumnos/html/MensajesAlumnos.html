@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat - Alumno</title>
+    <link rel="stylesheet" href="../CSS/ChatA.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <nav class="sidebar-nav">
+                <button class="nav-btn">
+                    <i class="fa-solid fa-house"></i>
+                </button>
+                <button class="nav-btn">
+                    <i class="fa-solid fa-user-plus"></i>
+                </button>
+                <button class="nav-btn">
+                    <i class="fa-solid fa-address-card"></i>
+                </button>
+                <button class="nav-btn">
+                    <i class="fa-solid fa-star"></i>
+                </button>
+                <button class="nav-btn active">
+                    <i class="fa-solid fa-envelope"></i>
+                </button>
+                <button class="nav-btn">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </button>
+                <button class="nav-btn">
+                    <i class="fa-solid fa-book-open"></i>
+                </button>
+            </nav>
+        </aside>
+
+        <aside class="chat-sidebar">
+            <div class="user-profile">
+                <div class="profile-circle"></div>
+                <h3>Nombre de alumno</h3>
+                <button class="btn-editar">Editar</button>
+            </div>
+
+            <div class="contacts-list">
+                <div class="contact-item">
+                    <span class="status-dot"></span>
+                    <div class="contact-avatar"></div>
+                    <div class="contact-info">
+                        <h4>Nombre de tutor</h4>
+                        <p class="materia">Materia llevada con el tutor</p>
+                        <p class="last-msg">Mensaje enviado</p>
+                    </div>
+                    <span class="msg-hour">12:30</span>
+                </div>
+                <div class="contact-item active-chat">
+                    <span class="status-dot"></span>
+                    <div class="contact-avatar"></div>
+                    <div class="contact-info">
+                        <h4>Nombre de tutor</h4>
+                        <p class="materia">Materia llevada con el tutor</p>
+                        <p class="last-msg">Mensaje enviado</p>
+                    </div>
+                    <span class="msg-hour">11:15</span>
+                </div>
+                <div class="contact-item">
+                    <span class="status-dot"></span>
+                    <div class="contact-avatar"></div>
+                    <div class="contact-info">
+                        <h4>Nombre de tutor</h4>
+                        <p class="materia">Materia llevada con el tutor</p>
+                        <p class="last-msg">Mensaje enviado</p>
+                    </div>
+                    <span class="msg-hour">Ayer</span>
+                </div>
+            </div>
+        </aside>
+
+        <main class="chat-window">
+            <header class="chat-header">
+                <div class="header-avatar"></div>
+                <div class="header-text">
+                    <h2>Nombre del tutor</h2>
+                    <span>Última vez hoy a las 20:30</span>
+                </div>
+            </header>
+
+            <section class="messages-container">
+                <div class="msg-tutor">
+                    <div class="msg-avatar"></div>
+                    <div class="msg-content">
+                        <div class="msg-header">
+                            <strong>Nombre del tutor</strong>
+                            <span class="time">20:30</span>
+                        </div>
+                        <p>Hola, aquí te envío el archivo que revisamos en la asesoría de hoy.</p>
+                        <div class="file-placeholder"></div>
+                    </div>
+                </div>
+
+                <div class="msg-alumno">
+                    <div class="alumno-content">
+                        <span class="time">20:32</span>
+                        <div class="bubble">
+                            <p>¡Muchas gracias! Ya lo estoy revisando para la práctica.</p>
+                        </div>
+                    </div>
+                    <div class="msg-avatar"></div>
+                </div>
+            </section>
+
+            <footer class="chat-input-bar">
+                <i class="fa-solid fa-paperclip" style="font-size: 20px; color: #600101; cursor: pointer;"></i>
+                <input type="text" placeholder="Escribe tu mensaje aquí...">
+                <button class="btn-enviar">Enviar</button>
+            </footer>
+        </main>
+    </div>
+</body>
+</html>
