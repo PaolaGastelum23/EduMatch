@@ -1,31 +1,41 @@
-/* Configuración General */
-body {
-    background-color: #7a1e2c; /* Tu color guinda */
+@font-face {
+    font-family:afacad; ;
+    src: url(/Fuentes/Afacad,Comfortaa,Josefin_Sans,Livvic,Montserrat/Afacad/Afacad-VariableFont_wght.ttf);
+}
+@font-face {
+    font-family:vivvic negrita ;
+    src: url(/Fuentes/Comfortaa,Josefin_Sans,Livvic/Livvic/Livvic-Black.ttf);
+}
+@font-face {
+    font-family:vivvic regular ;
+    src: url(/Fuentes/Comfortaa,Josefin_Sans,Livvic/Livvic/Livvic-Medium.ttf);
+}
+@font-face {
+    font-family:vivvic light ;
+    src: url(/Fuentes/Comfortaa,Josefin_Sans,Livvic/Livvic/Livvic-Light.ttf);
+}
+@font-face {
+    font-family:Montserrat ;
+    src: url(/Fuentes/Comfortaa,Josefin_Sans,Livvic,Montserrat/Montserrat/Montserrat-VariableFont_wght.ttf);
+}
+body{
     margin: 0;
-    font-family: 'Roboto', Arial, sans-serif;
-}
-
-
-
-:root {
-    --bordo: #7D1F2D;
-    --dorado: #A88B4A;
-    --gris-fondo: #F4F4F4;
-}
-
-
-
-/* Franja superior con recorte */
-.linea-bordo {
-    background-color: var(--bordo);
-    height: 250px;
-    
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
+    font-family: Montserrat;
+    background-color: #7d1024;
     color: white;
+    min-height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+/*header*/
+.linea-bordo{
+    padding: 40px 80px;
+}
+@media (max-width: 768px) {
+    .linea-bordo {
+        padding: 20px 40px;
+    }
 }
 
 .boton-regresar {
@@ -36,75 +46,139 @@ body {
     font-size: 1.5rem;
     text-decoration: none;
 }
-
-.logo-vinculo {
-    width: 80px;
-    height: auto;
-    border-radius: 50%;
-    margin-top: 10px;
+.titulo-contenedor{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.titulo-contenedor h1 {
+    font-size: 70px;
+    line-height: 0.95;
+    width: 300px;
+    margin: 0;
 }
 
-/* Formulario */
-.contenedor-datos {
-    max-width: 400px;
-    margin: -40px auto 0; /* Sube un poco para entrar en el recorte */
-    padding: 20px;
-    background: white;
+.titulo-contenedor h3 {
+    font-size: 60px;
+    font-weight: bold;
+    width: 400px;
+    line-height: 1;
+    
+}
+.logo-vinculo{
+    width: 140px;
+    margin-top: -20px;
+}
+/*contenedoer principal*/
+.contenedor-datos{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -80px;
+}
+
+.formulario-vinculo{
+    background-color: rgba(183, 134, 143, 0.8);
+    padding: 40px;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    width: 400px;
 }
 
-.campo {
-    margin-bottom: 15px;
+.campo{
     display: flex;
     flex-direction: column;
+    margin-bottom: 20px;
 }
-
-label {
+.campo label{
+    margin-bottom: 10px;
+    font-size: 20px;
     font-weight: bold;
-    color: var(--bordo);
-    margin-bottom: 5px;
-}
+    color: #42423A;
 
-input {
-    padding: 10px;
-    border: 1px solid #ccc;
+}
+.campo input{
+    height: 45px;
+    border: none;
     border-radius: 5px;
+    background-color: #8a5a63;
+    color: white;
+    font-size: 16px;
+    padding: 0 10px;
 }
-
-/* Botón de Google */
-.google-btn-falso {
+/*boton google*/
+.google-btn-falso{
     width: 100%;
+    height: 45px;
+    border: none;
+    border-radius: 25px;
+    background-color: whitesmoke;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 10px;
-    background-color: white;
-    border: 1px solid #ddd;
-    padding: 10px;
-    border-radius: 5px;
     cursor: pointer;
-    margin-top: 10px;
+    margin-bottom: 25px;
+
+}
+.google-icon-wrapper{
+    width: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fa-google{
+   font-size: 20px;
+   background: linear-gradient(45deg, #4285f4, #34a853, #fbbc05, #ea4335);
+   -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent;
+}
+.btn-text {
+    font-size: 16px;
+    color: #555;
+}
+.btn-iniciar {
+    width: 100%;
+    height: 50px;
+    border: none;
+    border-radius: 25px;
+    background-color: #f0b400;
+    color: #42423A;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
     transition: 0.3s;
 }
 
-.google-btn-falso:hover {
-    background-color: #f1f1f1;
+.btn-iniciar:hover {
+    background-color: #d99f00;
+}
+.linea{
+    position: absolute;
+    width: 4px;
+    background-color: #d9ff00;
 }
 
-.fa-google {
-    color: #4285F4; 
-    font-size: 1.2rem;
+
+.linea1{
+    height: 300px;
+    left: 60px;
+    top: 500px;
 }
 
-.btn-iniciar {
-    width: 100%;
-    background-color: var(--bordo);
-    color: white;
-    border: none;
-    padding: 12px;
-    margin-top: 20px;
-    border-radius: 5px;
-    font-weight: bold;
-    cursor: pointer;
+.linea2{
+    height: 220px;
+    left: 150px;
+    top: 550px;
+}
+
+.linea3{
+    height: 350px;
+    right: 120px;
+    top: 450px;
+}
+
+
+.linea4{
+    height: 550px;
+    right: 50px;
+    top: 370px;
 }
