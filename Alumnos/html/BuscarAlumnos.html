@@ -480,7 +480,7 @@
                         </div>
                     </div>
                     <button class="btn-message"
-                        onclick="enviarMensaje('Esteban Mendoza', '../imagenes/Esteban.jpg')">Enviar mensaje</button>
+                        onclick="enviarMensaje('Esteban Mendoza', '../../imagenes/Esteban.jpg')">Enviar mensaje</button>
                 </article>
 
                 <article class="card">
@@ -535,7 +535,7 @@
                             <div class="progress-fill" style="width: 15%;"></div>
                         </div>
                     </div>
-                    <button class="btn-message" onclick="enviarMensaje('Ana López', '../imagenes/Ana.jpg')">Enviar
+                    <button class="btn-message" onclick="enviarMensaje('Ana López', '../../imagenes/Ana.jpg')">Enviar
                         mensaje</button>
                 </article>
 
@@ -711,7 +711,7 @@
                 <article class="card">
                     <div class="card-header">
                         <div class="header-info">
-                            <h3>Carlos Villareal</h3>
+                            <h3>Oscar Villareal</h3>
                             <p class="matricula">Matrícula: A03991</p>
                         </div>
                         <p class="grade">6° Semestre</p>
@@ -733,7 +733,7 @@
                         </div>
                     </div>
                     <button class="btn-message"
-                        onclick="enviarMensaje('Carlos Villareal', '../imagenes/Carlos.jpg')">Enviar mensaje</button>
+                        onclick="enviarMensaje('Oscar Villareal', '../imagenes/Oscar.jpg')">Enviar mensaje</button>
                 </article>
             </div>
         </section>
@@ -759,16 +759,82 @@
                 return Array.from(document.querySelectorAll('.card'));
             }
 
-            function enviarMensaje(nombre, foto) {
-                const nombreParam = encodeURIComponent(nombre);
-                const fotoParam = encodeURIComponent(foto);
-                window.location.href = `MensajesTutor.html?alumno=${nombreParam}&foto=${fotoParam}`;
-            }
+            let listaAlumnos = [
+                {
+                    id: 101,
+                    nombre: "Eduardo Espinoza",
+                    comp: 100,
+                    materias: "Matemáticas, Física",
+                    semestre: "3°",
+                    modalidad: "Presencial / Online",
+                    foto: "../../imagenes/Eduardo.jpg"
+                },
+                {
+                    id: 102,
+                    nombre: "Gabriela Ruíz",
+                    comp: 95,
+                    materias: "Bases de Datos",
+                    semestre: "5°",
+                    modalidad: "Online",
+                    foto: "../../imagenes/Gabriela.jpg"
+                },
+                {
+                    id: 103,
+                    nombre: "Antonio González",
+                    comp: 80,
+                    materias: "Compiladores",
+                    semestre: "6°",
+                    modalidad: "Online",
+                    foto: "../../imagenes/Antonio.jpg"
+                }
+            ];
 
-            const listaAlumnos = [
-                { id: 101, nombre: "Eduardo Espinoza", comp: 100, materias: "Matemáticas, Física", semestre: "3°", modalidad: "Presencial / Online" },
-                { id: 102, nombre: "Gabriela Ruíz", comp: 95, materias: "Bases de Datos", semestre: "5°", modalidad: "Online" },
-                { id: 103, nombre: "Antonio González", comp: 80, materias: "Compiladores", semestre: "6°", modalidad: "Online" }
+            let pilaAlumnos = [
+                {
+                    id: 104,
+                    nombre: "Paola Medina",
+                    comp: 92,
+                    materias: "Programación",
+                    semestre: "4°",
+                    modalidad: "Online",
+                    foto: "../../imagenes/Paola.jpg"
+                },
+                {
+                    id: 105,
+                    nombre: "Ricardo Flores",
+                    comp: 87,
+                    materias: "Cálculo integral",
+                    semestre: "2°",
+                    modalidad: "Presencial",
+                    foto: "../../imagenes/Ricardo.jpg"
+                },
+                {
+                    id: 106,
+                    nombre: "Fernanda Soto",
+                    comp: 84,
+                    materias: "Álgebra lineal",
+                    semestre: "3°",
+                    modalidad: "Presencial / Online",
+                    foto: "../../imagenes/Fernanda.jpg"
+                },
+                {
+                    id: 107,
+                    nombre: "Mario Delgado",
+                    comp: 78,
+                    materias: "Estructuras de Datos",
+                    semestre: "5°",
+                    modalidad: "Online",
+                    foto: "../../imagenes/Mario.jpg"
+                },
+                {
+                    id: 108,
+                    nombre: "Lucía Paredes",
+                    comp: 72,
+                    materias: "Probabilidad y estadística",
+                    semestre: "2°",
+                    modalidad: "Presencial",
+                    foto: "../../imagenes/Lucia.jpg"
+                }
             ];
 
             function cargarSolicitudes() {
@@ -827,7 +893,8 @@
 
                 const alumno = listaAlumnos.find(a => a.id === id);
 
-                // Animación
+                if (!card) return;
+
                 card.classList.add("slide-out-right");
 
                 setTimeout(() => {
@@ -837,12 +904,79 @@
                         crearTarjetaAlumno(alumno);
                     }
 
+                    listaAlumnos = listaAlumnos.filter(a => a.id !== id);
+
+                    if (pilaAlumnos.length > 0) {
+                        const nuevoAlumno = pilaAlumnos.shift();
+                        listaAlumnos.push(nuevoAlumno);
+                        agregarAlumnoAlPanelDerecho(nuevoAlumno);
+                    } else {
+                        revisarPanelVacio();
+                    }
+
                     percent.innerText = "0";
                     circle.style.background = "conic-gradient(#bdc3c7 360deg, #bdc3c7 360deg)";
                     circle.classList.add("reset-state");
 
                 }, 500);
             }
+
+            function agregarAlumnoAlPanelDerecho(alumno) {
+                const contenedor = document.getElementById('students-list');
+
+                const nuevoElemento = document.createElement('div');
+                nuevoElemento.className = "student-item fade-in-card";
+                nuevoElemento.id = `card-${alumno.id}`;
+                nuevoElemento.setAttribute("onclick", `expandirAlumno(${alumno.id})`);
+
+                nuevoElemento.innerHTML = `
+        <div class="basic-info">
+            <strong class="student-name">${alumno.nombre}</strong>
+            <p style="font-size: 12px;">Compatibilidad de trabajo ${alumno.comp}%</p>
+        </div>
+
+        <div class="details-content">
+            <div class="details-grid">
+                <div class="info-text">
+                    <p><strong>Materias:</strong> ${alumno.materias}</p>
+                    <p><strong>Semestre:</strong> ${alumno.semestre}</p>
+                    <p><strong>Modalidad:</strong> ${alumno.modalidad}</p>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn-accept" onclick="event.stopPropagation(); procesarSolicitud(${alumno.id}, true)">
+                        Aceptar
+                    </button>
+                    <button class="btn-reject" onclick="event.stopPropagation(); procesarSolicitud(${alumno.id}, false)">
+                        Rechazar
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+
+                contenedor.appendChild(nuevoElemento);
+            }
+            function revisarPanelVacio() {
+                const contenedor = document.getElementById('students-list');
+
+                if (listaAlumnos.length === 0 && pilaAlumnos.length === 0) {
+                    contenedor.innerHTML = `
+            <div style="
+                background: white;
+                padding: 20px;
+                border-radius: 15px;
+                text-align: center;
+                color: black;
+                font-weight: bold;
+                margin-top: 20px;
+            ">
+                No hay más solicitudes de alumnos por ahora.
+            </div>
+        `;
+                }
+            }
+
             function resetCirculo() {
                 const circulo = document.getElementById('mainCircle');
                 const valorTexto = document.getElementById('mainPercent');
@@ -881,7 +1015,7 @@
                 <div class="progress-fill" style="width: 0%;"></div>
             </div>
         </div>
-        <button class="btn-message" onclick="enviarMensaje('${alumno.nombre}', '../imagenes/default.jpg')">Enviar mensaje</button>
+<button class="btn-message" onclick="enviarMensaje('${alumno.nombre}', '${alumno.foto || "../../imagenes/default.jpg"}')">Enviar mensaje</button>        
     `;
                 contenedorPrincipal.prepend(nuevaTarjeta);
             }
@@ -896,10 +1030,15 @@
             });
 
             function enviarMensaje(nombre, foto) {
-                window.location.href = `MensajesTutor.html?alumno=${encodeURIComponent(nombre)}&foto=${encodeURIComponent(foto)}`;
-            }
+                const nombreParam = encodeURIComponent(nombre);
+                const fotoParam = encodeURIComponent(foto);
 
-            window.addEventListener('load', cargarSolicitudes);
+                localStorage.setItem('alumno_activo', nombre);
+                localStorage.setItem('foto_activa', foto);
+                localStorage.setItem(`chat_photo_${nombre}`, foto);
+
+                window.location.href = `MensajesTutor.html?alumno=${nombreParam}&foto=${fotoParam}`;
+            }
 
             function filtrarYOrdenar() {
                 const searchText = searchInput.value.toLowerCase();
@@ -930,6 +1069,9 @@
             searchInput.addEventListener('input', filtrarYOrdenar);
             filterSemester.addEventListener('change', filtrarYOrdenar);
             sortProgress.addEventListener('change', filtrarYOrdenar);
+
+            window.addEventListener('load', cargarSolicitudes);
         </script>
 </body>
+
 </html>

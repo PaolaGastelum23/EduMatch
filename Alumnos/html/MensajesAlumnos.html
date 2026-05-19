@@ -1,14 +1,72 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat - Alumno</title>
     <link rel="stylesheet" href="ChatA.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        .typing-indicator {
+            display: flex;
+            gap: 15px;
+            max-width: 80%;
+            align-items: center;
+        }
+
+        .typing-bubble {
+            background: white;
+            padding: 12px 18px;
+            border-radius: 0 20px 20px 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+            color: #777;
+            font-size: 13px;
+            font-style: italic;
+        }
+
+        .date-separator {
+            position: sticky;
+            top: 10px;
+            align-self: center;
+            background: #e5e5e5;
+            color: #555;
+            padding: 6px 14px;
+            border-radius: 16px;
+            font-size: 12px;
+            font-weight: 600;
+            z-index: 5;
+            margin: 10px 0;
+        }
+
+        .contact-avatar img,
+        .header-avatar img,
+        .msg-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .contact-avatar,
+        .header-avatar,
+        .msg-avatar {
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .btn-enviar:disabled,
+        .chat-input-bar input:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+    </style>
 </head>
+
 <body>
     <div class="app-container">
+
         <aside class="sidebar">
             <nav class="sidebar-nav">
                 <button class="nav-btn">
@@ -36,85 +94,606 @@
         </aside>
 
         <aside class="chat-sidebar">
-            <div class="user-profile">
-                <div class="profile-circle"></div>
-                <h3>Nombre de alumno</h3>
-                
+            <div class="search-container">
+                <div class="search-box">
+                    <input type="text" id="search-input" placeholder="Buscar tutor o materia...">
+                </div>
             </div>
 
-            <div class="contacts-list">
-                <div class="contact-item">
-                    <span class="status-dot"></span>
-                    <div class="contact-avatar"></div>
-                    <div class="contact-info">
-                        <h4>Nombre de tutor</h4>
-                        <p class="materia">Materia llevada con el tutor</p>
-                        <p class="last-msg">Mensaje enviado</p>
-                    </div>
-                    <span class="msg-hour">12:30</span>
-                </div>
-                <div class="contact-item active-chat">
-                    <span class="status-dot"></span>
-                    <div class="contact-avatar"></div>
-                    <div class="contact-info">
-                        <h4>Nombre de tutor</h4>
-                        <p class="materia">Materia llevada con el tutor</p>
-                        <p class="last-msg">Mensaje enviado</p>
-                    </div>
-                    <span class="msg-hour">11:15</span>
-                </div>
-                <div class="contact-item">
-                    <span class="status-dot"></span>
-                    <div class="contact-avatar"></div>
-                    <div class="contact-info">
-                        <h4>Nombre de tutor</h4>
-                        <p class="materia">Materia llevada con el tutor</p>
-                        <p class="last-msg">Mensaje enviado</p>
-                    </div>
-                    <span class="msg-hour">Ayer</span>
-                </div>
-            </div>
+            <div class="contacts-list"></div>
         </aside>
 
         <main class="chat-window">
             <header class="chat-header">
-                <div class="header-avatar"></div>
+                <div class="header-avatar" id="chat-header-avatar">
+                    <img src="" alt="Avatar" id="header-img" style="display: none;">
+                </div>
+
                 <div class="header-text">
-                    <h2>Nombre del tutor</h2>
-                    <span>Última vez hoy a las 20:30</span>
+                    <h2 id="chat-title">Selecciona un tutor</h2>
+                    <span id="chat-status" style="display: none;">En línea</span>
                 </div>
             </header>
 
-            <section class="messages-container">
-                <div class="msg-tutor">
-                    <div class="msg-avatar"></div>
-                    <div class="msg-content">
-                        <div class="msg-header">
-                            <strong>Nombre del tutor</strong>
-                            <span class="time">20:30</span>
+            <section class="messages-container" id="messages-container"></section>
+
+            <footer class="chat-input-bar" id="chat-input-bar" style="display: none;">
+                <div class="attach-wrapper">
+                    <i class="fa-solid fa-paperclip" id="btn-attach"></i>
+
+                    <div class="attach-menu" id="attach-menu">
+                        <div class="attach-option">
+                            <i class="fa-solid fa-file-lines icon-documento"></i>
+                            <span>Documento</span>
                         </div>
-                        <p>Hola, aquí te envío el archivo que revisamos en la asesoría de hoy.</p>
-                        <div class="file-placeholder"></div>
+
+                        <div class="attach-option">
+                            <i class="fa-solid fa-image icon-foto"></i>
+                            <span>Fotos y videos</span>
+                        </div>
+
+                        <div class="attach-option">
+                            <i class="fa-solid fa-camera icon-camara"></i>
+                            <span>Cámara</span>
+                        </div>
+
+                        <div class="attach-option">
+                            <i class="fa-solid fa-headphones icon-audio"></i>
+                            <span>Audio</span>
+                        </div>
+
+                        <div class="attach-option">
+                            <i class="fa-solid fa-user icon-contacto"></i>
+                            <span>Contacto</span>
+                        </div>
+
+                        <div class="attach-option">
+                            <i class="fa-solid fa-location-dot icon-ubicacion"></i>
+                            <span>Ubicación</span>
+                        </div>
+
+                        <div class="attach-option">
+                            <i class="fa-solid fa-calendar-days icon-evento"></i>
+                            <span>Evento</span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="msg-alumno">
-                    <div class="alumno-content">
-                        <span class="time">20:32</span>
-                        <div class="bubble">
-                            <p>¡Muchas gracias! Ya lo estoy revisando para la práctica.</p>
-                        </div>
-                    </div>
-                    <div class="msg-avatar"></div>
-                </div>
-            </section>
-
-            <footer class="chat-input-bar">
-                <i class="fa-solid fa-paperclip" style="font-size: 20px; color: #600101; cursor: pointer;"></i>
-                <input type="text" placeholder="Escribe tu mensaje aquí...">
-                <button class="btn-enviar">Enviar</button>
+                <input type="text" id="mensaje-input" placeholder="Escribe tu mensaje aquí...">
+                <button class="btn-enviar" id="btn-enviar">Enviar</button>
             </footer>
         </main>
+
     </div>
+
+    <script>
+        let tutorActual = "";
+        let fotoActual = "";
+        let hayChatAbierto = false;
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const urlParams = new URLSearchParams(window.location.search);
+
+            tutorActual = urlParams.get('tutor');
+            fotoActual = urlParams.get('foto');
+
+            cargarContactos();
+
+            if (tutorActual && fotoActual) {
+                tutorActual = decodeURIComponent(tutorActual);
+                fotoActual = decodeURIComponent(fotoActual);
+
+                cargarChat(tutorActual, fotoActual);
+            } else {
+                mostrarPantallaVacia();
+            }
+
+            document.getElementById('btn-enviar').addEventListener('click', enviarMensajeChat);
+
+            document.getElementById('mensaje-input').addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    enviarMensajeChat();
+                }
+            });
+
+            document.getElementById('search-input').addEventListener('input', buscarContacto);
+
+            const btnAttach = document.getElementById('btn-attach');
+            const attachMenu = document.getElementById('attach-menu');
+
+            btnAttach.addEventListener('click', function (e) {
+                e.stopPropagation();
+                attachMenu.classList.toggle('show');
+            });
+
+            document.addEventListener('click', function () {
+                attachMenu.classList.remove('show');
+            });
+
+            attachMenu.addEventListener('click', function (e) {
+                e.stopPropagation();
+            });
+
+            document.querySelectorAll('.attach-option').forEach(option => {
+                option.addEventListener('click', function () {
+                    const tipo = this.querySelector('span').textContent;
+
+                    attachMenu.classList.remove('show');
+                    enviarAdjunto(tipo);
+                });
+            });
+
+        });
+
+        function mostrarPantallaVacia() {
+            hayChatAbierto = false;
+
+            document.getElementById('chat-title').textContent = "Selecciona un tutor";
+            document.getElementById('chat-status').style.display = "none";
+            document.getElementById('chat-input-bar').style.display = "none";
+
+            const headerImg = document.getElementById('header-img');
+            headerImg.src = "";
+            headerImg.style.display = "none";
+
+            const contenedor = document.getElementById('messages-container');
+            contenedor.innerHTML = `
+                <div style="
+                    text-align: center;
+                    margin-top: 120px;
+                    color: #777;
+                    font-size: 18px;
+                ">
+                    <p>Selecciona una conversación del panel izquierdo.</p>
+                </div>
+            `;
+
+            document.querySelectorAll('.contact-item').forEach(contact => {
+                contact.classList.remove('active-chat');
+            });
+        }
+
+        function cargarChat(nombre, foto) {
+            hayChatAbierto = true;
+
+            tutorActual = nombre;
+            fotoActual = foto;
+
+            localStorage.setItem('tutor_activo', nombre);
+            localStorage.setItem('foto_tutor_activa', foto);
+            localStorage.setItem(`chat_photo_alumno_${nombre}`, foto);
+
+            document.getElementById('chat-title').textContent = nombre;
+            document.getElementById('chat-status').textContent = "En línea";
+            document.getElementById('chat-status').style.display = "inline";
+            document.getElementById('chat-input-bar').style.display = "flex";
+
+            const headerImg = document.getElementById('header-img');
+            headerImg.src = foto;
+            headerImg.style.display = "block";
+
+            const claveChat = `chat_alumno_messages_${nombre}`;
+            let mensajes = JSON.parse(localStorage.getItem(claveChat)) || [];
+
+            const contenedor = document.getElementById('messages-container');
+            contenedor.innerHTML = "";
+
+            if (mensajes.length === 0) {
+                contenedor.innerHTML = `
+                    <div style="
+                        text-align: center;
+                        margin-top: 120px;
+                        color: #777;
+                        font-size: 18px;
+                    ">
+                        <p>Aún no hay mensajes con ${nombre}.</p>
+                        <p>Escribe abajo para iniciar la conversación.</p>
+                    </div>
+                `;
+            } else {
+                pintarMensajesConFechas(mensajes);
+            }
+
+            contenedor.scrollTop = contenedor.scrollHeight;
+            cargarContactos();
+        }
+
+        function pintarMensajesConFechas(mensajes) {
+            const contenedor = document.getElementById('messages-container');
+            contenedor.innerHTML = "";
+
+            let ultimaFechaPintada = "";
+
+            mensajes.forEach(mensaje => {
+                if (!mensaje.fecha) {
+                    mensaje.fecha = obtenerFecha();
+                }
+
+                if (mensaje.fecha !== ultimaFechaPintada) {
+                    pintarSeparadorFecha(mensaje.fecha);
+                    ultimaFechaPintada = mensaje.fecha;
+                }
+
+                pintarMensaje(mensaje);
+            });
+        }
+
+        function pintarSeparadorFecha(fecha) {
+            const contenedor = document.getElementById('messages-container');
+
+            contenedor.innerHTML += `
+                <div class="date-separator">
+                    ${formatearFechaChat(fecha)}
+                </div>
+            `;
+        }
+
+        function pintarMensaje(mensaje) {
+            const contenedor = document.getElementById('messages-container');
+
+            if (mensaje.remitente === 'tutor') {
+                contenedor.innerHTML += `
+                    <div class="msg-tutor">
+                        <div class="msg-avatar">
+                            <img src="${fotoActual}" alt="${tutorActual}">
+                        </div>
+
+                        <div class="msg-content">
+                            <div class="msg-header">
+                                <strong>${tutorActual}</strong>
+                                <span class="time">${mensaje.hora}</span>
+                            </div>
+                            <p>${mensaje.texto}</p>
+                        </div>
+                    </div>
+                `;
+            } else {
+                contenedor.innerHTML += `
+                    <div class="msg-alumno">
+                        <div class="alumno-content">
+                            <span class="time">${mensaje.hora}</span>
+                            <div class="bubble">
+                                <p>${mensaje.texto}</p>
+                            </div>
+                        </div>
+                        <div class="msg-avatar personal-avatar"></div>
+                    </div>
+                `;
+            }
+        }
+
+        function enviarMensajeChat() {
+            if (!hayChatAbierto || tutorActual === "") {
+                alert("Primero selecciona una conversación.");
+                return;
+            }
+
+            const input = document.getElementById('mensaje-input');
+            const texto = input.value.trim();
+
+            if (texto === "") {
+                return;
+            }
+
+            const claveChat = `chat_alumno_messages_${tutorActual}`;
+            let mensajes = JSON.parse(localStorage.getItem(claveChat)) || [];
+
+            const nuevoMensaje = {
+                texto: texto,
+                remitente: 'alumno',
+                hora: obtenerHora(),
+                fecha: obtenerFecha()
+            };
+
+            mensajes.push(nuevoMensaje);
+            localStorage.setItem(claveChat, JSON.stringify(mensajes));
+
+            pintarMensajesConFechas(mensajes);
+
+            input.value = "";
+
+            const contenedor = document.getElementById('messages-container');
+            contenedor.scrollTop = contenedor.scrollHeight;
+
+            cargarContactos();
+
+            activarRespuestaAutomatica(texto);
+        }
+
+        function enviarAdjunto(tipo) {
+            if (!hayChatAbierto || tutorActual === "") {
+                alert("Primero selecciona una conversación.");
+                return;
+            }
+
+            const claveChat = `chat_alumno_messages_${tutorActual}`;
+            let mensajes = JSON.parse(localStorage.getItem(claveChat)) || [];
+
+            let textoAdjunto = "";
+
+            if (tipo === "Documento") {
+                textoAdjunto = "📄 Documento enviado";
+            } else if (tipo === "Fotos y videos") {
+                textoAdjunto = "🖼️ Foto o video enviado";
+            } else if (tipo === "Cámara") {
+                textoAdjunto = "📷 Foto tomada con cámara";
+            } else if (tipo === "Audio") {
+                textoAdjunto = "🎧 Audio enviado";
+            } else if (tipo === "Contacto") {
+                textoAdjunto = "👤 Contacto compartido";
+            } else if (tipo === "Ubicación") {
+                textoAdjunto = "📍 Ubicación compartida";
+            } else if (tipo === "Evento") {
+                textoAdjunto = "📅 Evento compartido";
+            } else {
+                textoAdjunto = `Adjunto enviado: ${tipo}`;
+            }
+
+            const nuevoMensaje = {
+                texto: textoAdjunto,
+                remitente: 'alumno',
+                hora: obtenerHora(),
+                fecha: obtenerFecha()
+            };
+
+            mensajes.push(nuevoMensaje);
+            localStorage.setItem(claveChat, JSON.stringify(mensajes));
+
+            pintarMensajesConFechas(mensajes);
+
+            const contenedor = document.getElementById('messages-container');
+            contenedor.scrollTop = contenedor.scrollHeight;
+
+            cargarContactos();
+
+            activarRespuestaAutomatica(textoAdjunto);
+        }
+
+        function activarRespuestaAutomatica(textoUsuario) {
+            mostrarEscribiendo();
+
+            document.getElementById('mensaje-input').disabled = true;
+            document.getElementById('btn-enviar').disabled = true;
+
+            setTimeout(() => {
+                quitarEscribiendo();
+
+                const respuesta = obtenerRespuestaTutor(textoUsuario);
+
+                const claveChat = `chat_alumno_messages_${tutorActual}`;
+                let mensajes = JSON.parse(localStorage.getItem(claveChat)) || [];
+
+                const mensajeRespuesta = {
+                    texto: respuesta,
+                    remitente: 'tutor',
+                    hora: obtenerHora(),
+                    fecha: obtenerFecha()
+                };
+
+                mensajes.push(mensajeRespuesta);
+                localStorage.setItem(claveChat, JSON.stringify(mensajes));
+
+                pintarMensajesConFechas(mensajes);
+
+                const contenedor = document.getElementById('messages-container');
+                contenedor.scrollTop = contenedor.scrollHeight;
+
+                document.getElementById('mensaje-input').disabled = false;
+                document.getElementById('btn-enviar').disabled = false;
+
+                cargarContactos();
+
+            }, 1800);
+        }
+
+        function mostrarEscribiendo() {
+            const contenedor = document.getElementById('messages-container');
+
+            document.getElementById('chat-status').textContent = "escribiendo...";
+
+            contenedor.innerHTML += `
+                <div class="typing-indicator" id="typing-indicator">
+                    <div class="msg-avatar">
+                        <img src="${fotoActual}" alt="${tutorActual}">
+                    </div>
+                    <div class="typing-bubble">
+                        ${tutorActual} está escribiendo...
+                    </div>
+                </div>
+            `;
+
+            contenedor.scrollTop = contenedor.scrollHeight;
+        }
+
+        function quitarEscribiendo() {
+            const typing = document.getElementById('typing-indicator');
+
+            if (typing) {
+                typing.remove();
+            }
+
+            document.getElementById('chat-status').textContent = "En línea";
+        }
+
+        function obtenerRespuestaTutor(texto) {
+            const mensaje = texto.toLowerCase();
+
+            if (mensaje.includes("documento")) {
+                return "Ya recibí el documento. Lo reviso y te digo qué observaciones tengo.";
+            }
+
+            if (mensaje.includes("foto") || mensaje.includes("video") || mensaje.includes("cámara")) {
+                return "Ya vi la imagen. Con eso puedo revisar mejor tu duda.";
+            }
+
+            if (mensaje.includes("audio")) {
+                return "Recibí el audio. Ahorita lo escucho y te respondo.";
+            }
+
+            if (mensaje.includes("contacto")) {
+                return "Gracias por compartir el contacto. Lo tomaré en cuenta.";
+            }
+
+            if (mensaje.includes("ubicación")) {
+                return "Ya vi tu ubicación. Entonces podemos considerar una asesoría cercana o en línea.";
+            }
+
+            if (mensaje.includes("evento")) {
+                return "Ya vi el evento. Lo revisaré para ver si puedo acomodar ese horario.";
+            }
+
+            if (mensaje.includes("hola") || mensaje.includes("buenas")) {
+                return "Hola, claro. Dime qué tema necesitas reforzar.";
+            }
+
+            if (mensaje.includes("horario") || mensaje.includes("hora") || mensaje.includes("disponible")) {
+                return "Tengo disponibilidad por la tarde. Podemos agendar una sesión.";
+            }
+
+            if (mensaje.includes("tarea") || mensaje.includes("actividad") || mensaje.includes("práctica")) {
+                return "Claro, podemos revisar tu tarea paso a paso para que entiendas el procedimiento.";
+            }
+
+            if (mensaje.includes("examen") || mensaje.includes("estudiar") || mensaje.includes("repasar")) {
+                return "Podemos hacer una sesión de repaso con ejercicios parecidos a los del examen.";
+            }
+
+            if (mensaje.includes("gracias")) {
+                return "De nada. Estoy para apoyarte.";
+            }
+
+            if (mensaje.includes("programación") || mensaje.includes("java") || mensaje.includes("código")) {
+                return "Claro, mándame el error o el código y lo revisamos juntos.";
+            }
+
+            if (mensaje.includes("cálculo") || mensaje.includes("derivada") || mensaje.includes("integral")) {
+                return "Sí, podemos practicar ejercicios de cálculo paso a paso.";
+            }
+
+            if (mensaje.includes("base de datos") || mensaje.includes("sql")) {
+                return "Puedo ayudarte con consultas SQL, relaciones entre tablas o diagramas.";
+            }
+
+            if (mensaje.includes("asesoría") || mensaje.includes("clase") || mensaje.includes("sesión")) {
+                return "Claro, podemos organizar una asesoría. ¿Qué día te queda mejor?";
+            }
+
+            return "Claro, cuéntame un poco más sobre tu duda para poder ayudarte.";
+        }
+
+        function cargarContactos() {
+            const listaContactos = document.querySelector('.contacts-list');
+            listaContactos.innerHTML = "";
+
+            for (let i = 0; i < localStorage.length; i++) {
+                const clave = localStorage.key(i);
+
+                if (clave.startsWith('chat_alumno_messages_')) {
+                    const nombre = clave.replace('chat_alumno_messages_', '');
+                    const mensajes = JSON.parse(localStorage.getItem(clave)) || [];
+
+                    if (mensajes.length === 0) {
+                        continue;
+                    }
+
+                    const ultimoMensaje = mensajes[mensajes.length - 1];
+                    const foto = localStorage.getItem(`chat_photo_alumno_${nombre}`) || "../../imagenes/default.jpg";
+                    const activo = nombre === tutorActual && hayChatAbierto ? "active-chat" : "";
+
+                    listaContactos.innerHTML += `
+                        <div class="contact-item ${activo}" onclick="abrirContacto('${nombre}')">
+                            <span class="status-dot"></span>
+
+                            <div class="contact-avatar">
+                                <img src="${foto}" alt="${nombre}">
+                            </div>
+
+                            <div class="contact-info">
+                                <h4>${nombre}</h4>
+                                <p class="materia">Tutoría</p>
+                                <p class="last-msg">${ultimoMensaje ? ultimoMensaje.texto : 'Sin mensajes'}</p>
+                            </div>
+
+                            <span class="msg-hour">${ultimoMensaje ? ultimoMensaje.hora : ''}</span>
+                        </div>
+                    `;
+                }
+            }
+        }
+
+        function abrirContacto(nombre) {
+            const foto = localStorage.getItem(`chat_photo_alumno_${nombre}`) || "../../imagenes/default.jpg";
+            cargarChat(nombre, foto);
+        }
+
+        function buscarContacto(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const contacts = document.querySelectorAll('.contact-item');
+
+            contacts.forEach(contact => {
+                const name = contact.querySelector('.contact-info h4').textContent.toLowerCase();
+                const materia = contact.querySelector('.materia').textContent.toLowerCase();
+
+                if (name.includes(searchTerm) || materia.includes(searchTerm)) {
+                    contact.style.display = 'flex';
+                } else {
+                    contact.style.display = 'none';
+                }
+            });
+        }
+
+        function obtenerHora() {
+            return new Date().toLocaleTimeString([], {
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: false
+            });
+        }
+
+        function obtenerFecha() {
+            const fecha = new Date();
+            return fecha.toISOString().split('T')[0];
+        }
+
+        function formatearFechaChat(fechaTexto) {
+            const hoy = new Date();
+            const fecha = new Date(fechaTexto + "T00:00:00");
+
+            const hoySinHora = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
+            const fechaSinHora = new Date(fecha.getFullYear(), fecha.getMonth(), fecha.getDate());
+
+            const diferencia = hoySinHora - fechaSinHora;
+            const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+
+            if (dias === 0) {
+                return "Hoy";
+            }
+
+            if (dias === 1) {
+                return "Ayer";
+            }
+
+            if (dias < 7) {
+                const diasSemana = [
+                    "Domingo",
+                    "Lunes",
+                    "Martes",
+                    "Miércoles",
+                    "Jueves",
+                    "Viernes",
+                    "Sábado"
+                ];
+
+                return diasSemana[fecha.getDay()];
+            }
+
+            return fecha.toLocaleDateString('es-MX', {
+                day: '2-digit',
+                month: 'long',
+                year: 'numeric'
+            });
+        }
+    </script>
 </body>
+
 </html>
