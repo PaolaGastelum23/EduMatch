@@ -19,8 +19,9 @@
     src: url(/Fuentes/Comfortaa,Josefin_Sans,Livvic,Montserrat/Montserrat/Montserrat-VariableFont_wght.ttf);
 }
 
-body{
-    margin:auto 0;
+html, body {
+    overflow-x: hidden;
+   
 }
 * {
    margin: 0;
@@ -287,7 +288,14 @@ transition: color 0.3s;
     width: 100%;
 }
 
-
+@media (max-width: 900px) {
+    .regitros-forma-tutores {
+        margin-left: auto !important;
+        margin-right: 50px !important;
+        width: 90% !important;
+        max-width: 360px !important;
+    }
+}
 @media (max-width: 700px) {
     .regitros-forma-tutores {
         margin-left: auto !important;
@@ -296,11 +304,13 @@ transition: color 0.3s;
         max-width: 160px !important;
     }
 }
-@media (max-width: 900px) {
+@media (max-width: 650px) {
     .regitros-forma-tutores {
         margin-left: auto !important;
+       margin-top: 150px !important;
         margin-right: 50px !important;
-        width: 90% !important;
+        width: 100% !important;
+       justify-content: center;
         max-width: 360px !important;
     }
 }
@@ -323,7 +333,18 @@ transition: color 0.3s;
     font-family: 'Montserrat', sans-serif;
     z-index: 1;
 }
-@media (max-width: 700px) {
+
+
+@media (max-width: 1200px) {
+    .titulos-tutores h1 {
+        font-size:60px ;
+        left: 20%;
+        transform: translateX(-50%);  
+        margin-top: -5px;  
+        margin-bottom: 10%;
+    }
+}
+@media (max-width: 650px) {
     .titulos-tutores h1 {
         color: #42423A;
     position: absolute;
@@ -331,22 +352,11 @@ transition: color 0.3s;
     transform: translateX(-10%);
     margin-top: 45px;
     line-height: 0.8;
-    font-size: 4rem;
+    font-size: 3rem;
     font-weight: extra-bold;
     font-family: 'Montserrat', sans-serif;
     }
 }
-
-@media (max-width: 1200px) {
-    .titulos-tutores h1 {
-        font-size:2rem ;
-        left: 50%;
-        transform: translateX(-50%);  
-        margin-top: -60px;  
-        margin-bottom: 10%;
-    }
-}
-
 .titulos-tutores p{
     color: #42423A;
     position: absolute;
@@ -461,18 +471,13 @@ z-index: 2;
     }
 }
 
-.linea2{
- background-color: #570606;
+.linea2 {
+    background-color: #570606;
     width: 100%;
-    height: 450px; 
-    
-    /* Subimos la franja para que los iconos y el botón queden "dentro" de ella */
-    margin-top: -200px; 
-    
-    position: relative;
-    z-index: 0;
-    
-    clip-path: polygon(0 100%, 100% 100%, 100% 30%, 0 0%);
+    height: 250px; /* altura fija */
+    margin-top: -70px;
+
+    clip-path: polygon(0 0, 100% 30%, 100% 100%, 0 100%);
 }
 /* Estilos básicos para este ejemplo */
 
@@ -539,7 +544,25 @@ z-index: 2;
 .mensaje-error.visible {
     display: block;
 }
-
+/*ventana error*/
+.mensaje-error{
+    display: none;
+    color: #42423A;
+    background-color: #ff6600;
+    border-left: 4px solid #42423A;
+    padding: 10px 15px;
+     border-radius: 5px;
+    font-family: 'afacad', sans-serif;
+    font-size: 1rem;
+    max-width: 650px;
+    margin: 10px auto;
+    text-align: center;
+    position: relative;
+    z-index: 3; /* Asegura que el mensaje de error esté por encima de otros elementos */
+}
+.mensaje-error.visible {
+    display: block;
+}
 .boton-regresar {
     position: absolute;
     top: 20px;

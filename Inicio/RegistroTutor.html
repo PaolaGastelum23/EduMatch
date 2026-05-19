@@ -66,23 +66,26 @@
             <label>plantel</label>
             <input type="text" id="plantel" name="plantel" required>
 
-            <label>Expediente Estudiantil:s</label>
-            <input type="text" id="expediente" name="expediente" required>
-
+        
              <div class="separacion"></div>
 
             <!-- forma de subir archivo-->
-            <div class="contenedor-evidencia">
-                <label for="input-fila">Inserta Evidencia</label>
-                <label for="input-fila" class="capsulas">
-                    <div class="grupo-inciono">
-                        <i class="fas fa-share-nodes"></i>
-      <i class="fas fa-comment-dots"></i>
-      <i class="fas fa-upload"></i>
-                    </div>
-                </label>
-            </div>
+           <div class="contenedor-evidencia">
+    <label for="input-fila">Inserta Evidencia</label>
     
+    <label for="input-fila" class="capsulas">
+        <div class="grupo-inciono">
+            <i class="fas fa-share-nodes"></i>
+            <i class="fas fa-comment-dots"></i>
+            <i class="fas fa-upload"></i>
+        </div>
+    </label>
+
+    <input type="file" id="input-fila" style="display: none;" />
+    
+    <p id="nombre-archivo" style="font-size: 12px; color: #666;"></p>
+</div>
+    <div id="mensaje-error2" class="mensaje-error"></div>
  </form>
  <a href="\Inicio\LoginRegitrocintrasena.html">
  <button class="btn-registro-tutores">Iniciar</button>
@@ -90,6 +93,9 @@
 
  <div class="linea2"></div>
 </section>
+<footer>
+   
+</footer>
 <script src="\js\RegistroTutor.js"></script>
 </body>
 </html>
