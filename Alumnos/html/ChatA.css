@@ -1,0 +1,533 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.app-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.sidebar {
+  width: 80px;
+  background-color: #600101;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 30px;
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 10px;
+}
+
+.nav-btn {
+  background: none;
+  border: none;
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.nav-btn i {
+  font-size: 24px;
+  color: #f9e47b8b;
+}
+
+.nav-btn:hover i {
+  color: white;
+  transform: scale(1.1);
+}
+
+.nav-btn.active i {
+  color: white;
+}
+
+.nav-btn.active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 4px;
+  height: 35px;
+  background-color: white;
+  border-radius: 0 4px 4px 0;
+}
+
+.chat-sidebar {
+  width: 320px;
+  background-color: #f9e47b8b;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.user-profile {
+  padding: 30px;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.profile-circle {
+  width: 110px;
+  height: 110px;
+  background-color: #444440;
+  border-radius: 50%;
+  margin: 0 auto 15px;
+  border: 3px solid #f2a922;
+}
+
+.user-profile h3 {
+  color: white;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.contacts-list {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  gap: 14px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  position: relative;
+  cursor: pointer;
+  transition: background 0.2s;
+  min-height: 95px;
+}
+
+.contact-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.contact-item.active-chat {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  background-color: #b2ff59;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.contact-avatar {
+  width: 55px;
+  height: 55px;
+  background-color: #444440;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contact-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.contact-info {
+  flex: 1;
+  min-width: 0;
+  padding-right: 35px;
+}
+
+.contact-info h4,
+.contact-info .materia,
+.contact-info .last-msg {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.contact-info .materia {
+  font-size: 11px;
+  color: #100f0f;
+}
+.contact-info .last-msg {
+  font-size: 12px;
+  font-weight: bold;
+  color: #0c0c0c;
+  margin-top: 2px;
+}
+
+.msg-hour {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  font-size: 10px;
+  color: #eee;
+}
+
+.chat-window {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #f5f5f5;
+}
+
+.chat-header {
+  background-color: #900101;
+  color: white;
+  padding: 15px 30px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.header-avatar {
+  width: 45px;
+  height: 45px;
+  background-color: #ddd;
+  border-radius: 50%;
+}
+
+.header-avatar img,
+.msg-avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.header-text h2 {
+  font-size: 18px;
+}
+.header-text span {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.messages-container {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.msg-tutor {
+  display: flex;
+  gap: 15px;
+  max-width: 80%;
+}
+
+.msg-avatar {
+  width: 35px;
+  height: 35px;
+  background-color: #444440;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.msg-content {
+  background: white;
+  padding: 15px;
+  border-radius: 0 20px 20px 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.msg-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+  gap: 20px;
+}
+
+.msg-header strong {
+  font-size: 13px;
+  color: #900101;
+}
+.time {
+  font-size: 10px;
+  color: #888;
+}
+
+.file-placeholder {
+  width: 100%;
+  max-width: 350px;
+  height: 200px;
+  background-color: #444440;
+  border-radius: 15px;
+  margin-top: 10px;
+  border-bottom: 8px solid #900101;
+}
+
+.msg-alumno {
+  align-self: flex-end;
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  max-width: 80%;
+}
+
+.alumno-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.bubble {
+  background-color: #f9e47b8b;
+  padding: 15px 20px;
+  border-radius: 20px 20px 0 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.bubble p {
+  font-size: 13px;
+  font-weight: 500;
+  color: #333;
+}
+
+.chat-input-bar {
+  background-color: #f9e47b8b;
+  padding: 15px 30px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.chat-input-bar input {
+  flex: 1;
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 25px;
+  padding: 10px 20px;
+  outline: none;
+  font-size: 14px;
+}
+
+.btn-enviar {
+  background-color: #900101;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 30px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn-enviar:hover {
+  background-color: #6b0101;
+}
+
+/* Contenedor del buscador (le damos un espaciado limpio) */
+.search-container {
+  padding: 16px;
+  background-color: transparent; /* Se adapta automáticamente al fondo de tu barra lateral */
+  display: flex;
+  justify-content: center;
+}
+
+/* Caja de búsqueda principal */
+.search-box {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.95); /* Blanco limpio pero suave */
+  border: 1.5px solid transparent;
+  border-radius: 12px; /* Bordes redondeados modernos, no totalmente circulares */
+  padding: 10px 14px;
+  gap: 12px;
+  transition: all 0.3s ease; /* Transición suave para los efectos */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* Sombra sutil de elevación */
+}
+
+/* Icono de la lupa */
+.search-box i {
+  color: #600101; /* Tu color guinda institucional */
+  font-size: 15px;
+  transition: transform 0.3s ease;
+}
+
+/* Input de texto */
+.search-box input {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 14px;
+  font-weight: 500;
+  color: #2c3e50; /* Color de texto suave y legible */
+  background: transparent;
+  font-family: inherit; /* Hereda la fuente de tu proyecto */
+}
+
+/* Estilo para el texto de sugerencia (placeholder) */
+.search-box input::placeholder {
+  color: #a0a0a0;
+  font-weight: 400;
+}
+
+/* --- EFECTOS INTERACTIVOS (ANIMACIONES) --- */
+
+/* Cuando el usuario hace clic para escribir */
+.search-box:focus-within {
+  background-color: #ffffff;
+  border-color: #600101; /* El borde se pinta del color guinda */
+  box-shadow: 0 6px 16px rgba(96, 1, 1, 0.15); /* Sombra con un toque del color guinda */
+  transform: translateY(-1px); /* Efecto de flotado leve */
+}
+
+/* Animación sutil en la lupa al activar el buscador */
+.search-box:focus-within i {
+  transform: scale(1.1);
+}
+
+.typing-indicator {
+  display: flex;
+  gap: 15px;
+  max-width: 80%;
+  align-items: center;
+}
+
+.typing-bubble {
+  background: white;
+  padding: 12px 18px;
+  border-radius: 0 20px 20px 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+  color: #777;
+  font-size: 13px;
+  font-style: italic;
+}
+
+.date-separator {
+  position: sticky;
+  top: 10px;
+  align-self: center;
+  background: #e5e5e5;
+  color: #555;
+  padding: 6px 14px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 600;
+  z-index: 5;
+  margin: 10px 0;
+}
+
+.btn-enviar:disabled,
+.chat-input-bar input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.attach-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+#btn-attach {
+  font-size: 22px;
+  color: #600101;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+#btn-attach:hover {
+  transform: scale(1.1);
+}
+
+.attach-menu {
+  position: absolute;
+  bottom: 45px;
+  left: 0;
+  width: 230px;
+  background: white;
+  border-radius: 14px;
+  padding: 10px 0;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.18);
+  display: none;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.attach-menu.show {
+  display: block;
+  animation: subirMenu 0.2s ease;
+}
+
+@keyframes subirMenu {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.attach-option {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 18px;
+  cursor: pointer;
+  font-size: 15px;
+  color: #222;
+  transition: background 0.2s ease;
+}
+
+.attach-option:hover {
+  background: #f4f4f4;
+}
+
+.attach-option i {
+  width: 22px;
+  text-align: center;
+  font-size: 18px;
+}
+
+.icon-documento {
+  color: #7c4dff;
+}
+
+.icon-foto {
+  color: #2196f3;
+}
+
+.icon-camara {
+  color: #e91e63;
+}
+
+.icon-audio {
+  color: #ff9800;
+}
+
+.icon-contacto {
+  color: #03a9f4;
+}
+
+.icon-ubicacion {
+  color: #4caf50;
+}
+
+.icon-evento {
+  color: #ff4081;
+}

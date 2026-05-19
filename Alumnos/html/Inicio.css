@@ -1,0 +1,169 @@
+:root {
+    --bordo-oscuro: #5C0000;
+    --naranja-login: #E88C00;
+    --amarillo-estudiante: #F0E666;
+    --input-bg: #2B0000;
+    --btn-apagado: #3B0000;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+.login-container {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.login-image {
+    flex: 1;
+    height: 100vh;
+}
+
+.login-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.login-form-section {
+    flex: 1;
+    background-color: var(--bordo-oscuro);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-content {
+    width: 85%;
+    max-width: 450px;
+    min-height: 92vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px 0;
+}
+
+h1 {
+    font-family: 'Arial Black', sans-serif;
+    font-size: 3.2rem;
+    line-height: 0.9;
+    text-align: center;
+    color: white;
+    margin-bottom: 30px;
+    margin-top: 10px;
+}
+
+.question {
+    color: white;
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+}
+
+.role-selection {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.role-btn {
+    flex: 1;
+    padding: 12px;
+    border-radius: 25px;
+    border: none;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: var(--btn-apagado);
+    color: rgba(255, 255, 255, 0.5);
+    transition: 0.3s;
+}
+
+#btn-estudiante.active {
+    background-color: var(--amarillo-estudiante);
+    color: black;
+}
+
+#btn-tutor.active {
+    background-color: var(--naranja-login);
+    color: black;
+}
+
+.input-group {
+    margin-bottom: 15px;
+    color: white;
+}
+
+.input-group label {
+    display: block;
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+}
+
+.dark-input {
+    width: 100%;
+    height: 45px;
+    background-color: var(--input-bg);
+    border: none;
+    border-radius: 25px;
+    color: white;
+    padding: 0 20px;
+}
+
+.forgot-password {
+    display: block;
+    color: var(--amarillo-estudiante);
+    font-size: 0.8rem;
+    text-align: right;
+    margin-top: 5px;
+    text-decoration: underline;
+}
+
+.btn-main-login {
+    width: 100%;
+    padding: 15px;
+    background-color: var(--naranja-login);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-top: 15px;
+    text-transform: uppercase;
+}
+
+.footer-login {
+    text-align: center;
+    color: white;
+    padding-bottom: 10px;
+    margin-top: 30px;
+}
+
+.mini-logo {
+    width: 65px;
+    height: 65px;
+    background-color: white;
+    border-radius: 50%;
+    padding: 8px;
+    margin-top: 25px; 
+    margin-bottom: 8px;
+}
+
+.footer-login p {
+    font-size: 0.7rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+}
+
+.terms {
+    color: var(--amarillo-estudiante);
+    font-size: 0.75rem;
+    text-decoration: underline;
+    display: block;
+}

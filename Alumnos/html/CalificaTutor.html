@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Califica a tu Tutor</title>
+    <link rel="stylesheet" href="/Alumnos/html/CalificaTutor.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <nav class="sidebar-nav">
+                <button class="nav-btn">
+                    <i class="fa-solid fa-house"></i>
+                </button>
+                <button class="nav-btn">
+                    <i class="fa-solid fa-user-plus"></i>
+                </button>
+                <button class="nav-btn">
+                    <i class="fa-solid fa-address-card"></i>
+                </button>
+                <button class="nav-btn active">
+                    <i class="fa-solid fa-star"></i>
+                </button>
+                <button class="nav-btn">
+                    <i class="fa-solid fa-envelope"></i>
+                </button>
+                <button class="nav-btn">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </button>
+                <button class="nav-btn">
+                    <i class="fa-solid fa-book-open"></i>
+                </button>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="header-section">
+                <h1 class="main-title">
+                    <i class="fa-regular fa-star title-star"></i> 
+                    CALIFICA A TU TUTOR 
+                    <i class="fa-regular fa-star title-star"></i>
+                </h1>
+            </header>
+
+            <section class="selection-section">
+                <select class="tutor-select">
+                    <option>ESCOGE TUTOR</option>
+                    <option>Tutor Juan Perez</option>
+                    <option>Tutora Maria Lopez</option>
+                </select>
+            </section>
+
+            <section class="rating-grid">
+                <div class="rating-card">
+                    <h3>Puntualidad</h3>
+                    <div class="stars">
+                        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                    </div>
+                </div>
+                <div class="rating-card">
+                    <h3>Materiales compartidos</h3>
+                    <div class="stars">
+                        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                    </div>
+                </div>
+                <div class="rating-card">
+                    <h3>Conocimiento</h3>
+                    <div class="stars">
+                        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                    </div>
+                </div>
+                <div class="rating-card">
+                    <h3>Comunicación</h3>
+                    <div class="stars">
+                        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="comment-section">
+                <label>Deja un comentario de tu experiencia</label>
+                <textarea class="comment-box" placeholder="Escribe aquí tu opinión..."></textarea>
+            </section>
+
+            <footer class="action-footer">
+                <button class="btn-enviar">Enviar</button>
+                <p class="warning-text">Una vez mandada su opinión no se podrá modificar hasta 2 semanas posteriores</p>
+            </footer>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Tutor - Edumatch</title>
+    <link rel="stylesheet" href="/Alumnos/html/style-tutor.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="dashboard-container">
+
+        <aside class="sidebar">
+            <div class="nav-icons">
+                <i class="fa-solid fa-house active"></i>
+                <i class="fa-solid fa-user-plus"></i>
+                <i class="fa-solid fa-address-card"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-envelope"></i>
+                <i class="fa-solid fa-user-pen"></i>
+                <i class="fa-solid fa-book-open"></i>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-header">
+            </header>
+
+            <h2 class="progress-title">Dashboard Tutores</h2>
+            <div class="feedback-cards">
+                <div class="card card-pink" style="--p: 85; --c: #ff6b6b;">
+                    <p><b>Cálculo</b></p>
+                    <div class="progress-circle">85%</div>
+                </div>
+
+                <div class="card card-orange" style="--p: 30; --c: #fcc419;">
+                    <p><b>Compiladores</b></p>
+                    <div class="progress-circle">30%</div>
+                </div>
+            </div>
+
+            <div class="content-grid">
+
+                <div class="left-column">
+                    <div class="recompensas-box"
+                        style="background-color: white; border: 1px solid #e0e0e0; min-height: 450px;">
+                        <div class="recompensas-header">
+                            <i class="fa-solid fa-star slider-icon active-icon" style="color: #5C0000;"></i>
+                            <i class="fa-solid fa-bell slider-icon" style="color: #5C0000;"></i>
+                            <i class="fa-solid fa-envelope slider-icon" style="color: #5C0000;"></i>
+                        </div>
+<div class="carousel-item active-slide" id="rating-section">
+                            <div class="recompensas-card" style="color: #5C0000; display: flex; flex-direction: column; align-items: center; padding: 25px 20px;">
+                                
+                                <div class="level-badge" style="background-color: #5C0000; color: white; padding: 6px 16px; border-radius: 20px; font-weight: bold; font-size: 0.9rem; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(92,0,0,0.2);">
+                                    <i class="fa-solid fa-trophy" style="margin-right: 6px;"></i> Nivel 4: Estudiante Estrella
+                                </div>
+
+                                <h3 style="color: #5C0000; margin-bottom: 5px; font-size: 1.3rem; font-weight: bold;">Tu Progreso de Aprendizaje</h3>
+                                <p style="color: #666; font-size: 0.85rem; margin-bottom: 25px;">¡Sigue asistiendo a tutorías para desbloquear más beneficios!</p>
+
+                                <div class="progress-bar-container" style="width: 90%; background-color: #f0f0f0; height: 16px; border-radius: 10px; position: relative; overflow: hidden; margin-bottom: 10px; border: 1px solid #e0e0e0;">
+                                    <div class="progress-bar-fill" style="width: 75%; background: linear-gradient(90deg, #5C0000, #8A1C1C); height: 100%; border-radius: 10px; transition: width 0.5s ease-in-out;"></div>
+                                </div>
+
+                                <div class="progress-labels" style="width: 90%; display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: bold; margin-bottom: 25px; color: #5C0000;">
+                                    <span>750 / 1000 XP</span>
+                                    <span>75% para Nivel 5</span>
+                                </div>
+
+                                <div class="next-reward-box" style="width: 90%; background-color: #faf5f5; border: 1px dashed #5C0000; border-radius: 10px; padding: 15px; display: flex; align-items: center; gap: 15px; box-sizing: border-box;">
+                                    <div class="reward-icon-wrapper" style="background-color: #5C0000; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                        <i class="fa-solid fa-gift" style="font-size: 1.2rem;"></i>
+                                    </div>
+                                    <div class="reward-text" style="text-align: left;">
+                                        <strong style="font-size: 0.9rem; display: block; margin-bottom: 2px;">Próxima recompensa al llegar al Nivel 5:</strong>
+                                        <span style="font-size: 0.85rem; color: #555;">Insignia de perfil destacada + 1 asesoría prioritaria gratis.</span>
+                                    </div>
+                                </div>
+
+                                <button class="btn-recompensas" style="background-color: transparent; color: #5C0000; border: 2px solid #5C0000; padding: 10px; border-radius: 8px; cursor: pointer; margin-top: 25px; width: 90%; font-weight: bold; transition: all 0.3s;" onmouseover="this.style.backgroundColor='#5C0000'; this.style.color='white'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#5C0000'">
+                                    <i class="fa-solid fa-award" style="margin-right: 5px;"></i> Ver mis Recompensas
+                                </button>
+
+                            </div>
+                        </div>
+                    
+                        <div class="carousel-item">
+                            <div class="info-line"><span style="color: #5C0000;"><b>Centro de Notificaciones</b></span>
+                            </div>
+                            <div class="notifications-list">
+                                <div class="phone-notification" style="background: #f9f9f9; border: 1px solid #5C0000;">
+                                    <div class="notif-header">
+                                        <div class="notif-icon"><i class="fa-solid fa-circle"
+                                                style="color: #5C0000;"></i></div>
+                                        <span class="notif-app" style="color: #5C0000;">Edumatch</span>
+                                    </div>
+                                    <div class="notif-body">
+                                        <strong style="color: #5C0000;">Tutoría de Bases de Datos</strong>
+                                        <p style="color: #333;">Tu sesión inicia en 30 minutos.</p>
+                                    </div>
+                                </div>
+
+                                <div class="phone-notification" style="background: #f9f9f9; border: 1px solid #5C0000;">
+                                    <div class="notif-header">
+                                        <div class="notif-icon"><i class="fa-solid fa-circle"
+                                                style="color: #5C0000;"></i></div>
+                                        <span class="notif-app" style="color: #5C0000;">Edumatch</span>
+                                    </div>
+                                    <div class="notif-body">
+                                        <strong style="color: #5C0000;">Solicitud aceptada</strong>
+                                        <p style="color: #333;">Eduardo Villa acepto tu solicitud de asesoría</p>
+                                    </div>
+                                </div>
+
+                                <div class="phone-notification" style="background: #f9f9f9; border: 1px solid #5C0000;">
+                                    <div class="notif-header">
+                                        <div class="notif-icon"><i class="fa-solid fa-circle"
+                                                style="color: #5C0000;"></i></div>
+                                        <span class="notif-app" style="color: #5C0000;">Edumatch</span>
+                                    </div>
+                                    <div class="notif-body">
+                                        <strong style="color: #5C0000;">Recordatorio</strong>
+                                        <p style="color: #333;">No olvides calificar tu última sesión</p>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="carousel-item"
+                            style="background-color: #f5f5f5; border-radius: 15px; padding: 15px;">
+                            <div class="info-line" style="text-align: center; margin-bottom: 15px;">
+                                <strong style="color: #5C0000;">Chats Recientes</strong>
+                            </div>
+
+                            <div class="chat-list-container" style="display: flex; flex-direction: column; gap: 10px;">
+                                <a href="ChatA.html" class="chat-row"
+                                    style="background: white; border-radius: 12px; padding: 12px; display: flex; align-items: center; text-decoration: none; position: relative; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+
+                                    <div class="avatar-container"
+                                        style="position: relative; margin-right: 15px; flex-shrink: 0;">
+                                        <div class="user-avatar"
+                                            style="width: 50px; height: 50px; border-radius: 50%; overflow: hidden; border: 1px solid #eee;">
+                                            <img src="imagenes\Ana.jpg" alt="Ana López"
+                                                style="width: 100%; height: 100%; object-fit: cover;">
+                                        </div>
+                                        <span class="status-indicator"
+                                            style="position: absolute; bottom: 2px; right: 2px; width: 12px; height: 12px; background-color: #2ecc71; border: 2px solid white; border-radius: 50%;"></span>
+                                    </div>
+
+                                    <div class="chat-info">
+                                        <div class="chat-header-row">
+                                            <strong style="color: #5C0000; font-size: 1rem;">Ana López</strong>
+                                        </div>
+                                        <p class="chat-last-msg" style="color: #666; margin: 0; font-size: 0.85rem;">
+                                            Nuevo Mensaje</p>
+                                    </div>
+                                </a>
+                                <a href="ChatA.html" class="chat-row"
+                                    style="background: white; border-radius: 12px; padding: 12px; display: flex; align-items: center; text-decoration: none; position: relative; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+
+                                    <div class="avatar-container"
+                                        style="position: relative; margin-right: 15px; flex-shrink: 0;">
+
+                                        <div class="user-avatar"
+                                            style="width: 50px; height: 50px; border-radius: 50%; overflow: hidden; border: 1px solid #eee;">
+
+                                            <img src="../imagenes/Valeria.jpg" alt="Luis"
+                                                style="width: 100%; height: 100%; object-fit: cover;">
+                                        </div>
+
+                                        <span class="status-indicator"
+                                            style="position: absolute; bottom: 2px; right: 2px; width: 12px; height: 12px; background-color: #2ecc71; border: 2px solid white; border-radius: 50%;">
+                                        </span>
+                                    </div>
+
+                                    <div class="chat-info">
+                                        <div class="chat-header-row">
+                                            <strong style="color: #5C0000; font-size: 1rem;">
+                                                Valeria Gomez
+                                            </strong>
+                                        </div>
+
+                                        <p class="chat-last-msg" style="color: #666; margin: 0; font-size: 0.85rem;">
+                                            Nuevo mensaje
+                                        </p>
+                                    </div>
+                                </a>
+                                <a href="ChatA.html" class="chat-row"
+                                    style="background: white; border-radius: 12px; padding: 12px; display: flex; align-items: center; text-decoration: none; position: relative; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+
+                                    <div class="avatar-container"
+                                        style="position: relative; margin-right: 15px; flex-shrink: 0;">
+
+                                        <div class="user-avatar"
+                                            style="width: 50px; height: 50px; border-radius: 50%; overflow: hidden; border: 1px solid #eee;">
+
+                                            <img src="../imagenes/Tutora.jpg" alt="Luis"
+                                                style="width: 100%; height: 100%; object-fit: cover;">
+                                        </div>
+
+                                        <span class="status-indicator"
+                                            style="position: absolute; bottom: 2px; right: 2px; width: 12px; height: 12px; background-color: #2ecc71; border: 2px solid white; border-radius: 50%;">
+                                        </span>
+                                    </div>
+
+                                    <div class="chat-info">
+                                        <div class="chat-header-row">
+                                            <strong style="color: #5C0000; font-size: 1rem;">
+                                                Laura Méndez
+                                            </strong>
+                                        </div>
+
+                                        <p class="chat-last-msg" style="color: #666; margin: 0; font-size: 0.85rem;">
+                                            Nuevo Mensaje
+                                        </p>
+                                    </div>
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="main-content-layout"
+                    style="display: flex; gap: 20px; align-items: flex-start; padding: 20px;">
+                    <div class="right-column">
+                        <div class="historial-container">
+                            <h3>HISTORIAL DE TUTORIAS</h3>
+                            <div class="historial-item">
+                                <div class="avatar">
+                                    <img src="../imagenes/Tutora.jpg" alt="">
+                                </div>
+                                <div class="txt">
+                                    <strong>Laura Méndez</strong>
+                                    <p>Cálculo</p>
+                                    <span><b>Última sesión:</b> 05/05/26</span>
+                                </div>
+                            </div>
+                            <div class="historial-item">
+                                <div class="avatar">
+                                    <img src="../imagenes/Ana.jpg" alt="">
+                                </div>
+                                <div class="txt">
+                                    <strong>Ana López</strong>
+                                    <p>Bases de datos</p>
+                                    <span><b>Última sesión:</b> 11/05/26</span>
+                                </div>
+                            </div>
+                            <div class="historial-item">
+                                <div class="avatar">
+                                    <img src="../imagenes/Valeria.jpg" alt="">
+                                </div>
+                                <div class="txt">
+                                    <strong>Valeria Gomez</strong>
+                                    <p>Compiladores</p>
+                                    <span><b>Última asesoría:</b> 01/05/26</span>
+                                </div>
+                            </div>
+                        </div>
+                        <h4 class="asesorias-title">JUNIO 2026</h4>
+
+                        <div class="calendar-container">
+                            <div class="weekdays">
+                                <span>L</span>
+                                <span>M</span>
+                                <span>M</span>
+                                <span>J</span>
+                                <span>V</span>
+                                <span>S</span>
+                                <span>D</span>
+                            </div>
+
+                            <div class="calendar-grid">
+
+                                <!-- Espacios vacíos -->
+                                <span class="empty"></span>
+
+                                <span>1</span>
+                                <span>2</span>
+                                <span>3</span>
+                                <span>4</span>
+                                <span>5</span>
+                                <span>6</span>
+
+                                
+
+                                <span class="active" data-info="Bases de Datos - 3:00 PM">7</span>
+
+                                <span>8</span>
+                                 <span class="active" data-info="Revisión de proyecto">9</span>
+                               <span class="active" data-info="Tutoría de Cálculo - 10:00 AM">10</span>
+                                <span>11</span>
+                                <span>12</span>
+                                 <span>13</span>
+                                <span class="active" data-info="Entrega de tarea">14</span>
+                                <span>15</span>
+                                <span>16</span>
+                                <span>17</span>
+                               <span class="active" data-info="Taller de Compiladores">18</span>
+                                <span>19</span>
+                                  <span>20</span>
+                                  <span>21</span>
+                                  <span>22</span>
+                                <span>22</span>
+                                 <span class="active" data-info="Sesión grupal">23</span>
+                                <span>24</span>
+                                <span>25</span>
+                                <span>26</span>
+                                <span>27</span>
+                                <span class="active" data-info="Presentación">28</span>
+
+                                <span class="active" data-info="Asesoría final">29</span>
+                                <span>30</span>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll(".carousel-item");
+        const icons = document.querySelectorAll(".slider-icon");
+
+        let currentSlide = 0;
+        let intervalo;
+        let tiempoNormal = 7000;
+        let tiempoEscribiendo = 12000;
+
+        function mostrarSlide(index) {
+            slides[currentSlide].classList.remove("active-slide");
+            icons[currentSlide].classList.remove("active-icon");
+
+            currentSlide = index;
+
+            slides[currentSlide].classList.add("active-slide");
+            icons[currentSlide].classList.add("active-icon");
+        }
+
+        function cambiarAutomatico() {
+            let siguiente = (currentSlide + 1) % slides.length;
+            mostrarSlide(siguiente);
+        }
+
+        function reiniciarCarrusel(tiempo = tiempoNormal) {
+            clearInterval(intervalo);
+            intervalo = setInterval(cambiarAutomatico, tiempo);
+        }
+
+        reiniciarCarrusel();
+
+        icons.forEach((icon, index) => {
+            icon.addEventListener("click", () => {
+                mostrarSlide(index);
+                reiniciarCarrusel();
+            });
+        });
+
+
+        function toggleTag(element) {
+            element.classList.toggle('active');
+
+            reiniciarCarrusel(tiempoEscribiendo);
+        }
+
+
+        const commentInput = document.getElementById('user-comment');
+        const counter = document.getElementById('char-counter');
+
+        commentInput.addEventListener('input', () => {
+            counter.textContent = `${commentInput.value.length} / 100`;
+
+            reiniciarCarrusel(tiempoEscribiendo);
+        });
+
+
+        function enviarCalificacion() {
+
+            const section = document.getElementById('rating-section');
+
+            section.innerHTML = `
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 300px; color: #5C0000; text-align: center; animation: fadeIn 0.5s;">
+            <i class="fa-solid fa-circle-check" style="font-size: 50px; margin-bottom: 15px;"></i>
+            <h3>¡Gracias por tu opinión!</h3>
+            <p>Tu calificación ha sido enviada con éxito.</p>
+        </div>
+    `;
+        }
+
+        const diasActivos = document.querySelectorAll('.calendar-grid .active');
+        const infoCita = document.getElementById('infoCita');
+
+        diasActivos.forEach(dia => {
+            dia.addEventListener('click', () => {
+                // Si la info ya está visible y es la misma, ocultarla
+                if (infoCita.style.display === 'block' && infoCita.textContent === dia.dataset.info) {
+                    infoCita.style.display = 'none';
+                    infoCita.textContent = '';
+                } else {
+                    infoCita.textContent = dia.dataset.info;
+                    infoCita.style.display = 'block';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
