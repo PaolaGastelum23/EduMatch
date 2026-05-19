@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Estudiante - Edumatch</title>
-   <link rel="stylesheet" href="style-estudiante.css">
+    <link rel="stylesheet" href="style-estudiante.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
@@ -28,6 +28,7 @@
             <header class="top-header">
             </header>
 
+            <h2 class="progress-title">Dashboard Alumnos</h2>
             <div class="feedback-cards">
                 <div class="card card-pink" style="--p: 85; --c: #ff6b6b;">
                     <p><b>Cálculo</b></p>
@@ -46,7 +47,7 @@
             </div>
 
             <div class="content-grid">
-              
+
                 <div class="left-column">
                     <div class="recompensas-box"
                         style="background-color: white; border: 1px solid #e0e0e0; min-height: 450px;">
@@ -81,7 +82,7 @@
                                 <p class="feedback-prompt" style="color: #5C0000; margin-top: 25px;">¿Qué tal fue la
                                     tutoría?</p>
 
-                                
+
                                 <div class="tags-container"
                                     style="margin-top: 15px; display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;">
                                     <span class="tag selectable-tag" onclick="toggleTag(this)">Puntualidad</span>
@@ -279,25 +280,68 @@
                                 </div>
                             </div>
                         </div>
-                        <h4 class="asesorias-title">ASESORÍAS DEL MES</h4>
+                        <h4 class="asesorias-title">JUNIO 2026</h4>
+
                         <div class="calendar-container">
+                            <div class="weekdays">
+                                <span>L</span>
+                                <span>M</span>
+                                <span>M</span>
+                                <span>J</span>
+                                <span>V</span>
+                                <span>S</span>
+                                <span>D</span>
+                            </div>
+
                             <div class="calendar-grid">
-                                <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span
-                                    class="active">6</span><span class="active">7</span>
-                                <span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span
-                                    class="active">13</span><span class="active">14</span>
-                                <span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span
-                                    class="active">20</span><span class="active">21</span>
-                                <span>22</span><span>23</span><span>24</span><span>25</span><span>26</span><span
-                                    class="active">27</span><span class="active">28</span>
-                                <span>29</span><span>30</span>
+                                <!-- Espacios vacíos antes del día 1 (junio 2026 empieza en lunes) -->
+                                <span class="empty"></span>
+
+                                <span>1</span>
+                                <span>2</span>
+                                <span>3</span>
+                                <span>4</span>
+                                <span>5</span>
+
+                                <span class="active" data-info="Tutoría de Cálculo - 10:00 AM">6</span>
+                                <span class="active" data-info="Tutoría de Cálculo - 3:00 PM">7</span>
+
+                                <span>8</span>
+                                <span>9</span>
+                                <span>10</span>
+                                <span>11</span>
+                                <span>12</span>
+
+                                <span class="active" data-info="Bases de Datos - Revisión de proyecto">13</span>
+                                <span class="active" data-info="Bases de Datos - Entrega de tarea">14</span>
+
+                                <span>15</span>
+                                <span>16</span>
+                                <span>17</span>
+                                <span>18</span>
+                                <span>19</span>
+
+                                <span class="active" data-info="Compiladores - Taller de ejercicios">20</span>
+                                <span class="active" data-info="Compiladores - Revisión de proyecto">21</span>
+
+                                <span>22</span>
+                                <span>23</span>
+                                <span>24</span>
+                                <span>25</span>
+                                <span>26</span>
+
+                                <span class="active" data-info="Cálculo - Reunión interna">27</span>
+                                <span class="active" data-info="Cálculo - Presentación final">28</span>
+
+                                <span>29</span>
+                                <span>30</span>
                             </div>
                         </div>
-                    </div> 
-                </div> 
+                    </div>
+                </div>
             </div>
         </main>
-    </div> 
+    </div>
 
     <script>
         const slides = document.querySelectorAll(".carousel-item");

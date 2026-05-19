@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Tutores - Edumatch</title>
+    <title>Dashboard Tutor - Edumatch</title>
     <link rel="stylesheet" href="style-estudiante.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -51,54 +51,42 @@
                             <i class="fa-solid fa-bell slider-icon" style="color: #5C0000;"></i>
                             <i class="fa-solid fa-envelope slider-icon" style="color: #5C0000;"></i>
                         </div>
-
-                        <div class="carousel-item active-slide" id="rating-section">
-                            <div class="rating-card"
-                                style="color: #5C0000; display: flex; flex-direction: column; align-items: center; padding: 20px;">
-                                <h3 style="color: #5C0000; margin-bottom: 5px; font-size: 1.2rem;">¿Cómo calificas tu
-                                    última sesión?</h3>
-                                <p class="tutor-name" style="color: #5C0000; margin-bottom: 15px; font-weight: bold;">
-                                    Tutor: Laura Méndez</p>
-
-                                <div class="stars-container"
-                                    style="display: flex; flex-direction: row-reverse; gap: 8px;">
-                                    <input type="radio" name="star" id="star5" style="display: none;"><label for="star5"
-                                        class="star-label">★</label>
-                                    <input type="radio" name="star" id="star4" style="display: none;"><label for="star4"
-                                        class="star-label">★</label>
-                                    <input type="radio" name="star" id="star3" style="display: none;"><label for="star3"
-                                        class="star-label">★</label>
-                                    <input type="radio" name="star" id="star2" style="display: none;"><label for="star2"
-                                        class="star-label">★</label>
-                                    <input type="radio" name="star" id="star1" style="display: none;"><label for="star1"
-                                        class="star-label">★</label>
+<div class="carousel-item active-slide" id="rating-section">
+                            <div class="recompensas-card" style="color: #5C0000; display: flex; flex-direction: column; align-items: center; padding: 25px 20px;">
+                                
+                                <div class="level-badge" style="background-color: #5C0000; color: white; padding: 6px 16px; border-radius: 20px; font-weight: bold; font-size: 0.9rem; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(92,0,0,0.2);">
+                                    <i class="fa-solid fa-trophy" style="margin-right: 6px;"></i> Nivel 4: Estudiante Estrella
                                 </div>
 
-                                <p class="feedback-prompt" style="color: #5C0000; margin-top: 25px;">¿Qué tal fue la
-                                    tutoría?</p>
+                                <h3 style="color: #5C0000; margin-bottom: 5px; font-size: 1.3rem; font-weight: bold;">Tu Progreso de Aprendizaje</h3>
+                                <p style="color: #666; font-size: 0.85rem; margin-bottom: 25px;">¡Sigue asistiendo a tutorías para desbloquear más beneficios!</p>
 
-
-                                <div class="tags-container"
-                                    style="margin-top: 15px; display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;">
-                                    <span class="tag selectable-tag" onclick="toggleTag(this)">Puntualidad</span>
-                                    <span class="tag selectable-tag" onclick="toggleTag(this)">Claridad</span>
-                                    <span class="tag selectable-tag" onclick="toggleTag(this)">Amabilidad</span>
+                                <div class="progress-bar-container" style="width: 90%; background-color: #f0f0f0; height: 16px; border-radius: 10px; position: relative; overflow: hidden; margin-bottom: 10px; border: 1px solid #e0e0e0;">
+                                    <div class="progress-bar-fill" style="width: 75%; background: linear-gradient(90deg, #5C0000, #8A1C1C); height: 100%; border-radius: 10px; transition: width 0.5s ease-in-out;"></div>
                                 </div>
 
-                                <input type="text" id="user-comment" class="comment-input" maxlength="50"
-                                    placeholder="Añade un comentario..."
-                                    style="border: 1px solid #5C0000; margin-top: 25px; width: 90%; border-radius: 5px; padding: 8px;">
+                                <div class="progress-labels" style="width: 90%; display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: bold; margin-bottom: 25px; color: #5C0000;">
+                                    <span>750 / 1000 XP</span>
+                                    <span>75% para Nivel 5</span>
+                                </div>
 
-                                <p id="char-counter" style="color:#5C0000; font-size:0.8rem; margin-top:5px;">
-                                    0 / 100
-                                </p>
+                                <div class="next-reward-box" style="width: 90%; background-color: #faf5f5; border: 1px dashed #5C0000; border-radius: 10px; padding: 15px; display: flex; align-items: center; gap: 15px; box-sizing: border-box;">
+                                    <div class="reward-icon-wrapper" style="background-color: #5C0000; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                        <i class="fa-solid fa-gift" style="font-size: 1.2rem;"></i>
+                                    </div>
+                                    <div class="reward-text" style="text-align: left;">
+                                        <strong style="font-size: 0.9rem; display: block; margin-bottom: 2px;">Próxima recompensa al llegar al Nivel 5:</strong>
+                                        <span style="font-size: 0.85rem; color: #555;">Insignia de perfil destacada + 1 asesoría prioritaria gratis.</span>
+                                    </div>
+                                </div>
 
-                                <button class="btn-calificar" onclick="enviarCalificacion()"
-                                    style="background-color: #5C0000; color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; margin-top: 20px; width: 90%; font-weight: bold;">
-                                    Calificar Tutor
+                                <button class="btn-recompensas" style="background-color: transparent; color: #5C0000; border: 2px solid #5C0000; padding: 10px; border-radius: 8px; cursor: pointer; margin-top: 25px; width: 90%; font-weight: bold; transition: all 0.3s;" onmouseover="this.style.backgroundColor='#5C0000'; this.style.color='white'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#5C0000'">
+                                    <i class="fa-solid fa-award" style="margin-right: 5px;"></i> Ver mis Recompensas
                                 </button>
+
                             </div>
                         </div>
+                    
                         <div class="carousel-item">
                             <div class="info-line"><span style="color: #5C0000;"><b>Centro de Notificaciones</b></span>
                             </div>
