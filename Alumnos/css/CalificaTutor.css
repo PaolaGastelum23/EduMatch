@@ -1,8 +1,28 @@
+@font-face {
+    font-family:afacad; ;
+    src: url(/Fuentes/Afacad,Comfortaa,Josefin_Sans,Livvic,Montserrat/Afacad/Afacad-VariableFont_wght.ttf);
+}
+@font-face {
+    font-family:vivvic negrita ;
+    src: url(/Fuentes/Comfortaa,Josefin_Sans,Livvic/Livvic/Livvic-Black.ttf);
+}
+@font-face {
+    font-family:vivvic regular ;
+    src: url(/Fuentes/Comfortaa,Josefin_Sans,Livvic/Livvic/Livvic-Medium.ttf);
+}
+@font-face {
+    font-family:vivvic light ;
+    src: url(/Fuentes/Comfortaa,Josefin_Sans,Livvic/Livvic/Livvic-Light.ttf);
+}
+@font-face {
+    font-family:Montserrat ;
+    src: url(/Fuentes/Comfortaa,Josefin_Sans,Livvic,Montserrat/Montserrat/Montserrat-VariableFont_wght.ttf);
+}
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .app-container {
@@ -97,7 +117,7 @@
 
 .tutor-select {
     width: 100%;
-    background-color: #F5F5F5; 
+    background-color: #E99103; 
     border: 1px solid #ddd;
     border-radius: 25px;
     padding: 12px 25px;
@@ -122,7 +142,7 @@
 }
 
 .rating-card {
-    background-color: #D0E2F2; 
+    background-color: #e4e7c0; 
     border-radius: 15px;
     padding: 25px;
     display: flex;
@@ -138,20 +158,40 @@
 
 .stars {
     display: flex;
-    gap: 5px;
+    gap: 12px;
 }
 
-.stars span {
-    font-size: 40px;
-    color: #31A8D9; 
+.estrella-btn {
+    font-size: 35px;
+    color: #EAC800; /* El azul de tu diseño */
     cursor: pointer;
-    transition: transform 0.2s;
+    transition: all 0.2s ease-in-out;
 }
 
-.stars span:hover {
+/* Efecto hover: se ilumina un poco antes de dar click */
+.estrella-btn:hover {
     transform: scale(1.2);
+    color: #EAC800;
+}
+.estrella-btn.fa-regular {
+    color: #EAC800;
 }
 
+/* Color para el relleno (estado seleccionado) */
+.estrella-btn.fa-solid {
+    color: #EAC800; /* Mantener el mismo azul o uno un poco más oscuro */
+}
+
+/* Efecto visual de "pulsación" al hacer clic */
+.estrella-btn:active {
+    transform: scale(0.9);
+}
+
+/* Clase para cuando ya están seleccionadas (rellenas) */
+.estrella-btn.fa-solid {
+    color: #EAC800;
+    filter: drop-shadow(0 0 5px rgba(234, 200, 0, 0.3));
+}
 .comment-section {
     width: 100%;
     display: flex;
@@ -169,7 +209,7 @@
 .comment-box {
     width: 100%;
     height: 120px;
-    background-color: #D0E2F2;
+    background-color: #e4e7c0;
     border: none;
     border-radius: 10px;
     padding: 15px;
@@ -180,7 +220,7 @@
 
 .action-footer {
     width: 100%;
-    background-color: #E6EBA0; 
+    background-color: #e4e7c0; 
     padding: 20px 30px;
     display: flex;
     justify-content: space-between;
@@ -189,7 +229,7 @@
 }
 
 .btn-enviar {
-    background-color: #0B239C; 
+    background-color: #9c600b; 
     color: white;
     border: none;
     border-radius: 25px;
@@ -201,7 +241,7 @@
 }
 
 .btn-enviar:hover {
-    background-color: #081a75;
+    background-color: #600101;
 }
 
 .warning-text {
