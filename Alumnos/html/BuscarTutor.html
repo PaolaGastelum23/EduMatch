@@ -3,321 +3,492 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tus Archivos</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Tutores</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
         :root {
-            --main-red: #660000;
-            --bg-light: #f2f2f2;
-            --card-bg: #d9d9d9;
-            --banner-orange: #F2A922;
-            --btn-messenger-red: #900101;
-            --btn-messenger-hover: #b00101;
+            --sidebar-yellow: #D9D9D9;
+            --color-maroon: #560310;
+            --gray-search: #f3f4f6;
+            --color-unison-orange: #f9e47b8b;
+            --color-accept: #22c55e;
+            --color-reject: #ef4444;
+            --text-dark: #1f2937;
+            --menu-yellow: #FCD34D; /* Color amarillo de tus iconos */
         }
 
-        body {
-            background-color: white;
+        * {
+            box-sizing: border-box;
             margin: 0;
-            padding: 20px;
+            padding: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        /* Contenedor general para centrar todo el diseño integrado */
-        .container-principal {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 10px;
-        }
-
-        /* --- Estilos del Banner Naranja --- */
-        .banner-orange {
-            background-color: var(--banner-orange);
-            padding: 40px;
-            text-align: center;
-            border-radius: 15px;
-            margin-bottom: 30px;
-            color: #333;
-        }
-
-        .banner-orange h1 {
-            font-size: 24px;
-            margin-top: 0;
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-
-        .banner-orange p {
-            margin-bottom: 0;
-        }
-
-        .btn-messenger {
-            background-color: var(--btn-messenger-red);
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 8px;
-            margin-top: 20px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .btn-messenger:hover {
-            background-color: var(--btn-messenger-hover);
-        }
-
-        /* --- Nueva Barra de Filtros Redondeados --- */
-        .filters-bar {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .filter-select {
-            padding: 12px 20px;
-            border-radius: 25px;
-            border: 1px solid #ddd;
-            flex: 1;
-            background-color: white;
-            font-size: 14px;
-            color: #666;
-            outline: none;
-            cursor: pointer;
-        }
-
-        /* --- Estructura de Bloques (Grid y Compartidos) --- */
-        .main-container {
-            display: flex;
-            gap: 20px;
-            align-items: flex-start;
-        }
-
-        .grid-section {
-            background-color: var(--main-red);
-            border-radius: 20px;
-            padding: 30px;
-            flex: 2.5;
-        }
-
-        .header-pdf {
-            display: flex;
-            justify-content: flex-end;
-            margin-bottom: 20px;
-        }
-
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            max-height: 500px;
-            overflow-y: auto;
-            padding-right: 10px;
-        }
-
-        .card {
-            background-color: var(--card-bg);
-            padding: 15px;
-            border-radius: 8px;
-            text-align: center; /* Centrado para hacer juego con las miniaturas */
-            transition: transform 0.3s;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-        }
-
-        /* --- Miniaturas de los archivos --- */
-        .thumbnail {
-            height: 120px;
-            border-radius: 15px;
-            margin-bottom: 10px;
-            background-size: 50px;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-color: #f9f9f9;
-            border: 1px solid #ddd;
-        }
-
-        .thumbnail.pdf {
-            background-image: url('https://cdn-icons-png.flaticon.com/512/337/337946.png');
-            background-color: #fff1f1;
-        }
-
-        .thumbnail.word {
-            background-image: url('https://cdn-icons-png.flaticon.com/512/888/888883.png');
-            background-color: #eef4ff;
-            background-size: 55px;
-        }
-
-        .thumbnail.excel {
-            background-image: url('https://cdn-icons-png.flaticon.com/512/888/888850.png');
-            background-color: #efffef;
-            background-size: 55px;
-        }
-
-        .file-name {
-            font-size: 0.9rem;
-            margin: 5px 0;
-            color: #333;
-            font-weight: 500;
-        }
-
-        /* --- Sección Lateral de Compartidos --- */
-        .shared-section {
-            background-color: #f0ecec;
-            border-radius: 20px;
-            padding: 20px;
-            flex: 1;
-            height: fit-content;
-        }
-
-        .shared-section h3 {
-            margin-top: 0;
-            font-size: 1.2rem;
-        }
-
-        .shared-item {
-            background-color: var(--card-bg);
-            display: flex;
-            padding: 15px;
-            margin-bottom: 15px;
-            gap: 12px;
-            border-radius: 10px;
-        }
-
-        .shared-thumb {
-            width: 60px;
-            height: 60px;
-            background-size: 30px;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-image: url('https://cdn-icons-png.flaticon.com/512/337/337946.png');
+        body {
             background-color: #fff;
-            border-radius: 10px;
-            flex-shrink: 0;
+            overflow: hidden;
         }
 
-        .shared-info p {
-            margin: 0;
-            font-size: 0.85rem;
-            font-weight: bold;
+        /* Contenedor principal adaptado para tu barra lateral */
+        .main-container {
+            display: grid;
+            grid-template-columns: 90px 1fr 380px;
+            height: 100vh;
         }
 
-        .shared-info small {
-            display: block;
-            margin: 5px 0;
-            color: #555;
+        /* ==================== BARRA LATERAL PROPIA (SIDEBAR) ==================== */
+        .sidebar {
+            background-color: var(--color-maroon);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            padding-top: 30px;
         }
 
-        .btn-download {
-            background-color: var(--main-red);
-            color: white;
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 35px;
+            width: 100%;
+        }
+
+        .sidebar-link {
+            text-decoration: none;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        
+
+        .nav-btn {
+            background: none;
             border: none;
-            padding: 6px 20px;
-            border-radius: 20px;
             cursor: pointer;
-            font-size: 0.8rem;
+            position: relative;
+            padding-bottom: 10px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        /* --- Barra Superior de Búsqueda --- */
-        .top-bar {
+        .nav-btn i {
+            font-size: 28px;
+            color: var(--menu-yellow);
+            transition: transform 0.2s ease;
+        }
+
+        .nav-btn:hover i {
+            transform: scale(1.1);
+        }
+
+        /* Línea horizontal amarilla inferior para el botón activo */
+        .nav-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            width: 35px;
+            height: 3px;
+            background-color: var(--menu-yellow);
+            border-radius: 2px;
+        }
+
+        /* ==================== PANEL IZQUIERDO: LISTA DE TUTORES ==================== */
+        .left-panel {
+            padding: 40px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--color-maroon) #f1f1f1;
+        }
+
+        .left-panel::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .left-panel::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .left-panel::-webkit-scrollbar-thumb {
+            background: var(--color-maroon);
+            border-radius: 10px;
+        }
+
+        .header-search {
             display: flex;
             align-items: center;
             justify-content: space-between;
+            margin-bottom: 40px;
             gap: 20px;
-            margin-bottom: 20px;
         }
 
-        .search-container {
+        .header-search h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            line-height: 1.1;
+        }
+
+        .search-box {
+            background-color: var(--gray-search);
+            flex: 1;
+            max-width: 450px;
+            height: 50px;
+            border-radius: 25px;
             display: flex;
             align-items: center;
-            background-color: #d9d9d9;
-            border-radius: 30px;
-            padding: 5px 15px;
-            width: 300px;
+            padding: 0 20px;
+            border: 1px solid #e5e7eb;
+            transition: all 0.3s ease;
         }
 
-        .search-input {
+        .search-box:focus-within {
+            border-color: var(--color-maroon);
+            background-color: #fff;
+            box-shadow: 0 0 0 3px rgba(86, 3, 16, 0.1);
+        }
+
+        .search-box input {
             background: transparent;
             border: none;
             outline: none;
             width: 100%;
-            height: 30px;
+            font-size: 1rem;
+            color: var(--text-dark);
         }
 
-        .btn-upload-new {
-            background-color: #660000;
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background-color: var(--color-maroon);
             color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.9rem;
+            padding: 24px;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
         }
 
-        /* --- Menú Desplegable (Dropdown) --- */
-        .dropdown {
-            position: relative;
-            display: inline-block;
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(86, 3, 16, 0.2);
         }
 
-        .dropbtn {
-            background: none;
-            color: white;
-            padding: 10px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            border: none;
-            cursor: pointer;
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            padding-bottom: 12px;
         }
 
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            right: 0;
-            background-color: #f9f9f9;
-            min-width: 120px;
-            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-            z-index: 1;
-            border-radius: 8px;
+        .card h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 4px;
         }
 
-        .dropdown-content a {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            font-size: 0.9rem;
-        }
-
-        .dropdown-content a:hover {
-            background-color: #ddd;
-            border-radius: 8px;
-        }
-
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-
-        .dropdown:hover .dropbtn {
+        .matricula {
+            font-size: 0.85rem;
             opacity: 0.8;
         }
 
-        /* --- Responsividad --- */
-        @media (max-width: 768px) {
-            .main-container {
-                flex-direction: column;
-            }
+        .card .grade {
+            font-size: 0.85rem;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
 
-            .cards-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+        .card-content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
 
-            .filters-bar {
-                flex-direction: column;
-                gap: 10px;
+        .status-tag {
+            background: #22c55e;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .progress-container {
+            margin-top: 4px;
+        }
+
+        .progress-container p {
+            font-size: 0.85rem;
+            margin-bottom: 6px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .progress-bar {
+            background: rgba(255, 255, 255, 0.2);
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: #fff;
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .btn-message {
+            margin-top: 8px;
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            background: white;
+            color: var(--color-maroon);
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .btn-message:hover {
+            background-color: #f3f4f6;
+            transform: scale(1.02);
+        }
+
+        /* ==================== PANEL DERECHO: SOLICITUDES ==================== */
+        .chat-panel {
+            background-color: var(--color-unison-orange);
+            padding: 40px 24px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-left: 12px solid var(--color-maroon);
+        }
+
+        .chat-panel h3 {
+            color: var(--text-dark);
+            text-align: center;
+            margin-bottom: 24px;
+            font-size: 1.25rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .circular-progress {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            background: conic-gradient(var(--color-accept) 0deg, #e5e7eb 0deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            position: relative;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transition: background 0.4s ease;
+        }
+
+        .circular-progress::before {
+            content: "";
+            position: absolute;
+            width: 104px;
+            height: 104px;
+            background-color: #fdfae7;
+            border-radius: 50%;
+        }
+
+        .progress-value {
+            position: relative;
+            font-weight: 800;
+            font-size: 32px;
+            color: var(--text-dark);
+        }
+
+        .circular-progress.reset-state {
+            background: conic-gradient(#d1d5db 360deg, #d1d5db 360deg) !important;
+        }
+
+        .circular-progress.reset-state .progress-value {
+            color: #9ca3af;
+        }
+
+        .compat-label {
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+        }
+
+        .students-list {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .student-item {
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(86, 3, 16, 0.15);
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 12px;
+            color: var(--text-dark);
+        }
+
+        .student-item:hover {
+            background: rgba(255, 255, 255, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .student-item.active {
+            background: white;
+            border-radius: 16px;
+            border: none;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .student-name {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            display: block;
+            transition: all 0.3s ease;
+        }
+
+        .student-item.active .student-name {
+            font-size: 1.2rem;
+            text-align: center;
+            margin-bottom: 12px;
+            color: var(--color-maroon);
+        }
+
+        .basic-info p {
+            font-size: 0.85rem;
+            color: #4b5563;
+            margin-top: 4px;
+        }
+
+        .details-content {
+            display: none;
+            margin-top: 16px;
+            border-top: 1px solid #f3f4f6;
+            padding-top: 16px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .student-item.active .details-content {
+            display: block;
+        }
+
+        .details-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .info-text {
+            font-size: 0.85rem;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            color: #4b5563;
+        }
+
+        .info-text strong {
+            color: var(--text-dark);
+        }
+
+        .btn-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .btn-accept,
+        .btn-reject {
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: background 0.2s, transform 0.1s;
+            text-align: center;
+        }
+
+        .btn-accept {
+            background-color: var(--color-accept);
+        }
+
+        .btn-accept:hover {
+            background-color: #16a34a;
+        }
+
+        .btn-reject {
+            background-color: var(--color-reject);
+        }
+
+        .btn-reject:hover {
+            background-color: #dc2626;
+        }
+
+        /* Animaciones */
+        .slide-out-right {
+            animation: slideOutRight 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes slideOutRight {
+            to {
+                opacity: 0;
+                transform: translateX(100px);
+                margin-bottom: -70px;
+                padding: 0;
+                border: none;
+            }
+        }
+
+        .fade-in-card {
+            animation: fadeInCard 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        @keyframes fadeInCard {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
             }
         }
     </style>
@@ -325,140 +496,368 @@
 
 <body>
 
-    <div class="container-principal">
+    <div class="main-container">
 
-        <section class="banner-orange">
-            <h1>TUS ARCHIVOS ACUMULADOS</h1>
-            <p>Busca tus archivos y apuntes descargados de tus conversaciones.</p>
-            <button class="btn-messenger">Ir a mensajería</button>
-        </section>
+        <aside class="sidebar">
+            <nav class="sidebar-nav">
+                <a href="DashboardAlumnos.html" class="sidebar-link">
+                    <button class="nav-btn">
+                        <i class="fa-solid fa-house"></i>
+                    </button>
+                </a>
+                
+                <a href="BuscarTutor.html" class="sidebar-link">
+                    <button class="nav-btn">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </a>
 
-        <section class="filters-bar">
-            <select class="filter-select">
-                <option>ESCOGE TUTOR</option>
-            </select>
-            <select class="filter-select">
-                <option>TIPO DE ARCHIVO</option>
-            </select>
-        </section>
+                <a href="CalificaTutor.html" class="sidebar-link">
+                    <button class="nav-btn">
+                        <i class="fa-solid fa-star"></i>
+                    </button>
+                </a>
+                
+                <a href="MensajesAlumnos.html" class="sidebar-link">
+                    <button class="nav-btn">
+                        <i class="fa-solid fa-envelope"></i>
+                    </button>
+                </a>
+                
+                <a href="MisTutores.html" class="sidebar-link">
+                    <button class="nav-btn active">
+                        <i class="fa-solid fa-user"></i>
+                    </button>
+                </a>
+                
+                <a href="ArchivosAlumnos.html" class="sidebar-link">
+                    <button class="nav-btn">
+                        <i class="fa-solid fa-folder"></i>
+                    </button>
+                </a>
+            </nav>
+        </aside>
 
-        <div class="top-bar">
-            <div class="search-container">
-                <input type="text" id="searchInput" class="search-input" placeholder="Buscar archivo..." onkeyup="buscarArchivos()">
-            </div>
-            <input type="file" id="file-upload" style="display: none;" accept=".pdf, .doc, .docx, .xls, .xlsx" />
-            <button class="btn-upload-new" onclick="document.getElementById('file-upload').click()">
-                subir un archivo nuevo
-            </button>
-        </div>
+        <section class="left-panel">
+            <header class="header-search">
+                <h1>Mis tutores</h1>
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Buscar por tutor o materia...">
+                </div>
+            </header>
 
-        <div class="main-container">
+            <div class="cards-grid" id="tutorsGrid">
+                <article class="card">
+                    <div class="card-header">
+                        <div class="header-info">
+                            <h3>Daniela Ríos</h3>
+                            <p class="matricula">Tutor ID: T10234</p>
+                        </div>
+                        <p class="grade">6° Semestre</p>
+                    </div>
 
-            <section class="grid-section">
-                <div class="header-pdf">
-                    <div class="dropdown">
-                        <button class="dropbtn" id="currentFilter">TODOS ▼</button>
-                        <div class="dropdown-content">
-                            <a href="#" onclick="filtrarArchivos('Todos')">Todos</a>
-                            <a href="#" onclick="filtrarArchivos('PDF')">PDF</a>
-                            <a href="#" onclick="filtrarArchivos('Word')">Word</a>
-                            <a href="#" onclick="filtrarArchivos('Excel')">Excel</a>
+                    <div class="card-content-grid">
+                        <div class="info-group">
+                            <p><strong>Materia:</strong> Programación</p>
+                            <p><strong>Estado:</strong> <span class="status-tag">Activo</span></p>
+                        </div>
+                        <div class="info-group">
+                            <p><strong>Última asesoría:</strong> 6 mayo</p>
+                            <p><strong>Asistencia:</strong> 90%</p>
                         </div>
                     </div>
-                </div>
 
-                <div class="cards-grid" id="archivoGrid">
-                    <div class="card" data-type="PDF">
-                        <div class="thumbnail pdf"></div>
-                        <p class="file-name">Guia_Estudio.pdf</p>
+                    <div class="progress-container">
+                        <p><span>Progreso del curso</span> <span>75%</span></p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 75%;"></div>
+                        </div>
                     </div>
-                    <div class="card" data-type="Word">
-                        <div class="thumbnail word"></div>
-                        <p class="file-name">Guía_CRUD.docx</p>
-                    </div>
-                    <div class="card" data-type="Excel">
-                        <div class="thumbnail excel"></div>
-                        <p class="file-name">Diagrama_PERT.xlsx</p>
-                    </div>
-                    <div class="card" data-type="PDF">
-                        <div class="thumbnail pdf"></div>
-                        <p class="file-name">Explicación_UbuntuServer.pdf</p>
-                    </div>
-                </div>
-            </section>
 
-            <aside class="shared-section">
-                <h3>Archivos compartidos</h3>
+                    <button class="btn-message" onclick="enviarMensaje('Daniela Ríos', '../../imagenes/Daniela.jpg')">
+                        Enviar mensaje
+                    </button>
+                </article>
 
-                <div class="shared-item">
-                    <div class="shared-thumb"></div>
-                    <div class="shared-info">
-                        <p>Apuntes de Cálculo</p>
-                        <small>Compartido por: Lorena Martinez</small>
-                        <button class="btn-download" onclick="descargarPDF('Apuntes_Calculo.pdf')">Descargar</button>
+                <article class="card">
+                    <div class="card-header">
+                        <div class="header-info">
+                            <h3>Mateo Salazar</h3>
+                            <p class="matricula">Tutor ID: T10876</p>
+                        </div>
+                        <p class="grade">5° Semestre</p>
                     </div>
-                </div>
 
-                <div class="shared-item">
-                    <div class="shared-thumb"></div>
-                    <div class="shared-info">
-                        <p>Guía de Historia</p>
-                        <small>Compartido por: Glenda Benítez</small>
-                        <button class="btn-download" onclick="descargarPDF('Guia_Historia.pdf')">Descargar</button>
+                    <div class="card-content-grid">
+                        <div class="info-group">
+                            <p><strong>Materia:</strong> Cálculo</p>
+                            <p><strong>Estado:</strong> <span class="status-tag">Activo</span></p>
+                        </div>
+                        <div class="info-group">
+                            <p><strong>Última asesoría:</strong> 3 mayo</p>
+                            <p><strong>Asistencia:</strong> 85%</p>
+                        </div>
                     </div>
-                </div>
 
-                <div class="shared-item">
-                    <div class="shared-thumb"></div>
-                    <div class="shared-info">
-                        <p>Resumen Literario</p>
-                        <small>Compartido por: Jaqueline Guzmán</small>
-                        <button class="btn-download" onclick="descargarPDF('Resumen_Literatura.pdf')">Descargar</button>
+                    <div class="progress-container">
+                        <p><span>Progreso del curso</span> <span>60%</span></p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 60%;"></div>
+                        </div>
                     </div>
-                </div>
-            </aside>
-        </div>
+
+                    <button class="btn-message" onclick="enviarMensaje('Mateo Salazar', '../../imagenes/Mateo.jpg')">
+                        Enviar mensaje
+                    </button>
+                </article>
+
+                <article class="card">
+                    <div class="card-header">
+                        <div class="header-info">
+                            <h3>Camila Navarro</h3>
+                            <p class="matricula">Tutor ID: T11209</p>
+                        </div>
+                        <p class="grade">4° Semestre</p>
+                    </div>
+
+                    <div class="card-content-grid">
+                        <div class="info-group">
+                            <p><strong>Materia:</strong> Bases de Datos</p>
+                            <p><strong>Estado:</strong> <span class="status-tag">Activo</span></p>
+                        </div>
+                        <div class="info-group">
+                            <p><strong>Última asesoría:</strong> 1 mayo</p>
+                            <p><strong>Asistencia:</strong> 95%</p>
+                        </div>
+                    </div>
+
+                    <div class="progress-container">
+                        <p><span>Progreso del curso</span> <span>90%</span></p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 90%;"></div>
+                        </div>
+                    </div>
+
+                    <button class="btn-message" onclick="enviarMensaje('Camila Navarro', '../../imagenes/Camila.jpg')">
+                        Enviar mensaje
+                    </button>
+                </article>
+            </div>
+        </section>
+
+        <section class="chat-panel" id="chatPanel">
+            <h3>Solicitudes de asesoría</h3>
+
+            <div class="circular-progress reset-state" id="mainCircle">
+                <span class="progress-value" id="mainPercent">0</span>
+            </div>
+
+            <p class="compat-label">Compatibilidad</p>
+
+            <div id="students-list" class="students-list"></div>
+        </section>
+
     </div>
 
     <script>
-        function filtrarArchivos(tipo) {
-            document.getElementById('currentFilter').innerText = tipo + " ▼";
-            const tarjetas = document.querySelectorAll('.card');
+        const searchInput = document.getElementById('searchInput');
 
-            tarjetas.forEach(tarjeta => {
-                if (tipo === 'Todos' || tarjeta.getAttribute('data-type') === tipo) {
-                    tarjeta.style.display = "block";
+        const listaSolicitudes = [
+            {
+                id: 101,
+                nombre: "Santiago Herrera",
+                comp: 96,
+                materias: "Programación, Java",
+                semestre: "6°",
+                modalidad: "Online",
+                foto: "../../imagenes/Santiago.jpg"
+            },
+            {
+                id: 102,
+                nombre: "Renata Castillo",
+                comp: 88,
+                materias: "Cálculo diferencial",
+                semestre: "5°",
+                modalidad: "Presencial",
+                foto: "../../imagenes/Renata.jpg"
+            },
+            {
+                id: 103,
+                nombre: "Emiliano Vargas",
+                comp: 79,
+                materias: "Bases de Datos",
+                semestre: "4°",
+                modalidad: "Presencial / Online",
+                foto: "../../imagenes/Emiliano.jpg"
+            }
+        ];
+
+        function cargarSolicitudes() {
+            const contenedor = document.getElementById('students-list');
+
+            contenedor.innerHTML = listaSolicitudes.map(tutor => `
+                <div class="student-item" id="card-${tutor.id}" onclick="expandirTutor(${tutor.id})">
+                    <div class="basic-info">
+                        <strong class="student-name">${tutor.nombre}</strong>
+                        <p>Compatibilidad de trabajo: <strong>${tutor.comp}%</strong></p>
+                    </div>
+
+                    <div class="details-content">
+                        <div class="details-grid">
+                            <div class="info-text">
+                                <p><strong>Materias:</strong> ${tutor.materias}</p>
+                                <p><strong>Semestre:</strong> ${tutor.semestre} Semestre</p>
+                                <p><strong>Modalidad:</strong> ${tutor.modalidad}</p>
+                            </div>
+
+                            <div class="btn-group">
+                                <button class="btn-accept" onclick="event.stopPropagation(); procesarSolicitud(${tutor.id}, true)">
+                                    Solicitar
+                                </button>
+                                <button class="btn-reject" onclick="event.stopPropagation(); procesarSolicitud(${tutor.id}, false)">
+                                    Omitir
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function expandirTutor(id) {
+            const tutor = listaSolicitudes.find(t => t.id === id);
+            if (!tutor) return;
+
+            document.querySelectorAll('.student-item').forEach(card => {
+                card.classList.remove('active');
+            });
+
+            const card = document.getElementById(`card-${id}`);
+            if (card) {
+                card.classList.add('active');
+            }
+
+            const circulo = document.getElementById('mainCircle');
+            const texto = document.getElementById('mainPercent');
+
+            circulo.classList.remove('reset-state');
+            const grados = tutor.comp * 3.6;
+
+            circulo.style.background = `conic-gradient(var(--color-accept) ${grados}deg, #e5e7eb ${grados}deg)`;
+            texto.innerText = tutor.comp;
+        }
+
+        function procesarSolicitud(id, aceptado) {
+            const card = document.getElementById(`card-${id}`);
+            const circle = document.getElementById("mainCircle");
+            const percent = document.getElementById("mainPercent");
+            const tutor = listaSolicitudes.find(t => t.id === id);
+
+            if (!card) return;
+
+            card.classList.add("slide-out-right");
+
+            setTimeout(() => {
+                card.remove();
+
+                if (aceptado && tutor) {
+                    crearTarjetaTutor(tutor);
+                }
+
+                percent.innerText = "0";
+                circle.style.background = "conic-gradient(#d1d5db 360deg, #d1d5db 360deg)";
+                circle.classList.add("reset-state");
+            }, 400);
+        }
+
+        function crearTarjetaTutor(tutor) {
+            const contenedorPrincipal = document.getElementById('tutorsGrid');
+
+            const nuevaTarjeta = document.createElement('article');
+            nuevaTarjeta.className = 'card fade-in-card';
+
+            nuevaTarjeta.innerHTML = `
+                <div class="card-header">
+                    <div class="header-info">
+                        <h3>${tutor.nombre}</h3>
+                        <p class="matricula">Tutor ID: T10${tutor.id}</p>
+                    </div>
+                    <p class="grade">${tutor.semestre} Semestre</p>
+                </div>
+
+                <div class="card-content-grid">
+                    <div class="info-group">
+                        <p><strong>Materia:</strong> ${tutor.materias.split(',')[0]}</p>
+                        <p><strong>Estado:</strong> <span class="status-tag">Activo</span></p>
+                    </div>
+                    <div class="info-group">
+                        <p><strong>Última asesoría:</strong> En espera</p>
+                        <p><strong>Asistencia:</strong> 100%</p>
+                    </div>
+                </div>
+
+                <div class="progress-container">
+                    <p><span>Progreso del curso</span> <span>0%</span></p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%;"></div>
+                    </div>
+                </div>
+
+                <button class="btn-message" onclick="enviarMensaje('${tutor.nombre}', '${tutor.foto}')">
+                    Enviar mensaje
+                </button>
+            `;
+
+            contenedorPrincipal.prepend(nuevaTarjeta);
+        }
+
+        function enviarMensaje(nombre, foto) {
+            const nombreParam = encodeURIComponent(nombre);
+            const fotoParam = encodeURIComponent(foto);
+
+            const claveChat = `chat_messages_${nombre}`;
+            let mensajes = JSON.parse(localStorage.getItem(claveChat)) || [];
+
+            const ahora = new Date().toLocaleTimeString([], {
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: false
+            });
+
+            if (mensajes.length === 0) {
+                mensajes.push({
+                    texto: `Hola ${nombre}, me gustaría agendar una sesión de asesoría contigo.`,
+                    remitente: 'alumno',
+                    hora: ahora
+                });
+                localStorage.setItem(claveChat, JSON.stringify(mensajes));
+            }
+
+            localStorage.setItem('tutor_activo', nombre);
+            localStorage.setItem('alumno_activo', nombre);
+            localStorage.setItem('foto_activa', foto);
+            localStorage.setItem(`chat_photo_${nombre}`, foto);
+
+            window.location.href = `MensajesAlumnos.html?tutor=${nombreParam}&alumno=${nombreParam}&foto=${fotoParam}`;
+        }
+
+        // Filtro del buscador en tiempo real
+        searchInput.addEventListener('input', function (e) {
+            const value = e.target.value.toLowerCase().trim();
+
+            document.querySelectorAll('#tutorsGrid .card').forEach(card => {
+                const name = card.querySelector('h3').innerText.toLowerCase();
+                const materia = card.querySelector('.info-group p').innerText.toLowerCase();
+
+                if (name.includes(value) || materia.includes(value)) {
+                    card.style.display = 'flex';
                 } else {
-                    tarjeta.style.display = "none";
+                    card.style.display = 'none';
                 }
             });
-        }
+        });
 
-        function buscarArchivos() {
-            const textoBusqueda = document.getElementById('searchInput').value.toLowerCase();
-            const tarjetas = document.querySelectorAll('.card');
-
-            tarjetas.forEach(tarjeta => {
-                const nombreArchivo = tarjeta.querySelector('.file-name').innerText.toLowerCase();
-                if (nombreArchivo.includes(textoBusqueda)) {
-                    tarjeta.style.display = "block";
-                } else {
-                    tarjeta.style.display = "none";
-                }
-            });
-        }
-
-        function descargarPDF(nombreArchivo) {
-            const contenidoFalso = "%PDF-1.4\n1 0 obj\n<< /Title (Archivo Simulado) >>\nendobj\ntrailer\n<< /Root 1 0 R >>\n%%EOF";
-            const blob = new Blob([contenidoFalso], { type: 'application/pdf' });
-            const enlace = document.createElement('a');
-            enlace.href = URL.createObjectURL(blob);
-            enlace.download = nombreArchivo;
-
-            document.body.appendChild(enlace);
-            enlace.click();
-            document.body.removeChild(enlace);
-        }
+        window.addEventListener('load', cargarSolicitudes);
     </script>
 </body>
 

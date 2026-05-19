@@ -1,3 +1,6 @@
+/* ==========================================================================
+   1. VARIABLES Y CONFIGURACIÓN BASE
+   ========================================================================== */
 :root {
     --bordo: #7D1F2D;
     --naranja: #FF6B00;
@@ -8,7 +11,7 @@
 }
 
 * {
-   margin: 0;
+    margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
@@ -21,6 +24,9 @@ body {
     margin: 0;
 }
 
+/* ==========================================================================
+   2. HEADER / NAVEGACIÓN
+   ========================================================================== */
 header {
     background-color: white;
     padding: 10px 50px;
@@ -30,12 +36,9 @@ header {
     position: sticky;
     top: 0;
     z-index: 1000;
-    cursor: pointer;
-    transition: transform 0.2s;
+    transition: transform 0.2s, padding 0.3s ease;
 }
 
-
-/*para adaptar el header*/
 header a:hover {
     color: #FF6B00;
     font-weight: bolder;
@@ -44,6 +47,11 @@ header a:hover {
 .logo img {
     height: 50px;
     display: block;
+}
+
+nav {
+    display: flex;
+    align-items: center;
 }
 
 nav a {
@@ -75,9 +83,14 @@ nav a {
     transform: scale(1.05);
 }
 
+/* ==========================================================================
+   3. HERO SECTION (SECCIÓN PRINCIPAL)
+   ========================================================================== */
 .hero-section {
     padding: 40px 50px;
     text-align: center;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
 .hero-titles {
@@ -86,6 +99,7 @@ nav a {
     align-items: center;
     margin-bottom: 30px;
     text-align: left;
+    gap: 20px;
 }
 
 .hero-titles h1 {
@@ -93,6 +107,7 @@ nav a {
     margin: 0;
     font-family: 'Arial Black', sans-serif;
     letter-spacing: -2px;
+    line-height: 1;
 }
 
 .hero-titles h2 {
@@ -101,6 +116,7 @@ nav a {
     text-align: right;
     line-height: 1.1;
     font-weight: 900;
+    flex-shrink: 0;
 }
 
 .image-container {
@@ -115,11 +131,15 @@ nav a {
     display: block;
 }
 
+/* Separador */
 .gradient-divider {
     height: 150px;
     background: linear-gradient(to bottom, var(--bordo), var(--blanco-fondo));
 }
 
+/* ==========================================================================
+   4. TUTORS SECTION (TARJETA DE TUTORES)
+   ========================================================================== */
 .tutors-section {
     background-color: var(--blanco-fondo);
     padding: 0 50px 80px 50px;
@@ -135,6 +155,7 @@ nav a {
     gap: 40px;
     align-items: center;
     max-width: 1200px;
+    width: 100%;
 }
 
 .tutor-text {
@@ -162,6 +183,11 @@ nav a {
     border-radius: 12px;
     font-weight: bold;
     cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-register:hover {
+    background-color: var(--naranja);
 }
 
 .tutor-image-box {
@@ -175,6 +201,9 @@ nav a {
     display: block;
 }
 
+/* ==========================================================================
+   5. STEPS SLIDER (CARRUSEL PASO A PASO)
+   ========================================================================== */
 .steps-slider {
     background-color: var(--blanco-fondo);
     padding-bottom: 100px;
@@ -186,6 +215,9 @@ nav a {
     scroll-snap-type: x mandatory;
     gap: 0;
     scroll-behavior: smooth;
+    /* Soporte nativo para ocultar barras en diferentes motores */
+    -webkit-overflow-scrolling: touch; 
+    scrollbar-width: none; 
 }
 
 .slider-container::-webkit-scrollbar {
@@ -199,11 +231,12 @@ nav a {
     justify-content: center;
     padding: 20px 10%;
     scroll-snap-align: center;
+    gap: 40px;
 }
 
 .step-content {
     flex: 1;
-    padding-right: 50px;
+    padding-right: 20px; /* Reducido para mejor distribución lateral */
     color: #333;
 }
 
@@ -211,12 +244,14 @@ nav a {
     color: var(--dorado-titulo);
     font-size: 3rem;
     margin-bottom: 5px;
+    line-height: 1;
 }
 
 .step-content h4 {
     color: var(--bordo);
     font-size: 1.8rem;
     margin-bottom: 15px;
+    line-height: 1.2;
 }
 
 .stars {
@@ -242,6 +277,8 @@ nav a {
     height: 35px;
     border: 2px solid #555;
     border-radius: 20px;
+    background: transparent;
+    cursor: pointer;
 }
 
 .btn-action {
@@ -251,15 +288,15 @@ nav a {
     color: white;
     font-weight: bold;
     cursor: pointer;
+    transition: opacity 0.2s;
 }
 
-.orange {
-    background-color: var(--naranja);
+.btn-action:hover {
+    opacity: 0.9;
 }
 
-.bordo {
-    background-color: var(--bordo);
-}
+.orange { background-color: var(--naranja); }
+.bordo { background-color: var(--bordo); }
 
 .step-image {
     flex: 1;
@@ -269,17 +306,172 @@ nav a {
     padding: 20px;
 }
 
-.border-orange {
-    border: 10px solid var(--naranja);
-}
-
-.border-bordo {
-    border: 10px solid var(--bordo);
-}
+.border-orange { border: 10px solid var(--naranja); }
+.border-bordo { border: 10px solid var(--bordo); }
 
 .step-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     border-radius: 20px;
+}
+
+/* ==========================================================================
+   6. MEDIA QUERIES (PUNTOS DE QUIEBRE RESPONSIVOS)
+   ========================================================================== */
+
+/* --- DETALLES DE ESCRITORIO MEDIANO / TABLET LANDSCAPE (max-width: 1100px) --- */
+@media (max-width: 1100px) {
+    .hero-titles h1 {
+        font-size: 4rem;
+    }
+    
+    .hero-titles h2 {
+        font-size: 2rem;
+        width: 350px;
+    }
+
+    .tutor-card {
+        padding: 35px;
+        gap: 25px;
+        border-radius: 35px;
+    }
+
+    .step-card {
+        padding: 20px 5%;
+    }
+
+    .step-image {
+        height: 400px;
+    }
+}
+
+/* --- TABLETS VERTICALES (max-width: 900px) --- */
+@media (max-width: 900px) {
+    header {
+        padding: 15px 25px;
+    }
+
+    nav a {
+        margin: 0 10px;
+        font-size: 0.85rem;
+    }
+
+    .hero-section {
+        padding: 30px 25px;
+    }
+
+    .hero-titles {
+        flex-direction: column; /* Apila el título H1 del H2 */
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .hero-titles h2 {
+        text-align: left;
+        width: 100%; /* Elimina la restricción de los 450px fijos */
+    }
+
+    .image-container {
+        border-radius: 40px;
+    }
+
+    .tutors-section {
+        padding: 0 25px 60px 25px;
+    }
+
+    .tutor-card {
+        flex-direction: column-reverse; /* La imagen se renderiza arriba del texto */
+        text-align: center;
+    }
+
+    .tutor-image-box {
+        width: 100%;
+        max-width: 500px;
+    }
+
+    /* Ajuste estructural del Slider */
+    .step-card {
+        flex-direction: column; /* El texto va arriba y la imagen abajo en cada diapositiva */
+        text-align: center;
+        padding: 20px 8%;
+    }
+
+    .step-content {
+        padding-right: 0;
+    }
+
+    .step-content p {
+        text-align: center; /* Se ve mejor centrado si el layout colapsa */
+    }
+
+    .step-buttons {
+        justify-content: center;
+    }
+
+    .step-image {
+        width: 100%;
+        height: 350px;
+    }
+}
+
+/* --- DISPOSITIVOS MÓVILES (max-width: 600px) --- */
+@media (max-width: 600px) {
+    /* El header colapsa u oculta elementos si no hay JS para menú hamburguesa */
+    header {
+        flex-direction: column;
+        gap: 12px;
+        padding: 15px;
+    }
+
+    nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    nav a {
+        margin: 0 5px;
+    }
+
+    .btn-login-top {
+        width: 100%;
+        text-align: center;
+        margin-top: 5px;
+    }
+
+    .hero-titles h1 {
+        font-size: 2.8rem; /* Evita desbordes de pantalla */
+    }
+
+    .hero-titles h2 {
+        font-size: 1.5rem;
+    }
+
+    .gradient-divider {
+        height: 80px; /* Reducción de espacios muertos */
+    }
+
+    .tutor-card {
+        border-radius: 25px;
+        padding: 25px 15px;
+    }
+
+    .tutor-text h3 {
+        font-size: 1.7rem;
+    }
+
+    .step-content h3 {
+        font-size: 2.2rem;
+    }
+
+    .step-content h4 {
+        font-size: 1.4rem;
+    }
+
+    .step-image {
+        height: 280px;
+        border-radius: 25px;
+        padding: 10px;
+    }
 }

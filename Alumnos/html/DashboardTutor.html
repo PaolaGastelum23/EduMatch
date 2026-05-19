@@ -13,14 +13,38 @@
     <div class="dashboard-container">
 
         <aside class="sidebar">
+            
             <div class="nav-icons">
-                <i class="fa-solid fa-house active"></i>
-                <i class="fa-solid fa-user-plus"></i>
-                <i class="fa-solid fa-address-card"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-envelope"></i>
-                <i class="fa-solid fa-user-pen"></i>
-                <i class="fa-solid fa-book-open"></i>
+
+                <a href="Dashboardtutor.html" class="sidebar-link">
+                    <div class="nav-item active">
+                    <i class="fa-solid fa-house"></i>
+                    <span class="tooltip-text">Inicio</span>
+                </div>
+                </a>
+
+                <a href="BuscarAlumnos.html" class="sidebar-link">
+                    <div class="nav-item">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <span class="tooltip-text">Buscar</span>
+                </div>
+                </a>
+                
+                <a href="MensajesTutor.html" class="sidebar-link">
+                <div class="nav-item">
+                    <i class="fa-solid fa-envelope"></i>
+                    <span class="tooltip-text">Mensajes</span>
+                </div>
+                </a>
+                
+                <a href="SubirArchivoTutores.html" class="sidebar-link">
+                    <div class="nav-item">
+                    <i class="fa-solid fa-folder"></i>
+                    <span class="tooltip-text">Archivos</span>
+                </div>
+                </a>
+                
+                
             </div>
         </aside>
 
@@ -51,7 +75,7 @@
                             <i class="fa-solid fa-bell slider-icon" style="color: #5C0000;"></i>
                             <i class="fa-solid fa-envelope slider-icon" style="color: #5C0000;"></i>
                         </div>
-<div class="carousel-item active-slide" id="rating-section">
+                        <div class="carousel-item active-slide" id="rating-section">
                             <div class="recompensas-card" style="color: #5C0000; display: flex; flex-direction: column; align-items: center; padding: 25px 20px;">
                                 
                                 <div class="level-badge" style="background-color: #5C0000; color: white; padding: 6px 16px; border-radius: 20px; font-weight: bold; font-size: 0.9rem; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(92,0,0,0.2);">
@@ -278,7 +302,6 @@
 
                             <div class="calendar-grid">
 
-                                <!-- Espacios vacíos -->
                                 <span class="empty"></span>
 
                                 <span>1</span>
@@ -287,8 +310,6 @@
                                 <span>4</span>
                                 <span>5</span>
                                 <span>6</span>
-
-                                
 
                                 <span class="active" data-info="Bases de Datos - 3:00 PM">7</span>
 
@@ -304,10 +325,10 @@
                                 <span>17</span>
                                <span class="active" data-info="Taller de Compiladores">18</span>
                                 <span>19</span>
-                                  <span>20</span>
+                                 <span>20</span>
                                   <span>21</span>
                                   <span>22</span>
-                                <span>22</span>
+                                 <span>22</span>
                                  <span class="active" data-info="Sesión grupal">23</span>
                                 <span>24</span>
                                 <span>25</span>
@@ -364,35 +385,20 @@
             });
         });
 
-
         function toggleTag(element) {
             element.classList.toggle('active');
-
             reiniciarCarrusel(tiempoEscribiendo);
         }
 
-
-        const commentInput = document.getElementById('user-comment');
-        const counter = document.getElementById('char-counter');
-
-        commentInput.addEventListener('input', () => {
-            counter.textContent = `${commentInput.value.length} / 100`;
-
-            reiniciarCarrusel(tiempoEscribiendo);
-        });
-
-
         function enviarCalificacion() {
-
             const section = document.getElementById('rating-section');
-
             section.innerHTML = `
-        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 300px; color: #5C0000; text-align: center; animation: fadeIn 0.5s;">
-            <i class="fa-solid fa-circle-check" style="font-size: 50px; margin-bottom: 15px;"></i>
-            <h3>¡Gracias por tu opinión!</h3>
-            <p>Tu calificación ha sido enviada con éxito.</p>
-        </div>
-    `;
+                <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 300px; color: #5C0000; text-align: center; animation: fadeIn 0.5s;">
+                    <i class="fa-solid fa-circle-check" style="font-size: 50px; margin-bottom: 15px;"></i>
+                    <h3>¡Gracias por tu opinión!</h3>
+                    <p>Tu calificación ha sido enviada con éxito.</p>
+                </div>
+            `;
         }
 
         const diasActivos = document.querySelectorAll('.calendar-grid .active');
@@ -400,7 +406,6 @@
 
         diasActivos.forEach(dia => {
             dia.addEventListener('click', () => {
-                // Si la info ya está visible y es la misma, ocultarla
                 if (infoCita.style.display === 'block' && infoCita.textContent === dia.dataset.info) {
                     infoCita.style.display = 'none';
                     infoCita.textContent = '';

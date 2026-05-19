@@ -36,12 +36,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 20px; /* Evita que el formulario toque los bordes físicos de la pantalla */
 }
 
 .form-content {
-    width: 85%;
+    width: 100%; /* Cambiado a 100% para controlar el ancho máximo de forma elástica */
     max-width: 450px;
-    min-height: 92vh;
+    min-height: 85vh; /* Ajustado ligeramente para dar aire en pantallas verticales cortas */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -80,7 +81,11 @@ h1 {
     cursor: pointer;
     background-color: var(--btn-apagado);
     color: rgba(255, 255, 255, 0.5);
-    transition: 0.3s;
+    transition: background-color 0.3s, color 0.3s, transform 0.1s;
+}
+
+.role-btn:active {
+    transform: scale(0.98);
 }
 
 #btn-estudiante.active {
@@ -108,10 +113,17 @@ h1 {
     width: 100%;
     height: 45px;
     background-color: var(--input-bg);
-    border: none;
+    border: 1px solid transparent;
     border-radius: 25px;
     color: white;
     padding: 0 20px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.dark-input:focus {
+    border-color: var(--naranja-login);
 }
 
 .forgot-password {
@@ -121,6 +133,7 @@ h1 {
     text-align: right;
     margin-top: 5px;
     text-decoration: underline;
+    cursor: pointer;
 }
 
 .btn-main-login {
@@ -135,6 +148,11 @@ h1 {
     cursor: pointer;
     margin-top: 15px;
     text-transform: uppercase;
+    transition: background-color 0.2s;
+}
+
+.btn-main-login:hover {
+    background-color: #c77800;
 }
 
 .footer-login {
@@ -142,6 +160,9 @@ h1 {
     color: white;
     padding-bottom: 10px;
     margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .mini-logo {
@@ -152,6 +173,7 @@ h1 {
     padding: 8px;
     margin-top: 25px; 
     margin-bottom: 8px;
+    display: block;
 }
 
 .footer-login p {
@@ -166,4 +188,79 @@ h1 {
     font-size: 0.75rem;
     text-decoration: underline;
     display: block;
+    cursor: pointer;
+}
+
+/* ==========================================================================
+   MEDIA QUERIES (PUNTOS DE QUIEBRE RESPONSIVOS)
+   ========================================================================== */
+
+/* --- TABLETS Y PANTALLAS MEDIANAS (max-width: 992px) --- */
+@media (max-width: 992px) {
+    h1 {
+        font-size: 2.8rem; /* Evita que el título rompa el flujo visual */
+    }
+    
+    .form-content {
+        min-height: auto; /* Permite que el contenedor colapse según su contenido */
+    }
+}
+
+/* --- DISPOSITIVOS MÓVILES (max-width: 768px) --- */
+@media (max-width: 768px) {
+    .login-container {
+        flex-direction: column; /* Apila la sección de imagen y la sección del formulario */
+    }
+
+    .login-image {
+        display: none; /* RECOMENDADO: Oculta la imagen decorativa en móviles para priorizar el login */
+        /* Si obligatoriamente deseas mostrarla, descomenta las siguientes líneas y comenta el display: none: */
+        /* flex: none;
+        height: 25vh;
+        width: 100%; */
+    }
+
+    .login-form-section {
+        flex: 1;
+        min-height: 100vh;
+        padding: 30px 20px;
+    }
+
+    .form-content {
+        max-width: 400px; /* Ajuste sutil de ancho en pantallas más estrechas */
+    }
+
+    h1 {
+        font-size: 2.5rem;
+        margin-bottom: 25px;
+    }
+
+    .question {
+        font-size: 1.15rem;
+    }
+
+    .input-group label {
+        font-size: 1.1rem;
+    }
+}
+
+/* --- TELÉFONOS MUY PEQUEÑOS O PANTALLAS CORTAS (max-width: 400px) --- */
+@media (max-width: 400px) {
+    h1 {
+        font-size: 2.2rem;
+    }
+
+    .role-selection {
+        gap: 10px; /* Compacta los botones de selección */
+    }
+
+    .role-btn {
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+
+    .btn-main-login {
+        font-size: 1.1rem;
+        padding: 12px;
+    }
 }

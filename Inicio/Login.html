@@ -96,13 +96,13 @@
 
                 if (esTutorSeleccionado) {
                     if (usuario === credenciales.tutor.user && contrasena === credenciales.tutor.pass) {
-                        window.location.href = "\tutor.html";
+                        window.location.href = "/Alumnos/html/DashboardTutor.html";
                     } else {
                         alert("Error: Usuario o contraseña de Tutor incorrectos.");
                     }
                 } else {
                     if (usuario === credenciales.estudiante.user && contrasena === credenciales.estudiante.pass) {
-                        window.location.href = "/Alumnos/DashboardAlumnos.html";
+                        window.location.href = "/Alumnos/html/DashboardAlumnos.html";
                     } else {
                         alert("Error: Usuario o contraseña de Estudiante incorrectos.");
                     }

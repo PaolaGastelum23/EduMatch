@@ -65,6 +65,10 @@
     border-radius: 0 4px 4px 0;
 }
 
+.nav-item.active i {
+    color: #FFFFFF;
+}
+
 .main-content {
     flex: 1;
     padding: 40px;

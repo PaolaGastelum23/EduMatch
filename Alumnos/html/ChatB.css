@@ -15,7 +15,7 @@
 }
 
 /* ==========================================================================
-   2. BARRA LATERAL DE NAVEGACIÓN (SIDEBAR) - ESCRITORIO
+   2. BARRA LATERAL (SIDEBAR) - DISEÑO ESCRITORIO
    ========================================================================== */
 .sidebar {
     width: 80px;
@@ -35,7 +35,14 @@
     gap: 10px;
 }
 
-.nav-link {
+.nav-item.active i {
+    color: #FFFFFF;
+}
+
+/* --- BOTONES / ENLACES DE LA SIDEBAR UNIFICADOS --- */
+.nav-link, .nav-btn {
+    background: none; 
+    border: none;     
     text-decoration: none;
     width: 100%;
     height: 60px;
@@ -47,23 +54,23 @@
     transition: all 0.3s ease;
 }
 
-.nav-link i {
+.nav-link i, .nav-btn i {
     font-size: 24px;
     color: #F2A922;
     transition: all 0.3s ease;
 }
 
-.nav-link:hover i {
+.nav-link:hover i, .nav-btn:hover i {
     color: white;
     transform: scale(1.1);
 }
 
-.nav-link.active i {
+.nav-link.active i, .nav-btn.active i {
     color: white;
 }
 
-/* Indicador activo izquierdo (Escritorio) */
-.nav-link.active::before {
+/* Línea indicadora blanca lateral (Escritorio) */
+.nav-link.active::before, .nav-btn.active::before {
     content: '';
     position: absolute;
     left: 0;
@@ -73,12 +80,8 @@
     border-radius: 0 4px 4px 0;
 }
 
-.nav-item.active i {
-    color: #FFFFFF;
-}
-
 /* ==========================================================================
-   3. BARRA LATERAL DE CHATS (LISTA DE CONTACTOS)
+   3. CHAT SIDEBAR (CONTACTOS)
    ========================================================================== */
 .chat-sidebar {
     width: 320px;
@@ -87,7 +90,6 @@
     flex-direction: column;
     flex-shrink: 0;
     border-right: 1px solid rgba(0,0,0,0.1);
-    transition: all 0.3s ease;
 }
 
 .user-profile {
@@ -168,18 +170,21 @@
 
 .contact-info {
     flex: 1;
-    min-width: 0; /* Previene que los textos largos rompan el flexbox */
+    min-width: 0; /* Permite que los truncados funcionen correctamente */
 }
 
 .contact-info h4 { 
     font-size: 14px; 
-    color: #fff;
+    color: #fff; 
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-.contact-info .materia { font-size: 11px; color: #eee; }
+.contact-info .materia { 
+    font-size: 11px; 
+    color: #eee; 
+}
 
 .contact-info .last-msg { 
     font-size: 12px; 
@@ -200,14 +205,14 @@
 }
 
 /* ==========================================================================
-   4. VENTANA DE CONVERSACIÓN ACTIVA (CHAT WINDOW)
+   4. VENTANA PRINCIPAL DE CHAT
    ========================================================================== */
 .chat-window {
     flex: 1;
     display: flex;
     flex-direction: column;
     background-color: #F5F5F5;
-    min-width: 0; /* Evita desborde de componentes internos */
+    min-width: 0;
 }
 
 .chat-header {
@@ -240,11 +245,10 @@
     gap: 25px;
 }
 
-/* Burbujas del Tutor (Izquierda) */
 .msg-tutor {
     display: flex;
     gap: 15px;
-    max-width: 85%;
+    max-width: 80%;
 }
 
 .msg-avatar {
@@ -275,11 +279,11 @@
 .msg-header strong { font-size: 13px; color: #900101; }
 .time { font-size: 10px; color: #888; }
 
-/* Placeholder Adaptable para Archivos */
+/* Contenedor de archivos adaptable */
 .file-placeholder {
     width: 100%;
     max-width: 350px;
-    aspect-ratio: 16 / 9; /* Mantiene proporciones sin importar el ancho */
+    aspect-ratio: 16 / 9; /* Mantiene proporciones en cualquier pantalla */
     height: auto;
     background-color: #444440;
     border-radius: 15px;
@@ -287,13 +291,12 @@
     border-bottom: 8px solid #900101; 
 }
 
-/* Burbujas del Alumno (Derecha) */
 .msg-alumno {
     align-self: flex-end;
     display: flex;
     align-items: flex-end;
     gap: 12px;
-    max-width: 85%;
+    max-width: 80%;
 }
 
 .alumno-content {
@@ -311,12 +314,12 @@
 
 .bubble p { font-size: 13px; font-weight: 500; color: #333; word-break: break-word; }
 
-/* Barra de Escritura Inferior */
+/* BARRA DE ENTRADA DE TEXTO */
 .chat-input-bar {
     background-color: #F9E37B;
     padding: 15px 30px;
     display: flex;
-    gap: 15px;
+    gap: 20px;
     align-items: center;
 }
 
@@ -325,7 +328,7 @@
     background: white;
     border: 1px solid rgba(0,0,0,0.1);
     border-radius: 25px;
-    padding: 12px 20px;
+    padding: 10px 20px;
     outline: none;
     font-size: 14px;
 }
@@ -335,7 +338,7 @@
     color: white;
     border: none;
     border-radius: 20px;
-    padding: 11px 25px;
+    padding: 10px 30px;
     font-weight: bold;
     cursor: pointer;
     transition: background 0.3s;
@@ -347,16 +350,16 @@
 }
 
 /* ==========================================================================
-   5. MEDIA QUERIES (ADAPTACIÓN DISPOSITIVOS)
+   5. MEDIA QUERIES (RESPONSIVE)
    ========================================================================== */
 
-/* --- TABLETS CHICAS Y DISPOSITIVOS MÓVILES (Menos de 768px) --- */
+/* --- TABLETS Y CELULARES (Menos de 768px) --- */
 @media (max-width: 768px) {
     .app-container {
-        flex-direction: column; /* Cambia toda la app a orientación vertical */
+        flex-direction: column; /* Cambia toda la interfaz a distribución vertical */
     }
 
-    /* La barra principal pasa a ser el menú horizontal superior */
+    /* La sidebar de iconos se reposiciona arriba horizontalmente */
     .sidebar {
         width: 100%;
         height: auto;
@@ -370,14 +373,14 @@
         gap: 0;
     }
 
-    .nav-link {
+    .nav-link, .nav-btn {
         height: 55px;
         width: auto;
         flex: 1;
     }
 
-    /* Indicador activo pasa a la parte inferior del menú superior */
-    .nav-link.active::before {
+    /* Indicador activo cambia de la izquierda a la parte inferior */
+    .nav-link.active::before, .nav-btn.active::before {
         left: 50%;
         bottom: 0;
         top: auto;
@@ -387,30 +390,30 @@
         border-radius: 4px 4px 0 0;
     }
 
-    /* Ajuste de contenedor lateral de contactos en móviles */
+    /* Ajuste de la lista de contactos en pantallas chicas */
     .chat-sidebar {
         width: 100%;
-        height: 220px; /* Reducimos la lista a un bloque con scroll para priorizar la ventana del chat */
+        height: 240px; /* Altura máxima para la lista, dándole prioridad al chat activo */
         border-right: none;
-        border-bottom: 2px solid rgba(0,0,0,0.1);
+        border-bottom: 1px solid rgba(0,0,0,0.1);
     }
 
     .user-profile {
-        display: none; /* Ocultamos el banner gigante del perfil propio en móviles por espacio */
+        display: none; /* Se oculta el perfil propio para ahorrar valioso espacio en vertical */
     }
 
-    /* Optimización de la ventana de conversación */
+    /* Ajustes finos de la zona de mensajes */
     .chat-header {
-        padding: 12px 15px;
+        padding: 12px 20px;
     }
 
     .messages-container {
-        padding: 15px;
+        padding: 20px 15px;
         gap: 15px;
     }
 
     .msg-tutor, .msg-alumno {
-        max-width: 90%; /* Mayor anchura útil en pantallas pequeñas */
+        max-width: 90%; /* Se expanden un poco más las burbujas por pantallas angostas */
     }
 
     .chat-input-bar {
@@ -419,20 +422,23 @@
     }
 }
 
-/* --- CLASES COMPLEMENTARIAS PARA CONTROL DE CHAT CON JS (MÓVILES) --- */
-/* Nota opcional: Puedes usar estas clases de utilidad si en tu código JS decides 
-   que al pulsar un contacto se oculte del todo la lista (.chat-sidebar) y crezca el chat */
+/* --- OPTIMIZACIÓN EXTRAS PARA MÓVILES MUY CHICOS (Menos de 480px) --- */
 @media (max-width: 480px) {
-    .chat-sidebar.hidden {
-        display: none;
-    }
-    .chat-window.hidden {
-        display: none;
+    .messages-container {
+        padding: 15px 10px;
     }
     
-    /* En teléfonos súper compactos, acortamos un poco el botón enviar */
+    .msg-tutor, .msg-alumno {
+        max-width: 95%;
+    }
+
+    .chat-input-bar input {
+        padding: 8px 15px;
+        font-size: 13px;
+    }
+
     .btn-enviar {
-        padding: 11px 15px;
+        padding: 8px 20px;
         font-size: 13px;
     }
 }

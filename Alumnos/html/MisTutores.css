@@ -1,3 +1,6 @@
+/* ==========================================================================
+   1. ESTILOS GENERALES Y CONFIGURACIÓN BASE
+   ========================================================================== */
 * {
     margin: 0;
     padding: 0;
@@ -12,8 +15,12 @@ body {
 .dashboard-container {
     display: flex;
     min-height: 100vh;
+    transition: flex-direction 0.3s ease;
 }
 
+/* ==========================================================================
+   2. BARRA LATERAL (SIDEBAR) - DISEÑO ESCRITORIO
+   ========================================================================== */
 .sidebar {
     width: 80px;
     background-color: #600101; 
@@ -22,6 +29,7 @@ body {
     align-items: center;
     padding-top: 30px;
     flex-shrink: 0;
+    z-index: 10;
 }
 
 .sidebar-nav {
@@ -58,6 +66,7 @@ body {
     color: white;
 }
 
+/* Línea indicadora blanca lateral (Escritorio) */
 .nav-btn.active::before {
     content: '';
     position: absolute;
@@ -68,9 +77,13 @@ body {
     border-radius: 0 4px 4px 0;
 }
 
+/* ==========================================================================
+   3. CONTENIDO PRINCIPAL Y BARRA DE HERRAMIENTAS
+   ========================================================================== */
 .main-content {
     flex: 1;
     padding: 40px 60px;
+    min-width: 0; /* Previene desbordes en layouts flex anidados */
 }
 
 .main-title {
@@ -80,6 +93,7 @@ body {
     margin-bottom: 30px;
 }
 
+/* Barra de herramientas adaptable */
 .toolbar {
     display: flex;
     align-items: center;
@@ -104,6 +118,7 @@ body {
     background-size: 12px;
     padding-right: 40px;
     outline: none;
+    height: 47px; /* Altura normalizada con los inputs */
 }
 
 .search-container {
@@ -137,6 +152,9 @@ body {
     background-color: #8b0000;
 }
 
+/* ==========================================================================
+   4. CUADRÍCULA DE TUTORES (GRID & CARDS)
+   ========================================================================== */
 .tutor-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr); 
@@ -150,7 +168,7 @@ body {
     padding: 25px;
     gap: 20px;
     align-items: center;
-    transition: transform 0.2s;
+    transition: transform 0.2s, flex-direction 0.2s;
 }
 
 .tutor-card:hover {
@@ -165,6 +183,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-shrink: 0;
 }
 
 .photo-placeholder i {
@@ -177,12 +196,16 @@ body {
     flex-direction: column;
     gap: 5px;
     flex-grow: 1;
+    min-width: 0; /* Permite controlar textos largos */
 }
 
 .tutor-name {
     font-size: 20px;
     font-weight: 800;
     color: #1a1a1a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Pone "..." si el nombre es demasiado largo */
 }
 
 .tutor-subject {
@@ -196,4 +219,130 @@ body {
     border-radius: 4px; 
     width: 60%; 
     margin-top: 5px;
+}
+
+/* ==========================================================================
+   5. MEDIA QUERIES (RESPONSIVE)
+   ========================================================================== */
+
+/* --- PANTALLAS MEDIANAS / LAPTOPS COMPACTAS (Menos de 1024px) --- */
+@media (max-width: 1024px) {
+    .main-content {
+        padding: 40px 30px; /* Reducción de espacio lateral */
+    }
+
+    .main-title {
+        font-size: 36px;
+    }
+
+    .tutor-grid {
+        gap: 20px; /* Separación ligeramente menor */
+    }
+}
+
+/* --- TABLETS EN VERTICAL (Menos de 900px) --- */
+@media (max-width: 900px) {
+    .tutor-grid {
+        grid-template-columns: 1fr; /* El catálogo pasa a 1 sola columna */
+    }
+}
+
+/* --- DISPOSITIVOS MÓVILES (Menos de 768px) --- */
+@media (max-width: 768px) {
+    .dashboard-container {
+        flex-direction: column; /* Estructura vertical */
+    }
+
+    /* Cambio de la barra lateral a menú superior horizontal */
+    .sidebar {
+        width: 100%;
+        height: auto;
+        padding-top: 0;
+        flex-direction: row;
+    }
+
+    .sidebar-nav {
+        flex-direction: row;
+        justify-content: space-around;
+        gap: 0;
+    }
+
+    .nav-btn {
+        height: 55px;
+        width: auto;
+        flex: 1;
+    }
+
+    /* El indicador de sección activa pasa a la parte inferior del botón */
+    .nav-btn.active::before {
+        left: 50%;
+        bottom: 0;
+        top: auto;
+        width: 35px;
+        height: 4px;
+        transform: translateX(-50%);
+        border-radius: 4px 4px 0 0;
+    }
+
+    .main-content {
+        padding: 30px 20px;
+    }
+
+    .main-title {
+        font-size: 28px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    /* La barra de herramientas se divide en filas para no apretarse */
+    .toolbar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        margin-bottom: 30px;
+    }
+
+    .filter-dropdown {
+        width: 100%;
+        text-align: center;
+    }
+
+    .search-container {
+        width: 100%;
+    }
+}
+
+/* --- TELÉFONOS MUY COMPACTOS (Menos de 480px) --- */
+@media (max-width: 480px) {
+    .main-content {
+        padding: 25px 15px;
+    }
+
+    /* La tarjeta de tutor pasa a formato vertical para ganar espacio para los textos */
+    .tutor-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+        gap: 15px;
+    }
+
+    .card-info {
+        align-items: center;
+        width: 100%;
+    }
+
+    .tutor-name {
+        font-size: 18px;
+        white-space: normal; /* Permite que el nombre salte de línea si es muy largo en vertical */
+        text-overflow: clip;
+    }
+
+    .status-bar {
+        width: 80%; /* Barra de estatus más ancha y centrada */
+    }
+    
+    .search-button {
+        padding: 0 15px; /* Botón de búsqueda más compacto */
+        font-size: 14px;
+    }
 }

@@ -1,3 +1,6 @@
+/* ==========================================================================
+   1. ESTILOS GENERALES Y CONFIGURACIÓN BASE
+   ========================================================================== */
 * {
     margin: 0;
     padding: 0;
@@ -8,8 +11,12 @@
 .app-container {
     display: flex;
     height: 100vh;
+    transition: flex-direction 0.3s ease;
 }
 
+/* ==========================================================================
+   2. BARRA LATERAL (AJUSTADA A 6 ÍCONOS) - ESCRITORIO
+   ========================================================================== */
 .sidebar {
     width: 80px;
     background-color: #600101; 
@@ -24,14 +31,14 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    gap: 10px;
+    gap: 15px; /* Distribuido uniformemente para los 6 botones */
 }
 
 .nav-btn {
     background: none;
     border: none;
     width: 100%;
-    height: 60px;
+    height: 55px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -54,6 +61,7 @@
     color: white;
 }
 
+/* Indicador activo lateral izquierdo (Escritorio) */
 .nav-btn.active::before {
     content: '';
     position: absolute;
@@ -64,6 +72,13 @@
     border-radius: 0 4px 4px 0;
 }
 
+.nav-item.active i {
+    color: #FFFFFF;
+}
+
+/* ==========================================================================
+   3. VISTA DE CALIFICACIONES (PANEL CENTRAL)
+   ========================================================================== */
 .main-content {
     flex: 1;
     padding: 40px 80px;
@@ -113,6 +128,7 @@
     outline: none;
 }
 
+/* Rejilla de tarjetas de calificación */
 .rating-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -139,6 +155,7 @@
 .stars {
     display: flex;
     gap: 5px;
+    flex-wrap: wrap; /* Evita que las estrellas se salgan de la tarjeta en pantallas muy chicas */
 }
 
 .stars span {
@@ -152,6 +169,7 @@
     transform: scale(1.2);
 }
 
+/* Sección de Comentarios */
 .comment-section {
     width: 100%;
     display: flex;
@@ -178,6 +196,7 @@
     outline: none;
 }
 
+/* Pie de Acción */
 .action-footer {
     width: 100%;
     background-color: #E6EBA0; 
@@ -186,6 +205,7 @@
     justify-content: space-between;
     align-items: center;
     border-radius: 10px;
+    gap: 15px;
 }
 
 .btn-enviar {
@@ -198,6 +218,8 @@
     font-weight: bold;
     cursor: pointer;
     transition: background 0.3s;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .btn-enviar:hover {
@@ -211,4 +233,110 @@
     max-width: 350px;
     text-align: right;
     line-height: 1.4;
+}
+
+/* ==========================================================================
+   4. MEDIA QUERIES (ADAPTACIÓN DISPOSITIVOS)
+   ========================================================================== */
+
+/* --- TABLETS Y PANTALLAS LAPTOPS CHICAS (Menos de 900px) --- */
+@media (max-width: 900px) {
+    .main-content {
+        padding: 40px 30px; /* Reducción de padding lateral para ganar espacio */
+    }
+
+    .main-title {
+        font-size: 30px;
+    }
+
+    .title-star {
+        font-size: 34px;
+    }
+
+    .rating-grid {
+        grid-template-columns: 1fr; /* Cambia a una sola columna */
+        gap: 20px;
+    }
+}
+
+/* --- TELÉFONOS MÓVILES (Menos de 768px) --- */
+@media (max-width: 768px) {
+    .app-container {
+        height: auto;
+        min-height: 100vh;
+        flex-direction: column;
+    }
+
+    /* La barra lateral pasa a menú superior horizontal */
+    .sidebar {
+        width: 100%;
+        height: auto;
+        padding-top: 0;
+        flex-direction: row;
+    }
+
+    .sidebar-nav {
+        flex-direction: row;
+        justify-content: space-around;
+        gap: 0;
+    }
+
+    .nav-btn {
+        height: 55px;
+        width: auto;
+        flex: 1;
+    }
+
+    /* Modificación del indicador activo a barra inferior en móviles */
+    .nav-btn.active::before {
+        left: 50%;
+        bottom: 0;
+        top: auto;
+        width: 35px;
+        height: 4px;
+        transform: translateX(-50%);
+        border-radius: 4px 4px 0 0;
+    }
+
+    .main-content {
+        padding: 30px 15px;
+    }
+
+    .main-title {
+        font-size: 24px;
+        gap: 10px;
+    }
+
+    .title-star {
+        font-size: 28px;
+    }
+
+    .rating-card {
+        padding: 20px;
+    }
+
+    .rating-card h3 {
+        font-size: 18px;
+    }
+
+    .stars span {
+        font-size: 35px; /* Estrellas ligeramente más compactas para pantallas angostas */
+    }
+
+    /* Footer se apila verticalmente para que no se encime el texto con el botón */
+    .action-footer {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .btn-enviar {
+        width: 100%; /* Botón ancho completo en móviles */
+        padding: 12px 20px;
+    }
+
+    .warning-text {
+        text-align: center;
+        max-width: 100%;
+    }
 }

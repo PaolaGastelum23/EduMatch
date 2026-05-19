@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tus Archivos</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -15,20 +16,105 @@
             --banner-orange: #F2A922;
             --btn-messenger-red: #900101;
             --btn-messenger-hover: #b00101;
+            --sidebar-bg: #5C0000; /* Color guinda original */
+            --sidebar-yellow: #FDE667; /* Amarillo exacto anterior */
         }
 
         body {
             background-color: white;
             margin: 0;
-            padding: 20px;
+            padding: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        /* Contenedor general para centrar todo el diseño integrado */
+        /* --- Estructura con Barra Lateral --- */
+        .page-wrapper {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 80px;
+            background-color: var(--sidebar-bg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 30px;
+            flex-shrink: 0;
+        }
+
+        .nav-icons {
+            display: flex;
+            flex-direction: column;
+            gap: 35px;
+            align-items: center;
+            width: 100%;
+        }
+
+        .nav-item {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            width: 100%;
+            height: 40px;
+        }
+
+        .nav-item i {
+            color: var(--sidebar-yellow);
+            font-size: 1.8rem;
+            transition: transform 0.2s ease, color 0.2s ease;
+        }
+
+        /* Tooltips */
+        .tooltip-text {
+            visibility: hidden;
+            position: absolute;
+            left: 90px;
+            background-color: #333333;
+            color: #ffffff;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-family: 'Arial', sans-serif;
+            font-size: 0.8rem;
+            font-weight: bold;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+            z-index: 999;
+        }
+
+        .tooltip-text::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            right: 100%;
+            margin-top: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: transparent #333333 transparent transparent;
+        }
+
+        .nav-item:hover i {
+            transform: scale(1.15);
+            color: #FFFFFF;
+        }
+
+        .nav-item:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Estado activo */
+        
+
+        /* Contenedor del contenido principal */
         .container-principal {
+            flex: 1;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 10px;
+            padding: 40px 20px;
         }
 
         /* --- Estilos del Banner Naranja --- */
@@ -120,7 +206,7 @@
             background-color: var(--card-bg);
             padding: 15px;
             border-radius: 8px;
-            text-align: center; /* Centrado para hacer juego con las miniaturas */
+            text-align: center;
             transition: transform 0.3s;
         }
 
@@ -307,6 +393,27 @@
 
         /* --- Responsividad --- */
         @media (max-width: 768px) {
+            .page-wrapper {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                min-height: auto;
+                padding: 15px 0;
+            }
+
+            .nav-icons {
+                flex-direction: row;
+                justify-content: space-around;
+                gap: 0;
+            }
+
+            .tooltip-text {
+                display: none; /* Se ocultan en móvil por espacio */
+            }
+
             .main-container {
                 flex-direction: column;
             }
@@ -325,90 +432,141 @@
 
 <body>
 
-    <div class="container-principal">
+    <div class="page-wrapper">
 
-        <section class="banner-orange">
-            <h1>TUS ARCHIVOS ACUMULADOS</h1>
-            <p>Busca tus archivos y apuntes descargados de tus conversaciones.</p>
-            <button class="btn-messenger">Ir a mensajería</button>
-        </section>
+        <aside class="sidebar">
+            <div class="nav-icons">
 
+                <a href="DashboardAlumnos.html" class="sidebar-link">
+                    <div class="nav-item">
+                    <i class="fa-solid fa-house"></i>
+                    <span class="tooltip-text">Inicio</span>
+                </div>
+                </a>
+                
+                <a href="BuscarTutor.html" class="sidebar-link">
+                    <div class="nav-item">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <span class="tooltip-text">Buscar</span>
+                </div>
+                </a>
 
-        <div class="top-bar">
-            <div class="search-container">
-                <input type="text" id="searchInput" class="search-input" placeholder="Buscar archivo..." onkeyup="buscarArchivos()">
+                <a href="CalificaTutor.html" class="sidebar-link">
+                    <div class="nav-item">
+                    <i class="fa-solid fa-star"></i>
+                    <span class="tooltip-text">Calificar</span>
+                </div>
+                </a>
+
+                <a href="MensajesAlumnos.html" class="sidebar-link">
+                    <div class="nav-item">
+                    <i class="fa-solid fa-envelope"></i>
+                    <span class="tooltip-text">Mensajes</span>
+                </div>
+                </a>
+                
+                <a href="MisTutores.html" class="sidebar-link">
+                    <div class="nav-item">
+                    <i class="fa-solid fa-user"></i>
+                    <span class="tooltip-text">Tutores</span>
+                </div>
+                </a>
+
+                <a href="ArchivosAlumnos.html" class="sidebar-link">
+                    <div class="nav-item active">
+                    <i class="fa-solid fa-folder"></i>
+                    <span class="tooltip-text">Archivos</span>
+                </div>
+                </a>
+                
+                
             </div>
-            <input type="file" id="file-upload" style="display: none;" accept=".pdf, .doc, .docx, .xls, .xlsx" />
-            <button class="btn-upload-new" onclick="document.getElementById('file-upload').click()">
-                subir un archivo nuevo
-            </button>
-        </div>
+        </aside>
 
-        <div class="main-container">
+        <div class="container-principal">
 
-            <section class="grid-section">
-                <div class="header-pdf">
-                    <div class="dropdown">
-                        <button class="dropbtn" id="currentFilter">TODOS ▼</button>
-                        <div class="dropdown-content">
-                            <a href="#" onclick="filtrarArchivos('Todos')">Todos</a>
-                            <a href="#" onclick="filtrarArchivos('PDF')">PDF</a>
-                            <a href="#" onclick="filtrarArchivos('Word')">Word</a>
-                            <a href="#" onclick="filtrarArchivos('Excel')">Excel</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cards-grid" id="archivoGrid">
-                    <div class="card" data-type="PDF">
-                        <div class="thumbnail pdf"></div>
-                        <p class="file-name">Guia_Estudio.pdf</p>
-                    </div>
-                    <div class="card" data-type="Word">
-                        <div class="thumbnail word"></div>
-                        <p class="file-name">Guía_CRUD.docx</p>
-                    </div>
-                    <div class="card" data-type="Excel">
-                        <div class="thumbnail excel"></div>
-                        <p class="file-name">Diagrama_PERT.xlsx</p>
-                    </div>
-                    <div class="card" data-type="PDF">
-                        <div class="thumbnail pdf"></div>
-                        <p class="file-name">Explicación_UbuntuServer.pdf</p>
-                    </div>
-                </div>
+            <section class="banner-orange">
+                <h1>TUS ARCHIVOS ACUMULADOS</h1>
+                <p>Busca tus archivos y apuntes descargados de tus conversaciones.</p>
+                <button class="btn-messenger">Ir a mensajería</button>
             </section>
 
-            <aside class="shared-section">
-                <h3>Archivos compartidos</h3>
-
-                <div class="shared-item">
-                    <div class="shared-thumb"></div>
-                    <div class="shared-info">
-                        <p>Apuntes de Cálculo</p>
-                        <small>Compartido por: Lorena Martinez</small>
-                        <button class="btn-download" onclick="descargarPDF('Apuntes_Calculo.pdf')">Descargar</button>
-                    </div>
+            <div class="top-bar">
+                <div class="search-container">
+                    <input type="text" id="searchInput" class="search-input" placeholder="Buscar archivo..." onkeyup="buscarArchivos()">
                 </div>
+                <input type="file" id="file-upload" style="display: none;" accept=".pdf, .doc, .docx, .xls, .xlsx" />
+                <button class="btn-upload-new" onclick="document.getElementById('file-upload').click()">
+                    subir un archivo nuevo
+                </button>
+            </div>
 
-                <div class="shared-item">
-                    <div class="shared-thumb"></div>
-                    <div class="shared-info">
-                        <p>Guía de Historia</p>
-                        <small>Compartido por: Glenda Benítez</small>
-                        <button class="btn-download" onclick="descargarPDF('Guia_Historia.pdf')">Descargar</button>
-                    </div>
-                </div>
+            <div class="main-container">
 
-                <div class="shared-item">
-                    <div class="shared-thumb"></div>
-                    <div class="shared-info">
-                        <p>Resumen Literario</p>
-                        <small>Compartido por: Jaqueline Guzmán</small>
-                        <button class="btn-download" onclick="descargarPDF('Resumen_Literatura.pdf')">Descargar</button>
+                <section class="grid-section">
+                    <div class="header-pdf">
+                        <div class="dropdown">
+                            <button class="dropbtn" id="currentFilter">TODOS ▼</button>
+                            <div class="dropdown-content">
+                                <a href="#" onclick="filtrarArchivos('Todos')">Todos</a>
+                                <a href="#" onclick="filtrarArchivos('PDF')">PDF</a>
+                                <a href="#" onclick="filtrarArchivos('Word')">Word</a>
+                                <a href="#" onclick="filtrarArchivos('Excel')">Excel</a>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </aside>
+
+                    <div class="cards-grid" id="archivoGrid">
+                        <div class="card" data-type="PDF">
+                            <div class="thumbnail pdf"></div>
+                            <p class="file-name">Guia_Estudio.pdf</p>
+                        </div>
+                        <div class="card" data-type="Word">
+                            <div class="thumbnail word"></div>
+                            <p class="file-name">Guía_CRUD.docx</p>
+                        </div>
+                        <div class="card" data-type="Excel">
+                            <div class="thumbnail excel"></div>
+                            <p class="file-name">Diagrama_PERT.xlsx</p>
+                        </div>
+                        <div class="card" data-type="PDF">
+                            <div class="thumbnail pdf"></div>
+                            <p class="file-name">Explicación_UbuntuServer.pdf</p>
+                        </div>
+                    </div>
+                </section>
+
+                <aside class="shared-section">
+                    <h3>Archivos compartidos</h3>
+
+                    <div class="shared-item">
+                        <div class="shared-thumb"></div>
+                        <div class="shared-info">
+                            <p>Apuntes de Cálculo</p>
+                            <small>Compartido por: Lorena Martinez</small>
+                            <button class="btn-download" onclick="descargarPDF('Apuntes_Calculo.pdf')">Descargar</button>
+                        </div>
+                    </div>
+
+                    <div class="shared-item">
+                        <div class="shared-thumb"></div>
+                        <div class="shared-info">
+                            <p>Guía de Historia</p>
+                            <small>Compartido por: Glenda Benítez</small>
+                            <button class="btn-download" onclick="descargarPDF('Guia_Historia.pdf')">Descargar</button>
+                        </div>
+                    </div>
+
+                    <div class="shared-item">
+                        <div class="shared-thumb"></div>
+                        <div class="shared-info">
+                            <p>Resumen Literario</p>
+                            <small>Compartido por: Jaqueline Guzmán</small>
+                            <button class="btn-download" onclick="descargarPDF('Resumen_Literatura.pdf')">Descargar</button>
+                        </div>
+                    </div>
+                </aside>
+            </div>
         </div>
     </div>
 
